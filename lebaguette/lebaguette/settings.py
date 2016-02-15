@@ -25,7 +25,7 @@ SECRET_KEY = '(*)4a0m&7z(l5duy++jn%o(de$hfu%gau@$00klb*)4^rvl=yn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['lebaguette.eu']
 
 
 # Application definition
