@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+
+{% block title %}Lebaguette - Status Page{% endblock %}
+{% block body %}
+    <ul class="list-group">
+        <li class="list-group-item">CPU Usage: {{ cpu_usage }}</li>
+        <li class="list-group-item">Memory Usage: {{ memory_usage }}</li>
+        <li class="list-group-item">Disk Data: {{ disk_partitions }}</li>
+        <li class="list-group-item">Disk Usage: {{ disk_usage }}</li>
+    </ul>
+{% endblock %}
+
