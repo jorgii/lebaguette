@@ -20,5 +20,4 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'home.views.home', name='home'),
-    url(r'^status/', 'status.views.server_status', name='status'),
 ]
