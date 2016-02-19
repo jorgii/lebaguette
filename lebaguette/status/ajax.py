@@ -44,7 +44,7 @@ def get_disk_data(request):
         disk_partitions = psutil.disk_partitions()
         data = {}
         for partition in disk_partitions:
-            data['partition'] = {'device':partition.device, 'mount_point':partition.mountpoint, 'fstype':partition.fstype}
+            data[partition.device] = {'device':partition.device, 'mount_point':partition.mountpoint, 'fstype':partition.fstype}
 
         data = json.dumps(data)
         return HttpResponse(data,content_type='application/json')
@@ -57,11 +57,11 @@ def get_disk_usage(request):
         disk_partitions = psutil.disk_partitions()
         data = {}
         for partition in disk_partitions:
-            data['disk'] = {'device':partition.device,
-                                     'total':round(psutil.disk_usage(partition.mountpoint).total/1073741824,2),
-                                     'used':round(psutil.disk_usage(partition.mountpoint).used/1073741824,2),
-                                     'free':round(psutil.disk_usage(partition.mountpoint).free/1073741824,2),
-                                     'percent':psutil.disk_usage(partition.mountpoint).percent
+            data[partition.device] = {'units':'GB',
+                                                       'total':round(psutil.disk_usage(partition.mountpoint).total/1073741824,2),
+                                                       'used':round(psutil.disk_usage(partition.mountpoint).used/1073741824,2),
+                                                       'free':round(psutil.disk_usage(partition.mountpoint).free/1073741824,2),
+                                                       'percent':psutil.disk_usage(partition.mountpoint).percent
                                     }
         data = json.dumps(data)
         return HttpResponse(data,content_type='application/json')
@@ -90,10 +90,10 @@ def get_service(request, servicename):
     if request.is_ajax():
         data = {}
         try:
-            service_data = check_output(["service", servicename,"status"], shell = True).decode("utf-8") 
+            service_data = check_output(["service", servicename,"status"]).decode("utf-8") 
             data[servicename] = service_data
         except CalledProcessError:
-            data['servicename'] = 'Service not found'
+            data[servicename] = 'Service not found'
         data = json.dumps(data)
         return HttpResponse(data,content_type='application/json')
     else:
