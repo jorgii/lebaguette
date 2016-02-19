@@ -32,4 +32,16 @@ def get_ram_usage(request):
         data = json.dumps(data)
         return HttpResponse(data,content_type='application/json')
     else:
-        raise Http404    
+        raise Http404
+
+def get_disk_data(request):
+    if request.is_ajax():
+        disk_partitions = psutil.disk_partitions()
+        data = {}
+        for partition in disk_partitions:
+            data['partition'] = {'device':partition.device, 'mount_point':partition.mountpoint, 'fstype':partition.fstype}
+
+        data = json.dumps(data)
+        return HttpResponse(data,content_type='application/json')
+    else:
+        raise Http404
