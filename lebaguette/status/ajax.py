@@ -61,3 +61,20 @@ def get_disk_usage(request):
         return HttpResponse(data,content_type='application/json')
     else:
         raise Http404
+
+def get_uptime(request):
+    if request.is_ajax():
+        uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
+        minutes, seconds = divmod(uptime.seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+        days, hours = divmod(hours, 24)
+        data = {}
+        data['days'] = days
+        data['hours'] = hours
+        data['minutes'] = minutes
+        data['seconds'] = seconds
+        data = json.dumps(data)
+        return HttpResponse(data,content_type='application/json')
+    else:
+        raise Http404
+        
