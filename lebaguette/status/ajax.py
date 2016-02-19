@@ -1,6 +1,6 @@
 import psutil
 from datetime import datetime
-from subprocess import check_output
+from subprocess import check_output, CalledProcessError
 
 
 import json
@@ -79,11 +79,14 @@ def get_uptime(request):
     else:
         raise Http404
 
-def get_plex(request):
+def get_service(request, servicename):
     if request.is_ajax():
-        plex = check_output(["service", "plexmediaserver","status"]).decode("utf-8") 
         data = {}
-        data['plex'] = plex
+        try:
+            service_data = check_output(["service", servicename,"status"], shell = True).decode("utf-8") 
+            data[servicename] = service_data
+        except CalledProcessError:
+            data['servicename'] = 'Service not found'
         data = json.dumps(data)
         return HttpResponse(data,content_type='application/json')
     else:

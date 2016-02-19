@@ -9,7 +9,5 @@ urlpatterns = [
     url(r'^disk_data$', ajax.get_disk_data, name='disk_data'),
     url(r'^disk_usage$', ajax.get_disk_usage, name='disk_usage'),
     url(r'^uptime$', ajax.get_uptime, name='uptime'),
-    url(r'^plex$', ajax.get_plex, name='plex'),
-    url(r'^transmission$', ajax.get_transmission, name='transmission'),
-    url(r'^apache2$', ajax.get_apache2 name='apache2'),
+    url(r'^service/(?P<servicename>.+)/$', ajax.get_service, name='service'),
 ]
