@@ -45,3 +45,19 @@ def get_disk_data(request):
         return HttpResponse(data,content_type='application/json')
     else:
         raise Http404
+
+def get_disk_usage(request):
+    if request.is_ajax():
+        disk_partitions = psutil.disk_partitions()
+        data = {}
+        for partition in disk_partitions:
+            data['disk'] = {'device':partition.device,
+                                     'total':round(psutil.disk_usage(partition.mountpoint).total/1073741824,2),
+                                     'used':round(psutil.disk_usage(partition.mountpoint).used/1073741824,2),
+                                     'free':round(psutil.disk_usage(partition.mountpoint).free/1073741824,2),
+                                     'percent':psutil.disk_usage(partition.mountpoint).percent
+                                    }
+        data = json.dumps(data)
+        return HttpResponse(data,content_type='application/json')
+    else:
+        raise Http404
