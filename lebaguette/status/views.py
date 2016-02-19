@@ -2,7 +2,9 @@ import psutil
 from datetime import datetime
 
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def server_status(request):
     cpu_usage = psutil.cpu_percent(interval=1, percpu=True)
     memory_usage = get_memory()
