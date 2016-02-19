@@ -1,5 +1,6 @@
 import psutil
 from datetime import datetime
+from subprocess import check_output
 
 
 import json
@@ -77,4 +78,13 @@ def get_uptime(request):
         return HttpResponse(data,content_type='application/json')
     else:
         raise Http404
-        
+
+def get_plex(request):
+    if request.is_ajax():
+        plex = check_output(["service", "plexmediaserver","status"]).decode("utf-8") 
+        data = {}
+        data['plex'] = plex
+        data = json.dumps(data)
+        return HttpResponse(data,content_type='application/json')
+    else:
+        raise Http404
