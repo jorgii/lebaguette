@@ -5,9 +5,11 @@ from subprocess import check_output, CalledProcessError
 
 import json
 from django.http import Http404, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 
 
+@login_required
 def get_cpu_usage(request):
     if request.is_ajax():
         cpu_count = psutil.cpu_count()
@@ -21,6 +23,7 @@ def get_cpu_usage(request):
         raise Http404
 
 
+@login_required
 def get_ram_usage(request):
     if request.is_ajax():
         memory = psutil.virtual_memory()
@@ -35,6 +38,7 @@ def get_ram_usage(request):
     else:
         raise Http404
 
+@login_required
 def get_disk_data(request):
     if request.is_ajax():
         disk_partitions = psutil.disk_partitions()
@@ -47,6 +51,7 @@ def get_disk_data(request):
     else:
         raise Http404
 
+@login_required
 def get_disk_usage(request):
     if request.is_ajax():
         disk_partitions = psutil.disk_partitions()
@@ -63,6 +68,7 @@ def get_disk_usage(request):
     else:
         raise Http404
 
+@login_required
 def get_uptime(request):
     if request.is_ajax():
         uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
@@ -79,6 +85,7 @@ def get_uptime(request):
     else:
         raise Http404
 
+@login_required
 def get_service(request, servicename):
     if request.is_ajax():
         data = {}
