@@ -12,7 +12,6 @@ def login_user(request):
     form.fields['password'].widget.attrs['class'] = "mdl-textfield__input"
 
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             if user is not None:

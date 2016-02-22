@@ -8,7 +8,6 @@ from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 
 
-
 @login_required
 def get_cpu_usage(request):
     if request.is_ajax():
@@ -18,7 +17,7 @@ def get_cpu_usage(request):
         data['cpu_count'] = cpu_count
         data['cpu_usage'] = cpu_usage
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
 
@@ -29,14 +28,15 @@ def get_ram_usage(request):
         memory = psutil.virtual_memory()
         data = {}
         data['units'] = 'MB'
-        data['total'] = round(memory.total/1048576,2)
-        data['used'] = round(memory.used/1048576,2)
-        data['available'] = round(memory.available/1048576,2)
+        data['total'] = round(memory.total/1048576, 2)
+        data['used'] = round(memory.used/1048576, 2)
+        data['available'] = round(memory.available/1048576, 2)
         data['percent'] = memory.percent
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
+
 
 @login_required
 def get_disk_data(request):
@@ -44,12 +44,15 @@ def get_disk_data(request):
         disk_partitions = psutil.disk_partitions()
         data = {}
         for partition in disk_partitions:
-            data[partition.device] = {'device':partition.device, 'mount_point':partition.mountpoint, 'fstype':partition.fstype}
+            data[partition.device] = {'device': partition.device,
+                                      'mount_point': partition.mountpoint,
+                                      'fstype': partition.fstype}
 
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
+
 
 @login_required
 def get_disk_usage(request):
@@ -57,16 +60,17 @@ def get_disk_usage(request):
         disk_partitions = psutil.disk_partitions()
         data = {}
         for partition in disk_partitions:
-            data[partition.device] = {'units':'GB',
-                                                       'total':round(psutil.disk_usage(partition.mountpoint).total/1073741824,2),
-                                                       'used':round(psutil.disk_usage(partition.mountpoint).used/1073741824,2),
-                                                       'free':round(psutil.disk_usage(partition.mountpoint).free/1073741824,2),
-                                                       'percent':psutil.disk_usage(partition.mountpoint).percent
-                                    }
+            data[partition.device] = {
+             'units': 'GB',
+             'total': round(psutil.disk_usage(partition.mountpoint).total/1073741824, 2),
+             'used': round(psutil.disk_usage(partition.mountpoint).used/1073741824, 2),
+             'free': round(psutil.disk_usage(partition.mountpoint).free/1073741824, 2),
+             'percent': psutil.disk_usage(partition.mountpoint).percent}
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
+
 
 @login_required
 def get_uptime(request):
@@ -81,20 +85,21 @@ def get_uptime(request):
         data['minutes'] = minutes
         data['seconds'] = seconds
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
+
 
 @login_required
 def get_service(request, servicename):
     if request.is_ajax():
         data = {}
         try:
-            service_data = check_output(["service", servicename,"status"]).decode("utf-8") 
+            service_data = check_output(["service", servicename, "status"]).decode("utf-8")
             data[servicename] = service_data
         except CalledProcessError:
             data[servicename] = 'Service not found'
         data = json.dumps(data)
-        return HttpResponse(data,content_type='application/json')
+        return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
