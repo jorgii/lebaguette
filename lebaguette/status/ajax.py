@@ -1,5 +1,5 @@
 import psutil
-from subprocess import check_output, CalledProcessError
+from subprocess import check_output, CalledProcessError, Popen, PIPE
 
 
 import json
@@ -20,3 +20,17 @@ def get_cpu_usage(request):
     else:
         raise Http404
 
+
+@login_required
+def get_temperatures(request):
+    if request.is_ajax():
+        ps = Popen(['sensors'], stdout=PIPE)
+        temps = check_output(["grep", "Core"], stdin=ps.stdout).decode("utf-8")
+        data = {}
+        for temp in temps.split("\n"):
+            if temp != '':
+                data[temp.split(":")[0]] = temp.split(":")[1].strip()
+        data = json.dumps(data)
+        return HttpResponse(data, content_type='application/json')
+    else:
+        raise Http404
