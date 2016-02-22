@@ -9,7 +9,9 @@ def login_user(request):
     logout(request)
     form = AuthenticationForm(None, request.POST or None)
     form.fields['username'].widget.attrs['class'] = "mdl-textfield__input"
+    form.fields['username'].widget.attrs['required'] = True
     form.fields['password'].widget.attrs['class'] = "mdl-textfield__input"
+    form.fields['password'].widget.attrs['required'] = True
 
     if request.method == 'POST':
         if form.is_valid():
