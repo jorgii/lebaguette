@@ -1,10 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth import logout
-
 
 
 def login_user(request):
