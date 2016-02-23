@@ -15,6 +15,7 @@ def server_status(request):
     plex_status = get_service('plexmediaserver')
     transmission_status = get_service('transmission-daemon')
     apache2_status = get_service('apache2')
+    raid_data = get_raid_data()
     return render(request, 'status/status.html', locals())
 
 
@@ -36,6 +37,15 @@ def get_disk_data():
         data[partition.device] = {'device': partition.device,
                                   'mount_point': partition.mountpoint,
                                   'fstype': partition.fstype}
+    return data
+
+
+def get_raid_data():
+    data = {}
+    try:
+        data['raid_data'] = check_output(["cat", "/proc/mdstat"]).decode("utf-8")
+    except CalledProcessError:
+        data['raid_data'] = 'Service not found'
     return data
 
 
