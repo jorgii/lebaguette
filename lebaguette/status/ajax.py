@@ -34,3 +34,19 @@ def get_temperatures(request):
         return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
+
+
+@login_required
+def get_fanspeed(request):
+    if request.is_ajax():
+        ps = Popen(['sensors'], stdout=PIPE)
+        temps = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
+        data = {}
+        for temp in temps.split("\n"):
+            if temp != '':
+                if temp.split(":")[1].strip()[:5] != "0 RPM":
+                    data[temp.split(":")[0]] = temp.split(":")[1].strip()
+        data = json.dumps(data)
+        return HttpResponse(data, content_type='application/json')
+    else:
+        raise Http404
