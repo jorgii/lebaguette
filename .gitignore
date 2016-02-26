@@ -40,3 +40,4 @@ log.txt
 media
 db.sqlite3
 
+lebaguette/status/views.py
