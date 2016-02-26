@@ -79,7 +79,7 @@ def get_service(servicename):
     data = {}
     try:
         service_data = check_output(["service", servicename, "status"]).decode("utf-8")
-        data[servicename] = service_data
+        data[servicename] = service_data.replace("\n", "<br>")
     except CalledProcessError:
         data[servicename] = 'Service not found'
     return data
