@@ -1,5 +1,5 @@
 import psutil
-from subprocess import check_output, CalledProcessError, Popen, PIPE
+from subprocess import check_output, Popen, PIPE
 
 
 import json
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 def get_cpu_usage(request):
     if request.is_ajax():
         cpu_count = psutil.cpu_count()
-        cpu_usage = psutil.cpu_percent(percpu=True)
+        cpu_usage = psutil.cpu_percent(interval=0.1, percpu=True)
         data = {}
         data['cpu_count'] = cpu_count
         data['cpu_usage'] = cpu_usage
@@ -29,7 +29,7 @@ def get_temperatures(request):
         data = {}
         for temp in temps.split("\n"):
             if temp != '':
-                data[temp.split(":")[0]] = temp.split(":")[1].strip()
+                data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:5].strip()
         data = json.dumps(data)
         return HttpResponse(data, content_type='application/json')
     else:
@@ -45,7 +45,7 @@ def get_fanspeed(request):
         for temp in temps.split("\n"):
             if temp != '':
                 if temp.split(":")[1].strip()[:5] != "0 RPM":
-                    data[temp.split(":")[0]] = temp.split(":")[1].strip()
+                    data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:4].strip()
         data = json.dumps(data)
         return HttpResponse(data, content_type='application/json')
     else:
