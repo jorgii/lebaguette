@@ -64,7 +64,7 @@
           <div class="mdl-layout-spacer"></div>
           <img src="../static/images/ninja.png" class="avatar">
           <div>
-            <span>user@gmail.com</span>
+            <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
           </div>
         </header>
         <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
