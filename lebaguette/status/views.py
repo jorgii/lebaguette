@@ -47,12 +47,11 @@ def get_disk_data():
 
 
 def get_raid_data():
-    data = {}
     try:
-        data['raid_data'] = check_output(["cat", "/proc/mdstat"]).decode("utf-8")
+        raid_data = check_output(["cat", "/proc/mdstat"]).decode("utf-8").split("\n")
     except CalledProcessError:
-        data['raid_data'] = 'RAID data not found'
-    return data
+        raid_data = 'RAID data not found'
+    return raid_data
 
 
 def get_disk_usage():
