@@ -225,7 +225,7 @@
               $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
                 duration: 700,
                 step: function() {
-                  $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +' &deg;C');
+                  $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +' °C');
                 }
               });
             });
@@ -266,6 +266,7 @@
           });
         }
         $(window).load(statusUpdateCpu);
+        $(window).load(statusUpdateTemp);
         $(window).load(updateRam);
         $(window).load(updateDisk);
         setInterval(statusUpdateCpu, 2500);
