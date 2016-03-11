@@ -23,3 +23,7 @@ def login_user(request):
     csrf(request)
 
     return render(request, 'login/login.html', locals())
+
+def logout_user(request):
+    logout(request)
+    return redirect('/login')
