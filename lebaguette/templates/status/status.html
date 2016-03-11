@@ -219,8 +219,7 @@
             $.each( data, function() {
               var percent = this,
                   percentText = document.getElementById('temp' + ++index),
-                  oldPercent = percentText.innerHTML,
-                  oldPercent = oldPercent.replace(' &deg;C','');
+                  oldPercent = percentText.innerHTML;
               console.log(oldPercent);
               $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
                 duration: 700,
