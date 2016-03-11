@@ -30,36 +30,36 @@ def get_ram_usage():
     return data
 
 
-# def get_disk_data():
-#     disk_partitions = psutil.disk_partitions()
-#     data = {}
-#     for partition in disk_partitions:
-#         data[partition.device] = {'device': partition.device,
-#                                   'mount_point': partition.mountpoint,
-#                                   'fstype': partition.fstype}
-#     return data
-#
-#
-# def get_raid_data():
-#     data = {}
-#     try:
-#         data['raid_data'] = check_output(["cat", "/proc/mdstat"]).decode("utf-8")
-#     except CalledProcessError:
-#         data['raid_data'] = 'Service not found'
-#     return data
-#
-#
-# def get_disk_usage():
-#     disk_partitions = psutil.disk_partitions()
-#     data = {}
-#     for partition in disk_partitions:
-#         data[partition.device] = {
-#          'units': 'GB',
-#          'total': round(psutil.disk_usage(partition.mountpoint).total/1073741824, 2),
-#          'used': round(psutil.disk_usage(partition.mountpoint).used/1073741824, 2),
-#          'free': round(psutil.disk_usage(partition.mountpoint).free/1073741824, 2),
-#          'percent': psutil.disk_usage(partition.mountpoint).percent}
-#     return data
+ def get_disk_data():
+     disk_partitions = psutil.disk_partitions()
+     data = {}
+     for partition in disk_partitions:
+         data[partition.device] = {'device': partition.device,
+                                   'mount_point': partition.mountpoint,
+                                   'fstype': partition.fstype}
+     return data
+
+
+ def get_raid_data():
+     data = {}
+     try:
+         data['raid_data'] = check_output(["cat", "/proc/mdstat"]).decode("utf-8")
+     except CalledProcessError:
+         data['raid_data'] = 'Service not found'
+     return data
+
+
+ def get_disk_usage():
+     disk_partitions = psutil.disk_partitions()
+     data = {}
+     for partition in disk_partitions:
+         data[partition.device] = {
+          'units': 'GB',
+          'total': round(psutil.disk_usage(partition.mountpoint).total/1073741824, 2),
+          'used': round(psutil.disk_usage(partition.mountpoint).used/1073741824, 2),
+          'free': round(psutil.disk_usage(partition.mountpoint).free/1073741824, 2),
+          'percent': psutil.disk_usage(partition.mountpoint).percent}
+     return data
 
 
 def get_uptime():
