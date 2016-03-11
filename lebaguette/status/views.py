@@ -21,10 +21,20 @@ def server_status(request):
     cpu_physical_count = psutil.cpu_count(logical=False)
     cpu_logical_count_range = range(cpu_logical_count)
     cpu_physical_count_range = range(cpu_physical_count)
-    ps = Popen(['sensors'], stdout=PIPE)
-    fans_count = len(check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8").split("\n")) - 1
-    fans_count_range = range(fans_count)
+    fan_count = get_fan_count()
+    fan_count_range = range(fan_count)
     return render(request, 'status/status.html', locals())
+
+
+def get_fan_count():
+    fan_count = 0
+    ps = Popen(['sensors'], stdout=PIPE)
+    fans = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
+    for fan in fans.split("\n"):
+        if fan != '':
+            if fan.split(":")[1].strip()[:5] != "0 RPM":
+                fan_count += 1
+    return fan_count
 
 
 def get_ram_usage():
