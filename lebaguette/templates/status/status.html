@@ -127,17 +127,17 @@
                 </div>
               </div>
             </div>
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title mdl-color--pink-400">
                 <h2 class="mdl-card__title-text mdl-card--expand">DISK usage</h2>
               </div>
               {% for key, values in disk_usage.items %}
-              <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col mdl-grid">
+              <div class="mdl-card__supporting-text mdl-cell mdl-cell--6-col mdl-grid">
                 <svg viewBox="0 0 100 100" width="200px" height="200px" class="mdl-cell mdl-cell--6-col">
                   <text x="50" y="40" font-family="Roboto" font-size="10" fill="#888" text-anchor="middle" dy="0.1">Used</text>
                   <circle r="45" cx="50" cy="50" fill="transparent" stroke="#EEFBCC" stroke-width="10"/>
-                  <text id="ram_text" x="54" y="63" font-family="Roboto" font-size="20" fill="#888" text-anchor="middle" dy="0.1">0%</text>
-                  <path id="disk" data-value="{{ values.percent }}" d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90" stroke="#ACEC00" stroke-width="10" fill-opacity="0" style="stroke-dasharray: 282.783px, 282.783px; stroke-dashoffset: 282.783px;"></path>
+                  <text id="{{ key }}_text" x="54" y="63" font-family="Roboto" font-size="20" fill="#888" text-anchor="middle" dy="0.1">0%</text>
+                  <path id="{{ key }}" data-value="{{ values.percent }}" d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90" stroke="#ACEC00" stroke-width="10" fill-opacity="0" style="stroke-dasharray: 282.783px, 282.783px; stroke-dashoffset: 282.783px;"></path>
                 </svg>
                 <div class="mdl-cell mdl-cell--6-col ram_details">
                   <p class="mdl-typography--title">Disk: <span class="mdl-typography--font-regular">{{ key }}</span></p>
@@ -225,6 +225,23 @@
               }
             });
         }
+
+        function updateDisk(){
+          var diskText = document.getElementById('/dev/sda1_text'),
+              diskSvgPath = document.getElementById('/dev/sda1'),
+              diskPercent = diskSvgPath.getAttribute('data-value'),
+              diskPath = new ProgressBar.Path(diskSvgPath, {
+                easing: 'easeInOut'
+            });
+            diskPath.set(diskPercent / 100)
+            $({transitionPercent: 0}).animate({transitionPercent: diskPercent}, {
+              duration: 700,
+              step: function() {
+                $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+              }
+            });
+        }
+
         function statusUpdateTemp(){
           $.getJSON('/status/temperatures', function(data){
             var index = 0;
@@ -251,6 +268,7 @@
         }
         $(window).load(statusUpdateCpu);
         $(window).load(updateRam);
+        $(window).load(updateDisk);
         setInterval(statusUpdateCpu, 2500);
         // setInterval(statusUpdateTemp, 2500);
       //END AJAX REQUEST TO RETRIEVE DATA
