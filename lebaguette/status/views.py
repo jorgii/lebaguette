@@ -10,12 +10,12 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def server_status(request):
     ram_usage = get_ram_usage()
-    # disk_data = get_disk_data()
-    # disk_usage = get_disk_usage()
-    # plex_status = get_service('plexmediaserver')
-    # transmission_status = get_service('transmission-daemon')
-    # apache2_status = get_service('apache2')
-    # raid_data = get_raid_data()
+    disk_data = get_disk_data()
+    disk_usage = get_disk_usage()
+    plex_status = get_service('plexmediaserver')
+    transmission_status = get_service('transmission-daemon')
+    apache2_status = get_service('apache2')
+    raid_data = get_raid_data()
     return render(request, 'status/status.html', locals())
 
 
