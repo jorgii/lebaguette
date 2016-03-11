@@ -222,13 +222,13 @@
               var percent = this,
                   percentText = document.getElementById('temp' + ++index),
                   oldPercent = percentText.innerHTML,
-                  oldPercent = oldPercent.replace(' &deg;C',''),
-                $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
-                  duration: 700,
-                  step: function() {
-                    $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
-                  }
-                });
+                  oldPercent = oldPercent.replace(' &deg;C','');
+              $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
+                duration: 700,
+                step: function() {
+                  $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+                }
+              });
             });
           });
         }
