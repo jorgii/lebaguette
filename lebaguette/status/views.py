@@ -7,14 +7,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 
+from .models import Services
+
+
 @login_required
 def server_status(request):
     ram_usage = get_ram_usage()
     disk_data = get_disk_data()
     disk_usage = get_disk_usage()
-    plex_status = get_service('plexmediaserver')
-    transmission_status = get_service('transmission-daemon')
-    apache2_status = get_service('apache2')
+    plex_status = get_service('network-manager')
     raid_data = get_raid_data()
     cpu_count = psutil.cpu_count()
     cpu_count_range = range(cpu_count)
@@ -81,10 +82,9 @@ def get_uptime():
 
 
 def get_service(servicename):
-    data = {}
     try:
         service_data = check_output(["service", servicename, "status"]).decode("utf-8")
-        data[servicename] = service_data.replace("\n", "<br>")
+        service_data = service_data.replace("\n", "<br>")
     except CalledProcessError:
-        data[servicename] = 'Service not found'
-    return data
+        service_data = 'Service not found'
+    return service_data
