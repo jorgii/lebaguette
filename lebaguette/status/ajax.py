@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 def get_cpu_usage(request):
     if request.is_ajax():
         cpu_count = psutil.cpu_count()
-        cpu_usage = psutil.cpu_percent(interval=0.1, percpu=True)
+        cpu_usage = psutil.cpu_percent(percpu=True)
         data = {}
         data['cpu_count'] = cpu_count
         data['cpu_usage'] = cpu_usage
