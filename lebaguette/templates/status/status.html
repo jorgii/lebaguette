@@ -258,7 +258,7 @@
               });
               diskPath.set(diskPercent / 100)
               $({transitionPercent: 0}).animate({transitionPercent: diskPercent}, {
-                duration: 700,
+                duration: 1000,
                 step: function() {
                   $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
                 }
