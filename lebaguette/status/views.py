@@ -15,7 +15,7 @@ def server_status(request):
     ram_usage = get_ram_usage()
     disk_data = get_disk_data()
     disk_usage = get_disk_usage()
-    plex_status = get_service_status('network-manager')
+    serevices_list = get_services_with_status()
     raid_data = get_raid_data()
     cpu_count = psutil.cpu_count()
     cpu_count_range = range(cpu_count)
@@ -78,6 +78,13 @@ def get_uptime():
     data['hours'] = hours
     data['minutes'] = minutes
     data['seconds'] = seconds
+    return data
+
+
+def get_services_with_status():
+    data = {}
+    for service in Services.objects.all():
+        data[str(service)] = get_service_status(str(service))
     return data
 
 
