@@ -152,7 +152,7 @@
               </div>
               <div id="cpu_core_list" class="mdl-card__supporting-text">
                 {% for index in cpu_physical_count_range %}
-                <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">0 &deg;C</span></p>
+                <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">0</span><span> &deg;C</span></p>
                 {% endfor %}
               </div>
             </div>
@@ -162,7 +162,7 @@
               </div>
               <div id="fan_list" class="mdl-card__supporting-text">
                 {% for index in fans_count_range %}
-                <p class="mdl-typography--title">Fan {{ forloop.counter }}: <span id="fan{{ forloop.counter }}" class="mdl-typography--font-regular">1200 rpm</span></p>
+                <p class="mdl-typography--title">Fan {{ forloop.counter }}: <span id="fan{{ forloop.counter }}" class="mdl-typography--font-regular">1200</span><span> rpm</span></p>
                 {% endfor %}
               </div>
             </div>
@@ -258,7 +258,7 @@
               });
               diskPath.set(diskPercent / 100)
               $({transitionPercent: 0}).animate({transitionPercent: diskPercent}, {
-                duration: 1000,
+                duration: 700,
                 step: function() {
                   $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
                 }
