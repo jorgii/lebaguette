@@ -93,24 +93,6 @@
                 {% endfor %}
               </div>
             </div>
-            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
-              <div class="mdl-card__title mdl-color--pink-400">
-                <h2 class="mdl-card__title-text mdl-card--expand">RAM usage</h2>
-              </div>
-              <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col mdl-grid">
-                <svg viewBox="0 0 100 100" width="200px" height="200px" class="mdl-cell mdl-cell--6-col">
-                  <text x="50" y="40" font-family="Roboto" font-size="10" fill="#888" text-anchor="middle" dy="0.1">Used</text>
-                  <circle r="45" cx="50" cy="50" fill="transparent" stroke="#EEFBCC" stroke-width="10"/>
-                  <text id="ram_text" x="54" y="63" font-family="Roboto" font-size="20" fill="#888" text-anchor="middle" dy="0.1">0%</text>
-                  <path id="ram" data-value="{{ ram_usage.percent }}" d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90" stroke="#ACEC00" stroke-width="10" fill-opacity="0" style="stroke-dasharray: 282.783px, 282.783px; stroke-dashoffset: 282.783px;"></path>
-                </svg>
-                <div class="mdl-cell mdl-cell--6-col ram_details">
-                  <p class="mdl-typography--title">Total: <span class="mdl-typography--font-regular">{{ ram_usage.total }} {{ ram_usage.units }}</span></p>
-                  <p class="mdl-typography--title">Used: <span class="mdl-typography--font-regular">{{ ram_usage.used }} {{ ram_usage.units }}</span></p>
-                  <p class="mdl-typography--title">Free: <span class="mdl-typography--font-regular">{{ ram_usage.available }} {{ ram_usage.units }}</span></p>
-                </div>
-              </div>
-            </div>
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
               <div class="mdl-card__title mdl-color--pink-400">
                 <h2 class="mdl-card__title-text mdl-card--expand">DISK usage</h2>
@@ -135,15 +117,23 @@
           </div>
           <div class="cards mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl-grid">
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-              {% for key, value in services_list.items %}
-              <div class="mdl-card__title mdl-color--purple-400">
-                <h2 class="mdl-card__title-text mdl-card--expand">Service Name: {{ key }}</h2>
+              <div class="mdl-card__title mdl-color--pink-400">
+                <h2 class="mdl-card__title-text mdl-card--expand">RAM usage</h2>
               </div>
-              <div class="mdl-card__supporting-text">
-                <p class="mdl-typography--title">{{ value }}</p>
+              <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col mdl-grid">
+                <svg viewBox="0 0 100 100" width="200px" height="200px" class="mdl-cell mdl-cell--6-col">
+                  <text x="50" y="40" font-family="Roboto" font-size="10" fill="#888" text-anchor="middle" dy="0.1">Used</text>
+                  <circle r="45" cx="50" cy="50" fill="transparent" stroke="#EEFBCC" stroke-width="10"/>
+                  <text id="ram_text" x="54" y="63" font-family="Roboto" font-size="20" fill="#888" text-anchor="middle" dy="0.1">0%</text>
+                  <path id="ram" data-value="{{ ram_usage.percent }}" d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90" stroke="#ACEC00" stroke-width="10" fill-opacity="0" style="stroke-dasharray: 282.783px, 282.783px; stroke-dashoffset: 282.783px;"></path>
+                </svg>
+                <div class="mdl-cell mdl-cell--6-col ram_details">
+                  <p class="mdl-typography--title">Total: <span class="mdl-typography--font-regular">{{ ram_usage.total }} {{ ram_usage.units }}</span></p>
+                  <p class="mdl-typography--title">Used: <span class="mdl-typography--font-regular">{{ ram_usage.used }} {{ ram_usage.units }}</span></p>
+                  <p class="mdl-typography--title">Free: <span class="mdl-typography--font-regular">{{ ram_usage.available }} {{ ram_usage.units }}</span></p>
+                </div>
               </div>
             </div>
-            {% endfor %}
             <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
               <div class="mdl-card__title mdl-color--orange-400">
                 <h2 class="mdl-card__title-text mdl-card--expand">CPU temp</h2>
@@ -165,6 +155,20 @@
               </div>
             </div>
           </div>
+          {% if services_list %}
+          <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+              {% for key, value in services_list.items %}
+              <div class="mdl-card__title mdl-color--purple-400">
+                <h2 class="mdl-card__title-text mdl-card--expand">Service Name: {{ key }}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <p class="mdl-typography--title">{{ value }}</p>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
         </div>
       </main>
     </div>
@@ -182,7 +186,7 @@
                   svgPath = document.getElementById('cpu' + ++index),
                   percentText = document.getElementById('cpu' + index + '_text'),
                   oldPercent = percentText.innerHTML,
-                  oldPercent = oldPercent.replace('%','');
+                  oldPercent = oldPercent.replace('%',''),
                   path = new ProgressBar.Path(svgPath, {
                     easing: 'easeInOut'
                 });
@@ -211,45 +215,30 @@
               }
             });
         }
-
         function updateDisk(){
-          var diskText = document.getElementById('disk1_text'),
-              diskSvgPath = document.getElementById('disk1'),
-              diskPercent = diskSvgPath.getAttribute('data-value'),
-              diskPath = new ProgressBar.Path(diskSvgPath, {
-                easing: 'easeInOut'
-            });
-            diskPath.set(diskPercent / 100)
-            $({transitionPercent: 0}).animate({transitionPercent: diskPercent}, {
-              duration: 700,
-              step: function() {
-                $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
-              }
-            });
+          var children = $('#disk_usage svg'),
+              tableChild = 0;
+          $.each(children, function() {
+            var diskText = document.getElementById('disk' + ++tableChild + '_text'),
+                diskSvgPath = document.getElementById('disk' + tableChild),
+                diskPercent = diskSvgPath.getAttribute('data-value'),
+                diskPath = new ProgressBar.Path(diskSvgPath, {
+                  easing: 'easeInOut'
+              });
+              diskPath.set(diskPercent / 100)
+              $({transitionPercent: 0}).animate({transitionPercent: diskPercent}, {
+                duration: 700,
+                step: function() {
+                  $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+                }
+              });
+          });
         }
-
         function statusUpdateTemp(){
           $.getJSON('/status/temperatures', function(data){
             var index = 0;
             console.log(data);
-            // $.each( data.cpu_usage, function() {
-            //   var percent = this,
-            //       svgPath = document.getElementById('cpu' + ++index),
-            //       svgCircle = document.getElementById('cpu1_circle'),
-            //       percentText = document.getElementById('cpu' + index + '_text'),
-            //       oldPercent = percentText.innerHTML,
-            //       oldPercent = oldPercent.replace('%','');
-            //       path = new ProgressBar.Path(svgPath, {
-            //         easing: 'easeInOut'
-            //     });
-            //     path.set(percent / 100)
-            //     $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
-            //       duration: 700,
-            //       step: function() {
-            //         $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
-            //       }
-            //     });
-            // });
+
           });
         }
         $(window).load(statusUpdateCpu);
