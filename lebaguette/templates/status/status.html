@@ -213,6 +213,13 @@
             });
           });
         }
+        function statusUpdateTemp(){
+          $.getJSON('/status/temperatures', function(data){
+            var index = 0;
+            console.log(data);
+
+          });
+        }
         function updateRam(){
           var ramText = document.getElementById('ram_text'),
               ramSvgPath = document.getElementById('ram'),
@@ -245,13 +252,6 @@
                   $(diskText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
                 }
               });
-          });
-        }
-        function statusUpdateTemp(){
-          $.getJSON('/status/temperatures', function(data){
-            var index = 0;
-            console.log(data);
-
           });
         }
         $(window).load(statusUpdateCpu);
