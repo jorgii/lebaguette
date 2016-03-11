@@ -1,6 +1,6 @@
 import psutil
 from datetime import datetime
-from subprocess import check_output, CalledProcessError
+from subprocess import check_output, CalledProcessError, Popen, PIPE
 
 
 from django.shortcuts import render
@@ -16,6 +16,11 @@ def server_status(request):
     transmission_status = get_service('transmission-daemon')
     apache2_status = get_service('apache2')
     raid_data = get_raid_data()
+    cpu_count = psutil.cpu_count()
+    cpu_count_range = range(cpu_count)
+    ps = Popen(['sensors'], stdout=PIPE)
+    fans_count = len(check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8").split("\n")) - 1
+    fans_count_range = range(fans_count)
     return render(request, 'status/status.html', locals())
 
 
