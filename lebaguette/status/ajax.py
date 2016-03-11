@@ -40,12 +40,12 @@ def get_temperatures(request):
 def get_fanspeed(request):
     if request.is_ajax():
         ps = Popen(['sensors'], stdout=PIPE)
-        temps = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
+        fans = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
         data = {}
-        for temp in temps.split("\n"):
-            if temp != '':
-                if temp.split(":")[1].strip()[:5] != "0 RPM":
-                    data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:4].strip()
+        for fan in fans.split("\n"):
+            if fan != '':
+                if fan.split(":")[1].strip()[:5] != "0 RPM":
+                    data[fan.split(":")[0]] = fan.split(":")[1].strip()[1:4].strip()
         data = json.dumps(data)
         return HttpResponse(data, content_type='application/json')
     else:
