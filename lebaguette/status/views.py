@@ -15,7 +15,7 @@ def server_status(request):
     ram_usage = get_ram_usage()
     disk_data = get_disk_data()
     disk_usage = get_disk_usage()
-    serevices_list = get_services_with_status()
+    services_list = get_services_with_status()
     raid_data = get_raid_data()
     cpu_count = psutil.cpu_count()
     cpu_count_range = range(cpu_count)
