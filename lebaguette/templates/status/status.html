@@ -150,7 +150,7 @@
               <div class="mdl-card__title mdl-color--orange-400">
                 <h2 class="mdl-card__title-text mdl-card--expand">CPU temp</h2>
               </div>
-              <div class="mdl-card__supporting-text">
+              <div id="cpu_core_list" class="mdl-card__supporting-text">
                 {% for index in cpu_count_range %}
                 <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">45 &deg;C</span></p>
                 {% endfor %}
@@ -160,7 +160,7 @@
               <div class="mdl-card__title mdl-color--blue-400">
                 <h2 class="mdl-card__title-text mdl-card--expand">FAN speeds</h2>
               </div>
-              <div class="mdl-card__supporting-text">
+              <div id="fan_list" class="mdl-card__supporting-text">
                 {% for index in fans_count_range %}
                 <p class="mdl-typography--title">Fan {{ forloop.counter }}: <span id="fan{{ forloop.counter }}" class="mdl-typography--font-regular">1200 rpm</span></p>
                 {% endfor %}
@@ -217,7 +217,23 @@
           $.getJSON('/status/temperatures', function(data){
             var index = 0;
             console.log(data);
-
+            $.each( data.cpu_usage, function() {
+              var percent = this,
+                  // svgPath = document.getElementById('cpu' + ++index),
+                  // percentText = document.getElementById('cpu' + index + '_text'),
+                //   oldPercent = percentText.innerHTML,
+                //   oldPercent = oldPercent.replace('%',''),
+                //   path = new ProgressBar.Path(svgPath, {
+                //     easing: 'easeInOut'
+                // });
+                // path.set(percent / 100)
+                $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
+                  duration: 700,
+                  step: function() {
+                    $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+                  }
+                });
+            });
           });
         }
         function updateRam(){
@@ -237,10 +253,10 @@
         }
         function updateDisk(){
           var children = $('#disk_usage svg'),
-              tableChild = 0;
+              index = 0;
           $.each(children, function() {
-            var diskText = document.getElementById('disk' + ++tableChild + '_text'),
-                diskSvgPath = document.getElementById('disk' + tableChild),
+            var diskText = document.getElementById('disk' + ++index + '_text'),
+                diskSvgPath = document.getElementById('disk' + index),
                 diskPercent = diskSvgPath.getAttribute('data-value'),
                 diskPath = new ProgressBar.Path(diskSvgPath, {
                   easing: 'easeInOut'
@@ -258,7 +274,7 @@
         $(window).load(updateRam);
         $(window).load(updateDisk);
         setInterval(statusUpdateCpu, 2500);
-        // setInterval(statusUpdateTemp, 2500);
+        setInterval(statusUpdateTemp, 2500);
       //END AJAX REQUEST TO RETRIEVE DATA
 	  </script>
   </body>
