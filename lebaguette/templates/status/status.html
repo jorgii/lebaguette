@@ -194,6 +194,7 @@
         function statusUpdateCpu(){
           $.getJSON('/status/cpu', function(data){
             var index = 0;
+            console.log(data);
             $.each( data.cpu_usage, function() {
               var percent = this,
                   svgPath = document.getElementById('cpu' + ++index),
