@@ -152,7 +152,7 @@
               </div>
               <div id="cpu_core_list" class="mdl-card__supporting-text">
                 {% for index in cpu_physical_count_range %}
-                <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">45 &deg;C</span></p>
+                <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">0 &deg;C</span></p>
                 {% endfor %}
               </div>
             </div>
@@ -194,7 +194,6 @@
         function statusUpdateCpu(){
           $.getJSON('/status/cpu', function(data){
             var index = 0;
-            console.log(data);
             $.each( data.cpu_usage, function() {
               var percent = this,
                   svgPath = document.getElementById('cpu' + ++index),
@@ -217,16 +216,16 @@
         function statusUpdateTemp(){
           $.getJSON('/status/temperatures', function(data){
             var index = 0;
-            console.log(data);
             $.each( data, function() {
               var percent = this,
                   percentText = document.getElementById('temp' + ++index),
                   oldPercent = percentText.innerHTML,
                   oldPercent = oldPercent.replace(' &deg;C','');
+              console.log(oldPercent);
               $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
                 duration: 700,
                 step: function() {
-                  $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+                  $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +' &deg;C');
                 }
               });
             });
