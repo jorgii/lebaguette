@@ -91,7 +91,7 @@ def get_services_with_status():
 def get_service_status(servicename):
     try:
         service_data = check_output(["service", servicename, "status"]).decode("utf-8")
-        service_data = service_data.replace("\n", "<br>")
+        service_data = service_data.split("\n")
     except CalledProcessError:
         service_data = 'Service not found'
     return service_data
