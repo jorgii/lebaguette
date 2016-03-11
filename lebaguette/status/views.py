@@ -51,7 +51,7 @@ def get_raid_data():
     try:
         data['raid_data'] = check_output(["cat", "/proc/mdstat"]).decode("utf-8")
     except CalledProcessError:
-        data['raid_data'] = 'Service not found'
+        data['raid_data'] = 'RAID data not found'
     return data
 
 
@@ -84,14 +84,19 @@ def get_uptime():
 def get_services_with_status():
     data = {}
     for service in Services.objects.all():
-        data[str(service)] = get_service_status(str(service))
+        service_status = get_service_status(str(service)).strip()
+        if 'running' in service_status:
+            data[str(service)] = [service_status, True]
+        else:
+            data[str(service)] = [service_status, False]
     return data
 
 
 def get_service_status(servicename):
     try:
-        service_data = check_output(["service", servicename, "status"]).decode("utf-8")
-        service_data = service_data.split("\n")
+        service_data = Popen(["service", servicename, "status"], stdout=PIPE)
+        service_data = check_output(["grep", "Active"], stdin=service_data.stdout).decode("utf-8")
+        service_data = service_data.replace("\n", '')
     except CalledProcessError:
         service_data = 'Service not found'
     return service_data
