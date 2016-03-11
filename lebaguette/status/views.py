@@ -17,7 +17,7 @@ def server_status(request):
     disk_usage = get_disk_usage()
     services_list = get_services_with_status()
     raid_data = get_raid_data()
-    cpu_count = psutil.cpu_count()
+    cpu_count = psutil.cpu_count(logical=False)
     cpu_count_range = range(cpu_count)
     ps = Popen(['sensors'], stdout=PIPE)
     fans_count = len(check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8").split("\n")) - 1
