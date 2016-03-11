@@ -230,7 +230,7 @@
           });
         }
         function statusUpdateRpm(){
-          $.getJSON('/status/temperatures', function(data){
+          $.getJSON('/status/fanspeed', function(data){
             var index = 0;
             $.each( data, function() {
               var percent = this,
