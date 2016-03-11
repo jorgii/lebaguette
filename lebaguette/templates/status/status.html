@@ -218,23 +218,18 @@
           $.getJSON('/status/temperatures', function(data){
             var index = 0;
             console.log(data);
-            // $.each( data.cpu_usage, function() {
-            //   var percent = this,
-            //       svgPath = document.getElementById('cpu' + ++index),
-            //       percentText = document.getElementById('cpu' + index + '_text'),
-            //       oldPercent = percentText.innerHTML,
-            //       oldPercent = oldPercent.replace('%',''),
-            //       path = new ProgressBar.Path(svgPath, {
-            //         easing: 'easeInOut'
-            //     });
-            //     path.set(percent / 100)
-            //     $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
-            //       duration: 700,
-            //       step: function() {
-            //         $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
-            //       }
-            //     });
-            // });
+            $.each( data, function() {
+              var percent = this,
+                  percentText = document.getElementById('temp' + ++index),
+                  oldPercent = percentText.innerHTML,
+                  oldPercent = oldPercent.replace(' &deg;C',''),
+                $({transitionPercent: oldPercent}).animate({transitionPercent: percent}, {
+                  duration: 700,
+                  step: function() {
+                    $(percentText).text(parseFloat(Math.round(this.transitionPercent * 10) / 10).toFixed(1) +'%');
+                  }
+                });
+            });
           });
         }
         function updateRam(){
