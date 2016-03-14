@@ -224,10 +224,16 @@ _:-ms-input-placeholder, :root .graph {
 path {
   transition: stroke-dashoffset 0.7s ease-in-out;
 }
+.container {
+  max-width: 1200px;
+}
 .ram_details {
   margin-top: auto;
   margin-bottom: auto;
 }
 .mdl-card {
   height: 100%;
+}
+.mdl-typography--title {
+  font-size: 17px;
 }
