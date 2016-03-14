@@ -237,3 +237,11 @@ path {
 .mdl-typography--title {
   font-size: 17px;
 }
+.mdl-layout-login {
+  align-items: center;
+  justify-content: center;
+}
+.mdl-layout__content-login {
+  padding: 24px;
+  flex: none;
+}
