@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(*)4a0m&7z(l5duy++jn%o(de$hfu%gau@$00klb*)4^rvl=yn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['.lebaguette.eu']
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'status',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -116,6 +117,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+LOGIN_URL = '/login/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
@@ -139,7 +142,11 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
+<<<<<<< HEAD
             'filename': os.path.join(BASE_DIR,"log.txt"),
+=======
+            'filename': os.path.join(BASE_DIR, "log.txt"),
+>>>>>>> status
         },
     },
     'loggers': {
@@ -155,4 +162,3 @@ try:
     from lebaguette.local_settings import *
 except ImportError as e:
     print('Unable to load local_settings.py:', e)
-
