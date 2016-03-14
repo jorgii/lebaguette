@@ -13,7 +13,6 @@ from .models import Services
 @login_required
 def server_status(request):
     ram_usage = get_ram_usage()
-    disk_data = get_disk_data()
     disk_usage = get_disk_usage()
     services_list = get_services_with_status()
     raid_data = get_raid_data()
@@ -35,16 +34,6 @@ def get_ram_usage():
     data['used'] = round(memory.used/1048576, 2)
     data['available'] = round(memory.available/1048576, 2)
     data['percent'] = memory.percent
-    return data
-
-
-def get_disk_data():
-    disk_partitions = psutil.disk_partitions()
-    data = {}
-    for partition in disk_partitions:
-        data[partition.device] = {'device': partition.device,
-                                  'mount_point': partition.mountpoint,
-                                  'fstype': partition.fstype}
     return data
 
 
