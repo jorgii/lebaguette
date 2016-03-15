@@ -22,6 +22,7 @@ def server_status(request):
     cpu_physical_count_range = range(cpu_physical_count)
     active_fans_count = get_fans_count()
     fans_count_range = range(active_fans_count)
+    uptime = get_uptime()
     return render(request, 'status/status.html', locals())
 
 
