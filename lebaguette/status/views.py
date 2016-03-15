@@ -71,7 +71,7 @@ def get_disk_usage():
 
 def get_uptime():
     uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
-    minutes, seconds = divmod(uptime.seconds, 60)
+    minutes, seconds = divmod(int(uptime.total_seconds()), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     data = {}
