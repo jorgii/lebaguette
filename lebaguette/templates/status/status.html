@@ -7,7 +7,7 @@
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Server status</span>
         <div class="mdl-layout-spacer"></div>
-        <span class="mdl-layout-title">Uptime: {{ request.uptime }}</span>
+        <span class="mdl-layout-title">Uptime: {{ uptime.days }} Days, {{ uptime.hours }} Hours, {{ uptime.minutes }} Minutes and {{ uptime.seconds }} Seconds</span>
         <div class="mdl-layout-spacer"></div>
         <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
           <a href="/logout"><i class="material-icons">power_settings_new</i></a>
