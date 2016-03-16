@@ -152,7 +152,7 @@ limitations under the License
                       <label class="mdl-textfield__label" for="new_password">New password...</label>
                       <div id="password_strength" class="mdl-progress mdl-js-progress"></div>
                     </div>
-                    <div id="password_tooltip" class="mdl-tooltip" for="new_password">Follow</div>
+                    <div id="password_tooltip" class="mdl-tooltip" for="new_password"></div>
                   </form>
                 </div>
                 <div class="mdl-layout-spacer"></div>
@@ -234,17 +234,40 @@ limitations under the License
         $(progressBar).removeClass('short');
       }
   });
-  $('#repeat_password').on("keyup", function(){
-    var pass1 = document.getElementById('new_password');
-    var pass2 = document.getElementById('repeat_password');
-    var pass1Value = pass1.value;
-    var pass2Value = pass2.value;
 
-    if(pass1Value!=pass2Value)
-    	pass2.setCustomValidity("Passwords Don't Match");
-    else
-    	pass2.setCustomValidity('');
-  });
+  //new and repeat password match while typing
+  $('#repeat_password').on('keyup', isPassValid);
+  $('#new_password').on('keyup', isPassValid);
+  $('#new_password').on('keyup', oldPassNeedsValue);
+  $('#old_password').on('keyup', oldPassNeedsValue);
+
+  //new and repeat password match function
+  function isPassValid(){
+    var passNew = document.getElementById('new_password');
+    var passOld = document.getElementById('repeat_password');
+    var passNewValue = passNew.value;
+    var passOldValue = passOld.value;
+
+    if(passNewValue!=passOldValue) {
+    	$(passOld).parent().addClass('is-invalid');
+    }
+    else {
+      $(passOld).parent().removeClass('is-invalid');
+    }
+  }
+  function oldPassNeedsValue(){
+    var passNew = document.getElementById('new_password');
+    var passOld = document.getElementById('old_password');
+
+    if(passNew.value.length > 0) {
+      if(passOld.value.length == 0) {
+        $(passOld).parent().addClass('is-invalid');
+      }
+    }
+    else {
+      $(passOld).parent().removeClass('is-invalid');
+    }
+  }
   </script>
 </body>
 </html>
