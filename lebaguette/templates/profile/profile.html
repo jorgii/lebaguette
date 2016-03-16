@@ -25,24 +25,24 @@ limitations under the License
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="../static/images/android-desktop.png">
+  <link rel="icon" sizes="192x192" href="../../static/images/android-desktop.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-  <link rel="apple-touch-icon-precomposed" href="../static/images/ios-desktop.png">
+  <link rel="apple-touch-icon-precomposed" href="../../static/images/ios-desktop.png">
 
   <!-- Tile icon for Win8 (144x144 + tile color) -->
-  <meta name="msapplication-TileImage" content="../static/images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileImage" content="../../static/images/touch/ms-touch-icon-144x144-precomposed.png">
   <meta name="msapplication-TileColor" content="#3372DF">
 
-  <link rel="shortcut icon" href="../static/images/favicon.png">
+  <link rel="shortcut icon" href="../../static/images/favicon.png">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.cyan-light_blue.min.css">
-  <link rel="stylesheet" href="../static/css/styles.css">
+  <link rel="stylesheet" href="../../static/css/styles.css">
 </head>
 <body>
   <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -62,7 +62,7 @@ limitations under the License
       <header class="drawer-header">
         <span class="mdl-layout-title">Welcome</span>
         <div class="mdl-layout-spacer"></div>
-        <img src="../static/images/ninja.png" class="avatar">
+        <img src="../../static/images/ninja.png" class="avatar">
         <div>
           <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
         </div>
@@ -81,7 +81,7 @@ limitations under the License
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--3-col">
             <div class="mdl-card__title mdl-card--expand card-profile">
               <div class="mdl-layout-spacer"></div>
-              <img src="../static/images/ninja.png" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
+              <img src="../../static/images/ninja.png" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
               <div class="mdl-layout-spacer"></div>
             </div>
             <div class="mdl-card__supporting-text card-profile--stats mdl-grid">
@@ -107,7 +107,7 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="login_name">
-                      <label class="mdl-textfield__label" for="sample1">Login name...</label>
+                      <label class="mdl-textfield__label" for="login_name">Login name...</label>
                     </div>
                   </form>
                 </div>
@@ -115,7 +115,7 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="first_name">
-                      <label class="mdl-textfield__label" for="sample1">First name...</label>
+                      <label class="mdl-textfield__label" for="first_name">First name...</label>
                     </div>
                   </form>
                 </div>
@@ -123,15 +123,15 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="last_name">
-                      <label class="mdl-textfield__label" for="sample1">Last name...</label>
+                      <label class="mdl-textfield__label" for="last_name">Last name...</label>
                     </div>
                   </form>
                 </div>
                 <div class="input-profile">
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="text" id="email">
-                      <label class="mdl-textfield__label" for="sample1">e-mail...</label>
+                      <input class="mdl-textfield__input" type="email" id="email">
+                      <label class="mdl-textfield__label" for="email">e-mail...</label>
                     </div>
                   </form>
                 </div>
@@ -141,7 +141,7 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="old_password">
-                      <label class="mdl-textfield__label" for="sample1">Old password...</label>
+                      <label class="mdl-textfield__label" for="old_password">Old password...</label>
                     </div>
                   </form>
                 </div>
@@ -149,8 +149,10 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="new_password">
-                      <label class="mdl-textfield__label" for="sample1">New password...</label>
+                      <label class="mdl-textfield__label" for="new_password">New password...</label>
+                      <div id="password_strength" class="mdl-progress mdl-js-progress"></div>
                     </div>
+                    <div id="password_tooltip" class="mdl-tooltip" for="new_password">Follow</div>
                   </form>
                 </div>
                 <div class="mdl-layout-spacer"></div>
@@ -158,7 +160,7 @@ limitations under the License
                   <form class="input-profile" action="#">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="repeat_password">
-                      <label class="mdl-textfield__label" for="sample1">Repeat password...</label>
+                      <label class="mdl-textfield__label" for="repeat_password">Repeat password...</label>
                     </div>
                   </form>
                 </div>
@@ -171,5 +173,78 @@ limitations under the License
   </div>
   <script type = "text/javascript" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script>
+    $('#new_password').on("keyup focusout", function(){
+      var progressBar = document.getElementById('password_strength');
+      var tooltip = document.getElementById('password_tooltip');
+      var password = $.trim($(this).val());
+      var count = 0;
+      var className, progress, strength;
+
+      //if the password length is less than 6
+      if(password.length < 6) count = 0
+      //if length is 8 characters or more, increase counter value
+      if (password.length > 7) count += 1
+      //if password contains both lower and uppercase characters, increase counter value
+      if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) count += 1
+      //if it has numbers and characters, increase counter value
+      if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) count += 1
+      //if it has one special character, increase counter value
+      if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) count += 1
+      //if it has two special characters, increase counter value
+      if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) count += 1
+
+      if (count == 0) {
+      className = "short";
+      progress = 10;
+      message = "At least 6 characters";
+      }
+      else if (count == 1 ) {
+      className = "weak";
+      progress = 40;
+      message = "You can do better!";
+      }
+      else if (count == 2 ) {
+      className = "good";
+      progress = 70;
+      message = "Works for me...";
+      }
+      else {
+      className = "strong";
+      progress = 100;
+      message = "Most awesome password ever!";
+      }
+
+      progressBar.MaterialProgress.setProgress(progress);
+      //clear old class
+      $(progressBar).removeClass('strong');
+      $(progressBar).removeClass('good');
+      $(progressBar).removeClass('weak');
+      $(progressBar).removeClass('short');
+      //update class and text
+      $(progressBar).addClass(className);
+      $(password_tooltip).text(message);
+
+      //clear bar if empty
+      if(password.length == 0) {
+        progressBar.MaterialProgress.setProgress(0);
+        $(progressBar).removeClass('strong');
+        $(progressBar).removeClass('good');
+        $(progressBar).removeClass('weak');
+        $(progressBar).removeClass('short');
+      }
+  });
+  $('#repeat_password').on("keyup", function(){
+    var pass1 = document.getElementById('new_password');
+    var pass2 = document.getElementById('repeat_password');
+    var pass1Value = pass1.value;
+    var pass2Value = pass2.value;
+
+    if(pass1Value!=pass2Value)
+    	pass2.setCustomValidity("Passwords Don't Match");
+    else
+    	pass2.setCustomValidity('');
+  });
+  </script>
 </body>
 </html>
