@@ -263,3 +263,24 @@ path {
   display: inline-block;
   padding: 20px;
 }
+.mdl-textfield__label {
+  color: rgba(0,0,0,.46);
+}
+#password_strength > .bufferbar {
+  background: none;
+}
+#password_strength > .bufferbar {
+  background: none;
+}
+.short > .progressbar {
+  background-color: #EF3C79;
+}
+.weak > .progressbar {
+  background-color: orange;
+}
+.good > .progressbar {
+  background-color: #00BBD6;
+}
+.strong > .progressbar {
+  background-color: #ACEC00;
+}
