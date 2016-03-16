@@ -1,0 +1,175 @@
+<!doctype html>
+<!--
+Material Design Lite
+Copyright 2015 Google Inc. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Lebaguette - Home">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lebaguette - Profile</title>
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="../static/images/android-desktop.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+  <link rel="apple-touch-icon-precomposed" href="../static/images/ios-desktop.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="../static/images/touch/ms-touch-icon-144x144-precomposed.png">
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <link rel="shortcut icon" href="../static/images/favicon.png">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.cyan-light_blue.min.css">
+  <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+  <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Account setup</span>
+        <div class="mdl-layout-spacer"></div>
+        <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+          <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+        </label>
+        <div class="mdl-tooltip" for="logout">
+          Bye bye
+        </div>
+      </div>
+    </header>
+    <div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+      <header class="drawer-header">
+        <span class="mdl-layout-title">Welcome</span>
+        <div class="mdl-layout-spacer"></div>
+        <img src="../static/images/ninja.png" class="avatar">
+        <div>
+          <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
+        </div>
+      </header>
+      <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+        <a class="mdl-navigation__link" href="/plex"><i class="material-icons" role="presentation">movie</i>Plex</a>
+        <a class="mdl-navigation__link" href="/owncloud"><i class="material-icons" role="presentation">backup</i>OwnCloud</a>
+        <a class="mdl-navigation__link" href="/transmission"><i class="material-icons" role="presentation">file_download</i>Transmission</a>
+        <div class="mdl-layout-spacer"></div>
+        <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid container">
+        <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--3-col">
+            <div class="mdl-card__title mdl-card--expand card-profile">
+              <div class="mdl-layout-spacer"></div>
+              <img src="../static/images/ninja.png" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
+              <div class="mdl-layout-spacer"></div>
+            </div>
+            <div class="mdl-card__supporting-text card-profile--stats mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col separator"></div>
+              <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                <span class="mdl-typography--title">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+              </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+                Save profile
+              <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 272.026px; height: 272.026px; transform: translate(-50%, -50%) translate(78px, 16px);"></span></span></a>
+            </div>
+          </div>
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--9-col">
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+              <div class="mdl-tabs__tab-bar">
+                <a href="#profile-panel" class="mdl-tabs__tab is-active">Personal information</a>
+                <a href="#password-panel" class="mdl-tabs__tab">Password</a>
+              </div>
+              <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="text" id="login_name">
+                      <label class="mdl-textfield__label" for="sample1">Login name...</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="text" id="first_name">
+                      <label class="mdl-textfield__label" for="sample1">First name...</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="text" id="last_name">
+                      <label class="mdl-textfield__label" for="sample1">Last name...</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="text" id="email">
+                      <label class="mdl-textfield__label" for="sample1">e-mail...</label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="mdl-tabs__panel mdl-grid" id="password-panel">
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="password" id="old_password">
+                      <label class="mdl-textfield__label" for="sample1">Old password...</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="password" id="new_password">
+                      <label class="mdl-textfield__label" for="sample1">New password...</label>
+                    </div>
+                  </form>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <div class="input-profile">
+                  <form class="input-profile" action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="password" id="repeat_password">
+                      <label class="mdl-textfield__label" for="sample1">Repeat password...</label>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script type = "text/javascript" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</body>
+</html>
