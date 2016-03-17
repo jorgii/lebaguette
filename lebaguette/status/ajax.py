@@ -29,7 +29,8 @@ def get_temperatures(request):
         data = {}
         for temp in temps.split("\n"):
             if temp != '':
-                data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:5].strip()
+                data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:5] \
+                    .strip()
         data = json.dumps(data)
         return HttpResponse(data, content_type='application/json')
     else:
@@ -45,7 +46,8 @@ def get_fanspeed(request):
         for fan in fans.split("\n"):
             if fan != '':
                 if fan.split(":")[1].strip()[:5] != "0 RPM":
-                    data[fan.split(":")[0]] = fan.split(":")[1].strip()[:4].strip()
+                    data[fan.split(":")[0]] = \
+                        fan.split(":")[1].strip()[:4].strip()
         data = json.dumps(data)
         return HttpResponse(data, content_type='application/json')
     else:

@@ -28,7 +28,8 @@ def server_status(request):
 
 def get_fans_count():
     ps = Popen(['sensors'], stdout=PIPE)
-    total_fans_count = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
+    total_fans_count = check_output(["grep", "fan"],
+                                    stdin=ps.stdout).decode("utf-8")
     active_fans_count = 0
     for fan in total_fans_count.split("\n"):
         if fan != '':
@@ -50,7 +51,8 @@ def get_ram_usage():
 
 def get_raid_data():
     try:
-        raid_data = check_output(["cat", "/proc/mdstat"]).decode("utf-8").split("\n")
+        raid_data = check_output(["cat", "/proc/mdstat"]) \
+            .decode("utf-8").split("\n")
     except CalledProcessError:
         raid_data = 'RAID data not found'
     return raid_data
@@ -62,9 +64,13 @@ def get_disk_usage():
     for partition in disk_partitions:
         data[partition.device] = {
          'units': 'GB',
-         'total': round(psutil.disk_usage(partition.mountpoint).total/1073741824, 2),
-         'used': round(psutil.disk_usage(partition.mountpoint).used/1073741824, 2),
-         'free': round(psutil.disk_usage(partition.mountpoint).free/1073741824, 2),
+         'total': round(psutil.disk_usage(partition.mountpoint).total /
+                        1073741824, 2),
+         'used': round(psutil.disk_usage(partition.mountpoint).used /
+                       1073741824,
+                       2),
+         'free': round(psutil.disk_usage(partition.mountpoint).free /
+                       1073741824, 2),
          'percent': psutil.disk_usage(partition.mountpoint).percent}
     return data
 
@@ -96,7 +102,8 @@ def get_services_with_status():
 def get_service_status(servicename):
     try:
         service_data = Popen(["service", servicename, "status"], stdout=PIPE)
-        service_data = check_output(["grep", "Active"], stdin=service_data.stdout).decode("utf-8")
+        service_data = check_output(["grep", "Active"],
+                                    stdin=service_data.stdout).decode("utf-8")
         service_data = service_data.replace("\n", '')
     except CalledProcessError:
         service_data = 'Service not found'
