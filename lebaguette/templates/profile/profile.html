@@ -91,7 +91,7 @@ limitations under the License
               </div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+              <a id="submit_form" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
                 Save profile
               <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 272.026px; height: 272.026px; transform: translate(-50%, -50%) translate(78px, 16px);"></span></span></a>
             </div>
@@ -103,67 +103,57 @@ limitations under the License
                 <a href="#password-panel" class="mdl-tabs__tab">Password</a>
               </div>
               <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                <form id="profile_form" class="input-profile" method="post" action="{% url 'profile_submit' %}">
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="login_name">
                       <label class="mdl-textfield__label" for="login_name">Login name...</label>
                     </div>
-                  </form>
-                </div>
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                  </div>
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="first_name">
                       <label class="mdl-textfield__label" for="first_name">First name...</label>
                     </div>
-                  </form>
-                </div>
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                  </div>
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="text" id="last_name">
                       <label class="mdl-textfield__label" for="last_name">Last name...</label>
                     </div>
-                  </form>
-                </div>
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                  </div>
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="email" id="email">
                       <label class="mdl-textfield__label" for="email">e-mail...</label>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
               <div class="mdl-tabs__panel mdl-grid" id="password-panel">
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                <form id="password_form" class="input-profile" method="post" action="{% url 'password_submit' %}">
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="old_password">
                       <label class="mdl-textfield__label" for="old_password">Old password...</label>
                     </div>
-                  </form>
-                </div>
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                  </div>
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="new_password">
                       <label class="mdl-textfield__label" for="new_password">New password...</label>
                       <div id="password_strength" class="mdl-progress mdl-js-progress"></div>
                     </div>
                     <div id="password_tooltip" class="mdl-tooltip" for="new_password"></div>
-                  </form>
-                </div>
-                <div class="mdl-layout-spacer"></div>
-                <div class="input-profile">
-                  <form class="input-profile" action="#">
+                  </div>
+                  <div class="mdl-layout-spacer"></div>
+                  <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       <input class="mdl-textfield__input" type="password" id="repeat_password">
                       <label class="mdl-textfield__label" for="repeat_password">Repeat password...</label>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -174,6 +164,13 @@ limitations under the License
   <script type = "text/javascript" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script>
+    // form submit action
+    $("#submit_form").click( function() {
+        $('#profile_form').submit();
+        $('#password_form').submit();
+    });
+
+    // form validation
     $('#new_password').on("keyup focusout", function(){
       var progressBar = document.getElementById('password_strength');
       var tooltip = document.getElementById('password_tooltip');
