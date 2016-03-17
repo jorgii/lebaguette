@@ -103,54 +103,56 @@ limitations under the License
                 <a href="#password-panel" class="mdl-tabs__tab">Password</a>
               </div>
               <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
-                <form id="profile_form" class="input-profile" method="post" action="{% url 'profile_submit' %}">
+                <form id="profile_form" class="input-profile" method="post" action="{% url 'profile' %}">
+                  {% csrf_token %}
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="text" id="login_name">
+                      {{ user_change_form.username }}
                       <label class="mdl-textfield__label" for="login_name">Login name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="text" id="first_name">
+                      {{ user_change_form.first_name }}
                       <label class="mdl-textfield__label" for="first_name">First name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="text" id="last_name">
+                      {{ user_change_form.last_name }}
                       <label class="mdl-textfield__label" for="last_name">Last name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="email" id="email">
+                      {{ user_change_form.email }}
                       <label class="mdl-textfield__label" for="email">e-mail...</label>
                     </div>
                   </div>
                 </form>
               </div>
               <div class="mdl-tabs__panel mdl-grid" id="password-panel">
-                <form id="password_form" class="input-profile" method="post" action="{% url 'password_submit' %}">
+                <form id="password_form" class="input-profile" method="post" action="{% url 'profile' %}">
+                  {% csrf_token %}
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="password" id="old_password">
-                      <label class="mdl-textfield__label" for="old_password">Old password...</label>
+                      {{ password_change_form.old_password }}
+                      <label class="mdl-textfield__label" for="id_old_password">Old password...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="password" id="new_password">
-                      <label class="mdl-textfield__label" for="new_password">New password...</label>
+                      {{ password_change_form.new_password1 }}
+                      <label class="mdl-textfield__label" for="id_new_password1">New password...</label>
                       <div id="password_strength" class="mdl-progress mdl-js-progress"></div>
                     </div>
-                    <div id="password_tooltip" class="mdl-tooltip" for="new_password"></div>
+                    <div id="password_tooltip" class="mdl-tooltip" for="id_new_password1"></div>
                   </div>
                   <div class="mdl-layout-spacer"></div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="password" id="repeat_password">
-                      <label class="mdl-textfield__label" for="repeat_password">Repeat password...</label>
+                      {{ password_change_form.new_password2 }}
+                      <label class="mdl-textfield__label" for="id_new_password2">Repeat password...</label>
                     </div>
                   </div>
                 </form>
@@ -166,12 +168,14 @@ limitations under the License
   <script>
     // form submit action
     $("#submit_form").click( function() {
-        $('#profile_form').submit();
         $('#password_form').submit();
+    });
+    $("#submit_form").click( function() {
+        $('#profile_form').submit();
     });
 
     // form validation
-    $('#new_password').on("keyup focusout", function(){
+    $('#id_new_password1').on("keyup focusout", function(){
       var progressBar = document.getElementById('password_strength');
       var tooltip = document.getElementById('password_tooltip');
       var password = $.trim($(this).val());
@@ -233,15 +237,15 @@ limitations under the License
   });
 
   //new and repeat password match while typing
-  $('#repeat_password').on('keyup', isPassValid);
-  $('#new_password').on('keyup', isPassValid);
-  $('#new_password').on('keyup', oldPassNeedsValue);
-  $('#old_password').on('keyup', oldPassNeedsValue);
+  $('#id_new_password2').on('keyup', isPassValid);
+  $('#id_new_password1').on('keyup', isPassValid);
+  $('#id_new_password1').on('keyup', oldPassNeedsValue);
+  $('#id_old_password').on('keyup', oldPassNeedsValue);
 
   //new and repeat password match function
   function isPassValid(){
-    var passNew = document.getElementById('new_password');
-    var passOld = document.getElementById('repeat_password');
+    var passNew = document.getElementById('id_new_password1');
+    var passOld = document.getElementById('id_new_password2');
     var passNewValue = passNew.value;
     var passOldValue = passOld.value;
 
@@ -253,8 +257,8 @@ limitations under the License
     }
   }
   function oldPassNeedsValue(){
-    var passNew = document.getElementById('new_password');
-    var passOld = document.getElementById('old_password');
+    var passNew = document.getElementById('id_new_password1');
+    var passOld = document.getElementById('id_old_password');
 
     if(passNew.value.length > 0) {
       if(passOld.value.length == 0) {
