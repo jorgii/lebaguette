@@ -108,7 +108,7 @@ limitations under the License
                   <div class="input-profile">
                       {{ user_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ user_change_form.errors }}
+                      {{ user_change_form.errors.username.as_text }}
                       {{ user_change_form.username }}
                       <label class="mdl-textfield__label" for="login_name">Login name...</label>
                     </div>
