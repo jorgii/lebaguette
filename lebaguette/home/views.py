@@ -59,9 +59,8 @@ def edit_user(request):
     if request.method == 'POST':
         if user_change_form.is_valid():
             user_change_form.save()
-            if password_change_form.has_changed() and \
-                    password_change_form.is_valid():
-                password_change_form.save()
-            return redirect('/profile/')
+        if password_change_form.has_changed() and \
+                password_change_form.is_valid():
+            password_change_form.save()
     csrf(request)
     return render(request, 'profile/profile.html', locals())
