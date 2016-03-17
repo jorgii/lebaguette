@@ -102,43 +102,40 @@ limitations under the License
                 <a href="#profile-panel" class="mdl-tabs__tab is-active">Personal information</a>
                 <a href="#password-panel" class="mdl-tabs__tab">Password</a>
               </div>
-              <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
-                <form id="profile_form" class="input-profile" method="post" action="{% url 'profile' %}">
+              <form id="profile_form" class="input-profile" method="post" action="{% url 'profile' %}">
+                <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
                   {% csrf_token %}
                   <div class="input-profile">
                       {{ user_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
                       {{ user_change_form.errors.username.as_text }}
                       {{ user_change_form.username }}
-                      <label class="mdl-textfield__label" for="login_name">Login name...</label>
+                      <label class="mdl-textfield__label" for="id_username">Login name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       {{ user_change_form.errors.first_name.as_text }}
                       {{ user_change_form.first_name }}
-                      <label class="mdl-textfield__label" for="first_name">First name...</label>
+                      <label class="mdl-textfield__label" for="id_first_name">First name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       {{ user_change_form.errors.last_name.as_text }}
                       {{ user_change_form.last_name }}
-                      <label class="mdl-textfield__label" for="last_name">Last name...</label>
+                      <label class="mdl-textfield__label" for="id_last_name">Last name...</label>
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
                       {{ user_change_form.errors.email.as_text }}
                       {{ user_change_form.email }}
-                      <label class="mdl-textfield__label" for="email">e-mail...</label>
+                      <label class="mdl-textfield__label" for="id_email">e-mail...</label>
                     </div>
                   </div>
-                </form>
-              </div>
-              <div class="mdl-tabs__panel mdl-grid" id="password-panel">
-                <form id="password_form" class="input-profile" method="post" action="{% url 'profile' %}">
-                  {% csrf_token %}
+                </div>
+                <div class="mdl-tabs__panel mdl-grid" id="password-panel">
                   <div class="input-profile">
                       {{ password_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
@@ -164,8 +161,8 @@ limitations under the License
                       <label class="mdl-textfield__label" for="id_new_password2">Repeat password...</label>
                     </div>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -176,12 +173,12 @@ limitations under the License
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script>
     // form submit action
-    $("#submit_form").click( function() {
-      var passNew = document.getElementById('id_new_password1');
-      if(passNew.value > 0) {
-        $('#password_form').submit();
-      }
-    });
+    // $("#submit_form").click( function() {
+    //   var passNew = document.getElementById('id_new_password1');
+    //   if(passNew.value.length > 0) {
+    //     $('#password_form').submit();
+    //   }
+    // });
     $("#submit_form").click( function() {
         $('#profile_form').submit();
     });
