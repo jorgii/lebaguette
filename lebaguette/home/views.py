@@ -40,6 +40,8 @@ def edit_user(request):
     user_change_form = UserForm(request.POST or None, instance=request.user)
     password_change_form = PasswordChangeForm(user=request.user,
                                               data=request.POST or None)
+    if not(password_change_form.has_changed()):
+        password_change_form.errors.clear()
     user_change_form.fields['username'].widget.attrs['class'] = \
         "mdl-textfield__input"
     user_change_form.fields['first_name'].widget.attrs['class'] = \
