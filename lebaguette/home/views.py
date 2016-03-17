@@ -47,9 +47,10 @@ def edit_user(request):
     password_change_form.fields['new_password1'].widget.attrs['class'] = "mdl-textfield__input"
     password_change_form.fields['new_password2'].widget.attrs['class'] = "mdl-textfield__input"
     if request.method == 'POST':
-        if user_change_form.is_valid() and password_change_form.is_valid():
+        if user_change_form.is_valid():
             user_change_form.save()
-            password_change_form.save()
+            if password_change_form.has_changed() and password_change_form.is_valid():
+                password_change_form.save()
             return redirect('/profile/')
     csrf(request)
     return render(request, 'profile/profile.html', locals())
