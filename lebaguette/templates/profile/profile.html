@@ -177,7 +177,10 @@ limitations under the License
   <script>
     // form submit action
     $("#submit_form").click( function() {
+      var passNew = document.getElementById('id_new_password1');
+      if(passNew.value > 0) {
         $('#password_form').submit();
+      }
     });
     $("#submit_form").click( function() {
         $('#profile_form').submit();
