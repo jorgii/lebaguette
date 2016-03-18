@@ -284,3 +284,25 @@ path {
 .strong > .progressbar {
   background-color: #ACEC00;
 }
+.error-tooltip {
+  z-index:999;
+  background:rgba(220,20,60,.7);
+  border-radius:2px;
+  color:#fff;
+  display:inline-block;
+  font-size:14px;
+  width: 100%;
+  position:absolute;
+  top:60px;
+  left:0px;
+  padding:8px;
+  text-align:left;
+}
+.nav_divider {
+  display: inline-block;
+  color: #fff;
+  padding: 8px;
+}
+.mdl-layout__drawer .mdl-navigation {
+  padding-top: 0;
+}
