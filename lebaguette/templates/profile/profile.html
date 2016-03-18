@@ -1,50 +1,8 @@
-<!doctype html>
-<!--
-Material Design Lite
-Copyright 2015 Google Inc. All rights reserved.
+{% extends "base/base.html" %}
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License
--->
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Lebaguette - Home">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lebaguette - Profile</title>
-
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="../../static/images/android-desktop.png">
-
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-  <link rel="apple-touch-icon-precomposed" href="../../static/images/ios-desktop.png">
-
-  <!-- Tile icon for Win8 (144x144 + tile color) -->
-  <meta name="msapplication-TileImage" content="../../static/images/touch/ms-touch-icon-144x144-precomposed.png">
-  <meta name="msapplication-TileColor" content="#3372DF">
-
-  <link rel="shortcut icon" href="../../static/images/favicon.png">
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.cyan-light_blue.min.css">
-  <link rel="stylesheet" href="../../static/css/styles.css">
-</head>
-<body>
+{% block title %}Lebaguette - Status{% endblock %}
+{% block body %}
   <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
       <div class="mdl-layout__header-row">
@@ -58,23 +16,7 @@ limitations under the License
         </div>
       </div>
     </header>
-    <div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-      <header class="drawer-header">
-        <span class="mdl-layout-title">Welcome</span>
-        <div class="mdl-layout-spacer"></div>
-        <img src="../../static/images/ninja.png" class="avatar">
-        <div>
-          <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
-        </div>
-      </header>
-      <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
-        <a class="mdl-navigation__link" href="/plex"><i class="material-icons" role="presentation">movie</i>Plex</a>
-        <a class="mdl-navigation__link" href="/owncloud"><i class="material-icons" role="presentation">backup</i>OwnCloud</a>
-        <a class="mdl-navigation__link" href="/transmission"><i class="material-icons" role="presentation">file_download</i>Transmission</a>
-        <div class="mdl-layout-spacer"></div>
-        <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
-      </nav>
-    </div>
+    {% include "base/drawer.html" %}
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid container">
         <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
@@ -96,7 +38,7 @@ limitations under the License
               <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 272.026px; height: 272.026px; transform: translate(-50%, -50%) translate(78px, 16px);"></span></span></a>
             </div>
           </div>
-          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--9-col">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--9-col" style="overflow:visible;">
             <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
               <div class="mdl-tabs__tab-bar">
                 <a href="#profile-panel" class="mdl-tabs__tab is-active">Personal information</a>
@@ -108,30 +50,54 @@ limitations under the License
                   <div class="input-profile">
                       {{ user_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ user_change_form.errors.username.as_text }}
                       {{ user_change_form.username }}
                       <label class="mdl-textfield__label" for="id_username">Login name...</label>
+                      {% if user_change_form.errors.username %}
+                      <div id="id_username_error" class="error-tooltip">
+                        {% for error in user_change_form.errors.username %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ user_change_form.errors.first_name.as_text }}
                       {{ user_change_form.first_name }}
                       <label class="mdl-textfield__label" for="id_first_name">First name...</label>
+                      {% if user_change_form.errors.first_name %}
+                      <div id="id_first_name_error" class="error-tooltip">
+                        {% for error in user_change_form.errors.first_name %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ user_change_form.errors.last_name.as_text }}
                       {{ user_change_form.last_name }}
                       <label class="mdl-textfield__label" for="id_last_name">Last name...</label>
+                      {% if user_change_form.errors.last_name %}
+                      <div id="id_last_name_error" class="error-tooltip">
+                        {% for error in user_change_form.errors.last_name %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ user_change_form.errors.email.as_text }}
                       {{ user_change_form.email }}
                       <label class="mdl-textfield__label" for="id_email">e-mail...</label>
+                      {% if user_change_form.errors.email %}
+                      <div id="id_email" class="error-tooltip">
+                        {% for error in user_change_form.errors.email %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -139,26 +105,44 @@ limitations under the License
                   <div class="input-profile">
                       {{ password_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ password_change_form.errors.old_password.as_text }}
                       {{ password_change_form.old_password }}
                       <label class="mdl-textfield__label" for="id_old_password">Old password...</label>
+                      {% if password_change_form.errors.old_password %}
+                      <div id="id_old_password_error" class="error-tooltip">
+                        {% for error in password_change_form.errors.old_password %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ password_change_form.errors.new_password1.as_text }}
                       {{ password_change_form.new_password1 }}
                       <label class="mdl-textfield__label" for="id_new_password1">New password...</label>
                       <div id="password_strength" class="mdl-progress mdl-js-progress"></div>
+                      {% if password_change_form.errors.new_password1 %}
+                      <div id="id_new_password1_error" class="error-tooltip">
+                        {% for error in password_change_form.errors.new_password1 %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                     <div id="password_tooltip" class="mdl-tooltip" for="id_new_password1"></div>
                   </div>
                   <div class="mdl-layout-spacer"></div>
                   <div class="input-profile">
                     <div class="mdl-textfield mdl-js-textfield">
-                      {{ password_change_form.errors.new_password2.as_text }}
                       {{ password_change_form.new_password2 }}
                       <label class="mdl-textfield__label" for="id_new_password2">Repeat password...</label>
+                      {% if password_change_form.errors.new_password2 %}
+                      <div id="id_new_password2_error" class="error-tooltip">
+                        {% for error in password_change_form.errors.new_password2 %}
+                          {{ error|escape }}<br>
+                        {% endfor %}
+                      </div>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -169,18 +153,23 @@ limitations under the License
       </div>
     </main>
   </div>
+  {% endblock %}
   <script type = "text/javascript" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script>
-    // form submit action
-    // $("#submit_form").click( function() {
-    //   var passNew = document.getElementById('id_new_password1');
-    //   if(passNew.value.length > 0) {
-    //     $('#password_form').submit();
-    //   }
-    // });
+    // submit form on external button click
     $("#submit_form").click( function() {
         $('#profile_form').submit();
+    });
+
+    //clear error tooltips on input click
+    $('input').click(function(){
+      var id = $(this).attr('id');
+      var errorTooltipId = id + '_error';
+      var errorTooltipElement = document.getElementById(errorTooltipId);
+      console.log(errorTooltipElement);
+
+      $(errorTooltipElement).remove();
     });
 
     // form validation
