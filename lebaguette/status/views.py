@@ -8,9 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 
 from .models import Services
+from lebaguette.extra import is_in_group
 
 
 @login_required
+@is_in_group('status')
 def server_status(request):
     ram_usage = get_ram_usage()
     disk_usage = get_disk_usage()
