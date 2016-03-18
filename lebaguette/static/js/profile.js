@@ -22,9 +22,9 @@ $('#id_new_password1').on("keyup focusout", function(){
   var className, progress, strength;
 
   //if the password length is less than 6
-  if(password.length < 6) count = 0
+  if(password.length < 7) count = 0
   //if length is 8 characters or more, increase counter value
-  if (password.length > 7) count += 1
+  if (password.length > 8) count += 1
   //if password contains both lower and uppercase characters, increase counter value
   if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) count += 1
   //if it has numbers and characters, increase counter value
@@ -37,7 +37,7 @@ $('#id_new_password1').on("keyup focusout", function(){
   if (count == 0) {
   className = "short";
   progress = 10;
-  message = "At least 6 characters";
+  message = "At least 8 characters";
   }
   else if (count == 1 ) {
   className = "weak";
