@@ -11,15 +11,6 @@
         <div class="mdl-card__supporting-text">
           <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <div>
-              {% if form.non_field_errors %}
-              <div id="non_field_errors" class="error-tooltip">
-                {% for error in form.non_field_errors %}
-                  {{ error|escape }}<br>
-                {% endfor %}
-              </div>
-              {% endif %}
-            </div>
             <div class="mdl-textfield mdl-js-textfield">
               {{ form.username }}
               <label class="mdl-textfield__label" for="id_username">Username</label>
@@ -47,6 +38,13 @@
             </div>
           </form>
         </div>
+        {% if form.non_field_errors %}
+        <div id="non_field_errors" class="error-tooltip-non">
+          {% for error in form.non_field_errors %}
+            {{ error|escape }}<br>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
     </main>
   </div>

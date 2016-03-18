@@ -48,7 +48,6 @@
                 <div class="mdl-tabs__panel is-active mdl-grid mdl-cell mdl-cell--12-col" id="profile-panel">
                   {% csrf_token %}
                   <div class="input-profile">
-                      {{ user_change_form.non_field_errors.as_text }}
                     <div class="mdl-textfield mdl-js-textfield">
                       {{ user_change_form.username }}
                       <label class="mdl-textfield__label" for="id_username">Login name...</label>
@@ -148,6 +147,13 @@
                 </div>
               </form>
             </div>
+            {% if user_change_form.non_field_errors %}
+            <div id="non_field_errors" class="error-tooltip-non">
+              {% for error in user_change_form.non_field_errors %}
+                {{ error|escape }}<br>
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
