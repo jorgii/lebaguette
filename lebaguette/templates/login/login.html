@@ -12,17 +12,35 @@
           <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div>
-              {{ form.non_field_errors.as_text }}
+              {% if form.non_field_errors %}
+              <div id="non_field_errors" class="error-tooltip">
+                {% for error in form.non_field_errors %}
+                  {{ error|escape }}<br>
+                {% endfor %}
+              </div>
+              {% endif %}
             </div>
             <div class="mdl-textfield mdl-js-textfield">
-              {{ form.errors.username.as_text }}
               {{ form.username }}
               <label class="mdl-textfield__label" for="id_username">Username</label>
+              {% if form.errors.username %}
+              <div id="id_username_error" class="error-tooltip">
+                {% for error in form.errors.username %}
+                  {{ error|escape }}<br>
+                {% endfor %}
+              </div>
+              {% endif %}
             </div>
             <div class="mdl-textfield mdl-js-textfield">
-              {{ form.errors.password.as_text }}
               {{ form.password }}
               <label class="mdl-textfield__label" for="id_password">Password</label>
+              {% if form.errors.password %}
+              <div id="id_username_error" class="error-tooltip">
+                {% for error in form.errors.password %}
+                  {{ error|escape }}<br>
+                {% endfor %}
+              </div>
+              {% endif %}
             </div>
             <div class="mdl-card__actions">
               <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Log in</button>
