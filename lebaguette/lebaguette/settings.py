@@ -129,7 +129,7 @@ USE_TZ = True
 
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile/'
 
 # Google auth keys
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '490500918347-982me97g5nnmbjtf920bhas1op8640qj.apps.googleusercontent.com'
