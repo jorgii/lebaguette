@@ -7,10 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 
 from .forms import UserForm
+from lebaguette.settings import LOGIN_REDIRECT_URL
 
 
 def login_user(request):
-    logout(request)
+    if request.user.is_authenticated():
+        return redirect(LOGIN_REDIRECT_URL)
+
     form = AuthenticationForm(None, request.POST or None)
     form.fields['username'].widget.attrs['class'] = "mdl-textfield__input"
     form.fields['username'].widget.attrs['required'] = True
@@ -23,7 +26,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('/status/')
+                    return redirect(LOGIN_REDIRECT_URL)
     csrf(request)
 
     return render(request, 'login/login.html', locals())
