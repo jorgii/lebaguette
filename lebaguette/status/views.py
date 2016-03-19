@@ -12,7 +12,7 @@ from lebaguette.extra import is_in_group
 
 
 @login_required
-@is_in_group('status')
+@is_in_group
 def server_status(request):
     ram_usage = get_ram_usage()
     disk_usage = get_disk_usage()
