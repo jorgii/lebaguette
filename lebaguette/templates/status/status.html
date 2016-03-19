@@ -8,7 +8,7 @@
         <div><span class="mdl-layout-title">Server status</span><span class="mdl-layout-subtitle">Uptime: {{ uptime.days }} D {{ uptime.hours }} H {{ uptime.minutes }} M : {{ uptime.seconds }} s<span></div>
         <div class="mdl-layout-spacer"></div>
         <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
-          <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+          <a href="{% url 'auth:logout' %}?next={{ request.path }}"><i class="material-icons">power_settings_new</i></a>
         </label>
         <div class="mdl-tooltip" for="logout">
           Bye bye
