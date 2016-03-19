@@ -131,6 +131,10 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+# Google auth keys
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '490500918347-982me97g5nnmbjtf920bhas1op8640qj.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'k4kiDoCOKvVNMYGkI8UzVqoG'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
