@@ -131,19 +131,6 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'
 
-# Google auth keys
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_SECRET')
-
-# Facebook aut keys
-SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FACEBOOK_SECRET')
-
-# Twitter auth keys
-SOCIAL_AUTH_TWITTER_KEY = os.environ.get('TWITTER_KEY')
-SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('TWITTER_SECRET')
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
