@@ -37,18 +37,6 @@
               <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Log in</button>
             </div>
           </form>
-          <div class="mdl-textfield mdl-js-textfield">
-            <li>
-              <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-            </li>
-            <li>
-              <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
-            </li>
-            <li>
-              <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
-            </li>
-          </div>
-        </div>
         {% if form.non_field_errors %}
         <div id="non_field_errors" class="error-tooltip-non">
           {% for error in form.non_field_errors %}
