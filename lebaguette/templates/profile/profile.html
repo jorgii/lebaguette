@@ -1,6 +1,5 @@
 {% extends "base/base.html" %}
-
-
+{% load staticfiles %}
 {% block title %}Lebaguette - Status{% endblock %}
 {% block body %}
   <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -23,7 +22,7 @@
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--3-col">
             <div class="mdl-card__title mdl-card--expand card-profile">
               <div class="mdl-layout-spacer"></div>
-              <img src="../../static/images/ninja.png" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
+              <img src="{% static "images/ninja.png" %}" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
               <div class="mdl-layout-spacer"></div>
             </div>
             <div class="mdl-card__supporting-text card-profile--stats mdl-grid">
@@ -161,6 +160,5 @@
   </div>
   {% endblock %}
   {% block post_load %}
-    {% load staticfiles %}
     <script type = "text/javascript" src="{% static "js/profile.js" %}"></script>
   {% endblock %}

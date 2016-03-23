@@ -1,8 +1,9 @@
+{% load staticfiles %}
 <div class="drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
   <header class="drawer-header">
     <span class="mdl-layout-title">Welcome</span>
     <div class="mdl-layout-spacer"></div>
-    <img src="../../static/images/ninja.png" class="avatar">
+    <img src="{% static "images/ninja.png" %}" class="avatar">
     <div>
       <span>{{ request.user.first_name }} {{ request.user.last_name }}</span>
     </div>
