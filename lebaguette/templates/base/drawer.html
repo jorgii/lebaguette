@@ -14,7 +14,11 @@
     <a class="mdl-navigation__link" href="/owncloud"><i class="material-icons" role="presentation">backup</i>OwnCloud</a>
     <a class="mdl-navigation__link" href="/transmission"><i class="material-icons" role="presentation">file_download</i>Transmission</a>
     <div class="nav_divider mdl-color--blue-grey-700">Information</div>
-    <a class="mdl-navigation__link" href="/status"><i class="material-icons" role="presentation">data_usage</i>Server status</a>
+    {% for group in user.groups.all %}
+        {% if "/status/" == group.name %}
+            <a class="mdl-navigation__link" href="/status"><i class="material-icons" role="presentation">data_usage</i>Server status</a>
+        {% endif %}
+    {% endfor %}
     <a class="mdl-navigation__link" href="/profile"><i class="material-icons" role="presentation">settings</i>Account setup</a>
     <div class="mdl-layout-spacer"></div>
     <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
