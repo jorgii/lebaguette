@@ -27,6 +27,19 @@
               <span class="mdl-typography--title">{{ request.home.motd }}</span>
             </div>
           </div>
+          <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+            <form action="#" class="mdl-cell mdl-cell--12-col mdl-grid">
+              <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
+                <textarea class="mdl-textfield__input" type="text" rows= "5" id="motd" ></textarea>
+                <label class="mdl-textfield__label" for="motd">Enter new message of the day...</label>
+              </div>
+              <div class="mdl-card__actions">
+                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+                  Update motd
+                <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 272.026px; height: 272.026px; transform: translate(-50%, -50%) translate(78px, 16px);"></span></span></a>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </main>
