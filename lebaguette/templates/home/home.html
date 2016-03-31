@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Lebaguette - Status{% endblock %}
+{% block body %}
+  <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">There's no place like home</span>
+        <div class="mdl-layout-spacer"></div>
+        <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+          <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+        </label>
+        <div class="mdl-tooltip" for="logout">
+          Bye bye
+        </div>
+      </div>
+    </header>
+    {% include "base/drawer.html" %}
+    <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid container">
+        <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col-tablet mdl-cell--3-col">
+            <div class="mdl-card__title mdl-card--expand card-profile">
+              <div class="mdl-layout-spacer"></div>
+              <img src="{% static "images/ninja.png" %}" alt="profile image" class="card-profile--avatar mdl-shadow--2dp">
+              <div class="mdl-layout-spacer"></div>
+            </div>
+            <div class="mdl-card__supporting-text card-profile--stats mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col separator"></div>
+              <div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+                <span class="mdl-typography--title">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  {% endblock %}
+  {% block post_load %}
+    <script type = "text/javascript" src="{% static "js/profile.js" %}"></script>
+  {% endblock %}
