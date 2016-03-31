@@ -67,3 +67,7 @@ def edit_user(request):
             password_change_form.save()
     csrf(request)
     return render(request, 'profile/profile.html', locals())
+
+@login_required
+def home_page(request):
+    return render(request, 'home/home.html', locals())
