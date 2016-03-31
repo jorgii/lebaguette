@@ -68,6 +68,7 @@ def edit_user(request):
     csrf(request)
     return render(request, 'profile/profile.html', locals())
 
+
 @login_required
 def home_page(request):
     return render(request, 'home/home.html', locals())
