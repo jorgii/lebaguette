@@ -24,14 +24,15 @@
               <h2 class="mdl-card__title-text">Server message</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <span class="mdl-typography--title">{{ request.home.motd }}</span>
+              <span class="mdl-typography--title">{{ latest_message }}</span>
             </div>
           </div>
+          {% if request.user.is_staff %}
           <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-            <form action="#" class="mdl-cell mdl-cell--12-col mdl-grid">
+            <form method="post" action="{% url 'home' %}" class="mdl-cell mdl-cell--12-col mdl-grid">
               <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
-                <textarea class="mdl-textfield__input" type="text" rows= "5" id="motd" ></textarea>
-                <label class="mdl-textfield__label" for="motd">Enter new message of the day...</label>
+                {{ message_form.message }}
+                <label class="mdl-textfield__label" for="id_message">Enter new message of the day...</label>
               </div>
               <div class="mdl-card__actions">
                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
@@ -40,6 +41,7 @@
               </div>
             </form>
           </div>
+          {% endif %}
         </div>
       </div>
     </main>

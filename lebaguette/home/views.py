@@ -6,8 +6,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 
-from .forms import UserForm
+from .forms import UserForm, ServerMessageForm
 from lebaguette.settings import LOGIN_REDIRECT_URL
+from .models import ServerMessage
 
 
 def login_user(request):
@@ -71,4 +72,18 @@ def edit_user(request):
 
 @login_required
 def home_page(request):
+    latest_message = ServerMessage.objects.latest('datetime_created').message
+    if request.user.is_staff:
+        message_form = ServerMessageForm(request.POST or None)
+        message_form.fields['message'].widget.attrs['class'] = \
+            "mdl-textfield__input"
+        message_form.fields['message'].widget.attrs['type'] = \
+            "text"
+        message_form.fields['message'].widget.attrs['rows'] = \
+            "5"
+    if request.method == 'POST':
+        if message_form.is_valid():
+            message_form.save()
+            return redirect('/')
+    csrf(request)
     return render(request, 'home/home.html', locals())
