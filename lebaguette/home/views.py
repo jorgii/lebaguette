@@ -4,6 +4,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 
 from .forms import UserForm, ServerMessageForm
@@ -72,7 +73,11 @@ def edit_user(request):
 
 @login_required
 def home_page(request):
-    latest_message = ServerMessage.objects.latest('datetime_created').message
+    try:
+        latest_message = ServerMessage.objects.\
+            latest('datetime_created').message
+    except ObjectDoesNotExist:
+        latest_message = "No message has been added yet!"
     if request.user.is_staff:
         message_form = ServerMessageForm(request.POST or None)
         message_form.fields['message'].widget.attrs['class'] = \
