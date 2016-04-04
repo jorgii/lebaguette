@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 
 
 class HomeTest(TestCase):
-    fixtures = ['home/fixtures/users_data']
+    fixtures = ['home/fixtures/users_data', 'home/fixtures/messages']
 
     def setUp(self):
         self.client = Client()
@@ -60,5 +60,21 @@ class HomeTest(TestCase):
         response = self.client.get(url)
         expected_url = reverse('login')
         self.assertRedirects(response, expected_url,
+                             status_code=302,
+                             target_status_code=200)
+
+    def test_view_home_page(self):
+        self.client.login(username='test', password='pasta1234')
+        url = reverse('home')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_add_message_as_non_staff(self):
+        self.client.login(username='test', password='pasta1234')
+        url = reverse('home')
+        data = {}
+        data['message'] = 'Trying to post message'
+        response = self.client.post(url, data)
+        self.assertRedirects(response, url,
                              status_code=302,
                              target_status_code=200)
