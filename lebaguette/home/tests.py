@@ -76,3 +76,11 @@ class HomeTest(TestCase):
         data['message'] = 'Trying to post message'
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 200)
+
+    def test_add_message_as_staff(self):
+        self.client.login(username='admin', password='admin1234')
+        url = reverse('home')
+        data = {}
+        data['message'] = 'Trying to post message'
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 200)
