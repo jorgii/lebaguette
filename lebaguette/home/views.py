@@ -86,9 +86,9 @@ def home_page(request):
             "text"
         message_form.fields['message'].widget.attrs['rows'] = \
             "5"
-    if request.method == 'POST':
-        if message_form.is_valid():
-            message_form.save()
-            return redirect('/')
+        if request.method == 'POST':
+            if message_form.is_valid():
+                message_form.save()
+                return redirect('/')
     csrf(request)
     return render(request, 'home/home.html', locals())
