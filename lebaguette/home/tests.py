@@ -83,4 +83,6 @@ class HomeTest(TestCase):
         data = {}
         data['message'] = 'Trying to post message'
         response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, url,
+                             status_code=302,
+                             target_status_code=200)
