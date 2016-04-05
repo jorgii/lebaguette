@@ -29,13 +29,13 @@
           </div>
           {% if request.user.is_staff %}
           <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-            <form method="post" action="{% url 'home' %}" class="mdl-cell mdl-cell--12-col mdl-grid">
+            <form id="id_message" method="post" action="{% url 'home' %}" class="mdl-cell mdl-cell--12-col mdl-grid">
               <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
                 {{ message_form.message }}
                 <label class="mdl-textfield__label" for="id_message">Enter new message of the day...</label>
               </div>
               <div class="mdl-card__actions">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
+                <a onclick="$('#id_message').submit();" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">
                   Update motd
                 <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 272.026px; height: 272.026px; transform: translate(-50%, -50%) translate(78px, 16px);"></span></span></a>
               </div>
@@ -46,7 +46,4 @@
       </div>
     </main>
   </div>
-  {% endblock %}
-  {% block post_load %}
-    <script type = "text/javascript" src="{% static "js/profile.js" %}"></script>
   {% endblock %}
