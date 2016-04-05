@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+try:
+    from lebaguette.local_settings import *
+except ImportError as e:
+    print('Unable to load local_settings.py:', e)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['.lebaguette.eu']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 
 # Application definition
@@ -80,7 +85,7 @@ WSGI_APPLICATION = 'lebaguette.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'database/db.sqlite3'),
+        'NAME': os.environ.get('DB_PATH'),
     }
 }
 
@@ -155,8 +160,3 @@ LOGGING = {
         },
     },
 }
-
-try:
-    from lebaguette.local_settings import *
-except ImportError as e:
-    print('Unable to load local_settings.py:', e)
