@@ -30,6 +30,7 @@
           {% if request.user.is_staff %}
           <div class="mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <form id="id_message" method="post" action="{% url 'home' %}" class="mdl-cell mdl-cell--12-col mdl-grid">
+              {% csrf_token %}
               <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col">
                 {{ message_form.message }}
                 <label class="mdl-textfield__label" for="id_message">Enter new message of the day...</label>
