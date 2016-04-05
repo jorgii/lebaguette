@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import HttpResponseForbidden
 
 
 def is_in_group(func):
@@ -6,5 +6,5 @@ def is_in_group(func):
         if request.user.groups.filter(name=request.path):
             return func(request)
         else:
-            raise Http404
+            return HttpResponseForbidden()
     return func_wrapper
