@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.shortcuts import render, redirect
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -30,7 +30,6 @@ def login_user(request):
                     login(request, user)
                     return redirect(LOGIN_REDIRECT_URL)
     csrf(request)
-
     return render(request, 'login/login.html', locals())
 
 
