@@ -12,24 +12,32 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+# secure proxy SSL header and secure cookies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_URL = '/static/'
+
 try:
     from lebaguette.local_settings import *
 except ImportError as e:
     print('Unable to load local_settings.py:', e)
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
@@ -125,16 +133,6 @@ USE_TZ = True
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-STATIC_URL = '/static/'
-
-# secure proxy SSL header and secure cookies
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
 # session expire at browser close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
