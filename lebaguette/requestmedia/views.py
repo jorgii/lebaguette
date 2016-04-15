@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def request_media(request):
+    return render(request, 'requestmedia/request_media.html')

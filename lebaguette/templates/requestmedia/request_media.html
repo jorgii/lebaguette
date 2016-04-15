@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+{% block title %}Lebaguette - Request Media{% endblock %}
+{% block body %}
+  <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Request Media</span>
+        <div class="mdl-layout-spacer"></div>
+        <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+          <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+        </label>
+        <div class="mdl-tooltip" for="logout">
+          Bye bye
+        </div>
+      </div>
+    </header>
+    {% include "base/drawer.html" %}
+    <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid container">
+
+      </div>
+    </main>
+  </div>
+  {% endblock %}
+  {% block post_load %}
+    <script type = "text/javascript" src="{% static "js/profile.js" %}"></script>
+  {% endblock %}
