@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('home.urls')),
     url(r'^status/', include('status.urls')),
+    url(r'^requestmedia/', include('requestmedia.urls')),
 ]
