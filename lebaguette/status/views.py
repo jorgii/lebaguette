@@ -56,7 +56,7 @@ def get_raid_data():
         raid_data = check_output(["cat", "/proc/mdstat"]) \
             .decode("utf-8").split("\n")
     except CalledProcessError:
-        raid_data = 'RAID data not found'
+        raid_data = ['RAID data not found']
     return raid_data
 
 
