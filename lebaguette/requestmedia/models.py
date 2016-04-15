@@ -10,7 +10,7 @@ class MediaItem(models.Model):
                              max_length=255,
                              blank=False,
                              null=False)
-    type = models.CharField(max_length=2, choices=MEDIA_TYPES)
+    media_type = models.CharField(max_length=2, choices=MEDIA_TYPES)
     released = models.DateField()
     imdb_rating = models.DecimalField(decimal_places=1, max_digits=2)
     imdb_id = models.CharField('IMDB ID',
