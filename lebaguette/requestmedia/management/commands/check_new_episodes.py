@@ -17,10 +17,15 @@ class Command(BaseCommand):
             request = self.get_season_episodes(show.imdb_id, season)
             # loop episodes from omdb api
             while request.json()['Response'] == 'True':
-                print(request.text)
-
+                if TVShowSeason.objects.filter(tv_show=show,
+                                               season_number=season).exists():
+                    print('success')
+                else:
+                    tv_show_season = TVShowSeason.create(tv_show=show,
+                                                         season_number=season)
+                    tv_show_season.save()
                 season += 1
-                request = self.get_season_request(show.imdb_id, season)
+                request = self.get_season_episodes(show.imdb_id, season)
 
     def get_season_episodes(self, imdb_id, season):
         return requests.get('http://www.omdbapi.com/?i=' +
