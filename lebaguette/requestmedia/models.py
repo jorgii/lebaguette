@@ -42,5 +42,4 @@ class TVShowEpisode(models.Model):
 
 class Movie(MediaItem):
     def __str__(self):
-        print('test')
         return self.title
