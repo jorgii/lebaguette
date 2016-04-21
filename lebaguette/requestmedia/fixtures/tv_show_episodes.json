@@ -1,0 +1,1202 @@
+[
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 614,
+    "fields": {
+        "season": 43,
+        "episode_title": "Things You Can't Outrun",
+        "episode_number": 3,
+        "episode_released": "2014-10-21",
+        "episode_imdbid": "tt3826166",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 615,
+    "fields": {
+        "season": 43,
+        "episode_title": "Going Rogue",
+        "episode_number": 4,
+        "episode_released": "2014-10-28",
+        "episode_imdbid": "tt3881958",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 616,
+    "fields": {
+        "season": 43,
+        "episode_title": "Plastique",
+        "episode_number": 5,
+        "episode_released": "2014-11-11",
+        "episode_imdbid": "tt3887830",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 617,
+    "fields": {
+        "season": 43,
+        "episode_title": "The Flash Is Born",
+        "episode_number": 6,
+        "episode_released": "2014-11-18",
+        "episode_imdbid": "tt3920288",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 618,
+    "fields": {
+        "season": 43,
+        "episode_title": "Power Outage",
+        "episode_number": 7,
+        "episode_released": "2014-11-25",
+        "episode_imdbid": "tt3922506",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 619,
+    "fields": {
+        "season": 43,
+        "episode_title": "Flash vs. Arrow",
+        "episode_number": 8,
+        "episode_released": "2014-12-02",
+        "episode_imdbid": "tt3899320",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 620,
+    "fields": {
+        "season": 43,
+        "episode_title": "The Man in the Yellow Suit",
+        "episode_number": 9,
+        "episode_released": "2014-12-09",
+        "episode_imdbid": "tt4017786",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 621,
+    "fields": {
+        "season": 43,
+        "episode_title": "Revenge of the Rogues",
+        "episode_number": 10,
+        "episode_released": "2015-01-20",
+        "episode_imdbid": "tt4016102",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 622,
+    "fields": {
+        "season": 43,
+        "episode_title": "The Sound and the Fury",
+        "episode_number": 11,
+        "episode_released": "2015-01-27",
+        "episode_imdbid": "tt4111294",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 623,
+    "fields": {
+        "season": 43,
+        "episode_title": "Crazy for You",
+        "episode_number": 12,
+        "episode_released": "2015-02-03",
+        "episode_imdbid": "tt4105618",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 624,
+    "fields": {
+        "season": 43,
+        "episode_title": "The Nuclear Man",
+        "episode_number": 13,
+        "episode_released": "2015-02-10",
+        "episode_imdbid": "tt4138324",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 625,
+    "fields": {
+        "season": 43,
+        "episode_title": "Fallout",
+        "episode_number": 14,
+        "episode_released": "2015-02-17",
+        "episode_imdbid": "tt4138326",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 626,
+    "fields": {
+        "season": 43,
+        "episode_title": "Out of Time",
+        "episode_number": 15,
+        "episode_released": "2015-03-17",
+        "episode_imdbid": "tt4138338",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 627,
+    "fields": {
+        "season": 43,
+        "episode_title": "Rogue Time",
+        "episode_number": 16,
+        "episode_released": "2015-03-24",
+        "episode_imdbid": "tt4138340",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 628,
+    "fields": {
+        "season": 43,
+        "episode_title": "Tricksters",
+        "episode_number": 17,
+        "episode_released": "2015-03-31",
+        "episode_imdbid": "tt4138344",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 629,
+    "fields": {
+        "season": 43,
+        "episode_title": "All Star Team Up",
+        "episode_number": 18,
+        "episode_released": "2015-04-14",
+        "episode_imdbid": "tt4138352",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 630,
+    "fields": {
+        "season": 43,
+        "episode_title": "Who Is Harrison Wells?",
+        "episode_number": 19,
+        "episode_released": "2015-04-21",
+        "episode_imdbid": "tt4138350",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 631,
+    "fields": {
+        "season": 43,
+        "episode_title": "The Trap",
+        "episode_number": 20,
+        "episode_released": "2015-04-28",
+        "episode_imdbid": "tt4138356",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 632,
+    "fields": {
+        "season": 43,
+        "episode_title": "Grodd Lives",
+        "episode_number": 21,
+        "episode_released": "2015-05-05",
+        "episode_imdbid": "tt4138376",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 633,
+    "fields": {
+        "season": 43,
+        "episode_title": "Rogue Air",
+        "episode_number": 22,
+        "episode_released": "2015-05-12",
+        "episode_imdbid": "tt4138378",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 634,
+    "fields": {
+        "season": 43,
+        "episode_title": "Fast Enough",
+        "episode_number": 23,
+        "episode_released": "2015-05-19",
+        "episode_imdbid": "tt4146568",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 635,
+    "fields": {
+        "season": 44,
+        "episode_title": "The Man Who Saved Central City",
+        "episode_number": 1,
+        "episode_released": "2015-10-06",
+        "episode_imdbid": "tt4346792",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 636,
+    "fields": {
+        "season": 44,
+        "episode_title": "Flash of Two Worlds",
+        "episode_number": 2,
+        "episode_released": "2015-10-13",
+        "episode_imdbid": "tt4491464",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 637,
+    "fields": {
+        "season": 44,
+        "episode_title": "Family of Rogues",
+        "episode_number": 3,
+        "episode_released": "2015-10-20",
+        "episode_imdbid": "tt4696934",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 638,
+    "fields": {
+        "season": 44,
+        "episode_title": "The Fury of Firestorm",
+        "episode_number": 4,
+        "episode_released": "2015-10-27",
+        "episode_imdbid": "tt4806004",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 639,
+    "fields": {
+        "season": 44,
+        "episode_title": "The Darkness and the Light",
+        "episode_number": 5,
+        "episode_released": "2015-11-03",
+        "episode_imdbid": "tt4818206",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 640,
+    "fields": {
+        "season": 44,
+        "episode_title": "Enter Zoom",
+        "episode_number": 6,
+        "episode_released": "2015-11-10",
+        "episode_imdbid": "tt4838244",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 641,
+    "fields": {
+        "season": 44,
+        "episode_title": "Gorilla Warfare",
+        "episode_number": 7,
+        "episode_released": "2015-11-17",
+        "episode_imdbid": "tt4848704",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 642,
+    "fields": {
+        "season": 44,
+        "episode_title": "Legends of Today",
+        "episode_number": 8,
+        "episode_released": "2015-12-01",
+        "episode_imdbid": "tt4857182",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 643,
+    "fields": {
+        "season": 44,
+        "episode_title": "Running to Stand Still",
+        "episode_number": 9,
+        "episode_released": "2015-12-08",
+        "episode_imdbid": "tt4859306",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 644,
+    "fields": {
+        "season": 44,
+        "episode_title": "Potential Energy",
+        "episode_number": 10,
+        "episode_released": "2016-01-19",
+        "episode_imdbid": "tt4859308",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 645,
+    "fields": {
+        "season": 44,
+        "episode_title": "The Reverse-Flash Returns",
+        "episode_number": 11,
+        "episode_released": "2016-01-26",
+        "episode_imdbid": "tt4899778",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 646,
+    "fields": {
+        "season": 44,
+        "episode_title": "Fast Lane",
+        "episode_number": 12,
+        "episode_released": "2016-02-02",
+        "episode_imdbid": "tt5017986",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 647,
+    "fields": {
+        "season": 44,
+        "episode_title": "Welcome to Earth-2",
+        "episode_number": 13,
+        "episode_released": "2016-02-09",
+        "episode_imdbid": "tt5028206",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 648,
+    "fields": {
+        "season": 44,
+        "episode_title": "Escape from Earth-2",
+        "episode_number": 14,
+        "episode_released": "2016-02-16",
+        "episode_imdbid": "tt5033248",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 649,
+    "fields": {
+        "season": 44,
+        "episode_title": "King Shark",
+        "episode_number": 15,
+        "episode_released": "2016-02-23",
+        "episode_imdbid": "tt5046444",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 650,
+    "fields": {
+        "season": 44,
+        "episode_title": "Trajectory",
+        "episode_number": 16,
+        "episode_released": "2016-03-22",
+        "episode_imdbid": "tt5051372",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 651,
+    "fields": {
+        "season": 44,
+        "episode_title": "Flash Back",
+        "episode_number": 17,
+        "episode_released": "2016-03-29",
+        "episode_imdbid": "tt5058402",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 652,
+    "fields": {
+        "season": 44,
+        "episode_title": "Episode #2.18",
+        "episode_number": 18,
+        "episode_released": "2016-04-12",
+        "episode_imdbid": "tt5068324",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 653,
+    "fields": {
+        "season": 46,
+        "episode_title": "Pilot",
+        "episode_number": 1,
+        "episode_released": "2013-09-24",
+        "episode_imdbid": "tt2912308",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 654,
+    "fields": {
+        "season": 46,
+        "episode_title": "0-8-4",
+        "episode_number": 2,
+        "episode_released": "2013-10-01",
+        "episode_imdbid": "tt3130816",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 655,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Asset",
+        "episode_number": 3,
+        "episode_released": "2013-10-08",
+        "episode_imdbid": "tt3130186",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 656,
+    "fields": {
+        "season": 46,
+        "episode_title": "Eye Spy",
+        "episode_number": 4,
+        "episode_released": "2013-10-15",
+        "episode_imdbid": "tt3218318",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 657,
+    "fields": {
+        "season": 46,
+        "episode_title": "Girl in the Flower Dress",
+        "episode_number": 5,
+        "episode_released": "2013-10-22",
+        "episode_imdbid": "tt3229400",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 658,
+    "fields": {
+        "season": 46,
+        "episode_title": "FZZT",
+        "episode_number": 6,
+        "episode_released": "2013-11-05",
+        "episode_imdbid": "tt3229404",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 659,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Hub",
+        "episode_number": 7,
+        "episode_released": "2013-11-12",
+        "episode_imdbid": "tt3229406",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 660,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Well",
+        "episode_number": 8,
+        "episode_released": "2013-11-19",
+        "episode_imdbid": "tt3252298",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 661,
+    "fields": {
+        "season": 46,
+        "episode_title": "Repairs",
+        "episode_number": 9,
+        "episode_released": "2013-11-26",
+        "episode_imdbid": "tt3252332",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 662,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Bridge",
+        "episode_number": 10,
+        "episode_released": "2013-12-10",
+        "episode_imdbid": "tt3252318",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 663,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Magical Place",
+        "episode_number": 11,
+        "episode_released": "2014-01-07",
+        "episode_imdbid": "tt3307564",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 664,
+    "fields": {
+        "season": 46,
+        "episode_title": "Seeds",
+        "episode_number": 12,
+        "episode_released": "2014-01-14",
+        "episode_imdbid": "tt3307568",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 665,
+    "fields": {
+        "season": 46,
+        "episode_title": "T.R.A.C.K.S.",
+        "episode_number": 13,
+        "episode_released": "2014-02-04",
+        "episode_imdbid": "tt3307566",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 666,
+    "fields": {
+        "season": 46,
+        "episode_title": "T.A.H.I.T.I.",
+        "episode_number": 14,
+        "episode_released": "2014-03-04",
+        "episode_imdbid": "tt3476430",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 667,
+    "fields": {
+        "season": 46,
+        "episode_title": "Yes Men",
+        "episode_number": 15,
+        "episode_released": "2014-03-11",
+        "episode_imdbid": "tt3473818",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 668,
+    "fields": {
+        "season": 46,
+        "episode_title": "End of the Beginning",
+        "episode_number": 16,
+        "episode_released": "2014-04-01",
+        "episode_imdbid": "tt3539224",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 669,
+    "fields": {
+        "season": 46,
+        "episode_title": "Turn, Turn, Turn",
+        "episode_number": 17,
+        "episode_released": "2014-04-08",
+        "episode_imdbid": "tt3539406",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 670,
+    "fields": {
+        "season": 46,
+        "episode_title": "Providence",
+        "episode_number": 18,
+        "episode_released": "2014-04-15",
+        "episode_imdbid": "tt3609126",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 671,
+    "fields": {
+        "season": 46,
+        "episode_title": "The Only Light in the Darkness",
+        "episode_number": 19,
+        "episode_released": "2014-04-22",
+        "episode_imdbid": "tt3609154",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 672,
+    "fields": {
+        "season": 46,
+        "episode_title": "Nothing Personal",
+        "episode_number": 20,
+        "episode_released": "2014-04-29",
+        "episode_imdbid": "tt3609164",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 673,
+    "fields": {
+        "season": 46,
+        "episode_title": "Ragtag",
+        "episode_number": 21,
+        "episode_released": "2014-05-06",
+        "episode_imdbid": "tt3609168",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 674,
+    "fields": {
+        "season": 46,
+        "episode_title": "Beginning of the End",
+        "episode_number": 22,
+        "episode_released": "2014-05-13",
+        "episode_imdbid": "tt3609170",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 675,
+    "fields": {
+        "season": 47,
+        "episode_title": "Shadows",
+        "episode_number": 1,
+        "episode_released": "2014-09-23",
+        "episode_imdbid": "tt3721000",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 676,
+    "fields": {
+        "season": 47,
+        "episode_title": "Heavy Is the Head",
+        "episode_number": 2,
+        "episode_released": "2014-09-30",
+        "episode_imdbid": "tt3997450",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 677,
+    "fields": {
+        "season": 47,
+        "episode_title": "Making Friends and Influencing People",
+        "episode_number": 3,
+        "episode_released": "2014-10-07",
+        "episode_imdbid": "tt3997456",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 678,
+    "fields": {
+        "season": 47,
+        "episode_title": "Face My Enemy",
+        "episode_number": 4,
+        "episode_released": "2014-10-14",
+        "episode_imdbid": "tt3997452",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 679,
+    "fields": {
+        "season": 47,
+        "episode_title": "A Hen in the Wolf House",
+        "episode_number": 5,
+        "episode_released": "2014-10-21",
+        "episode_imdbid": "tt3970174",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 680,
+    "fields": {
+        "season": 47,
+        "episode_title": "A Fractured House",
+        "episode_number": 6,
+        "episode_released": "2014-10-28",
+        "episode_imdbid": "tt4078580",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 681,
+    "fields": {
+        "season": 47,
+        "episode_title": "The Writing on the Wall",
+        "episode_number": 7,
+        "episode_released": "2014-11-11",
+        "episode_imdbid": "tt4082652",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 682,
+    "fields": {
+        "season": 47,
+        "episode_title": "The Things We Bury",
+        "episode_number": 8,
+        "episode_released": "2014-11-18",
+        "episode_imdbid": "tt4082656",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 683,
+    "fields": {
+        "season": 47,
+        "episode_title": "Ye Who Enter Here",
+        "episode_number": 9,
+        "episode_released": "2014-12-02",
+        "episode_imdbid": "tt4120698",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 684,
+    "fields": {
+        "season": 47,
+        "episode_title": "What They Become",
+        "episode_number": 10,
+        "episode_released": "2014-12-09",
+        "episode_imdbid": "tt4120702",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 685,
+    "fields": {
+        "season": 47,
+        "episode_title": "Aftershocks",
+        "episode_number": 11,
+        "episode_released": "2015-03-03",
+        "episode_imdbid": "tt4120704",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 686,
+    "fields": {
+        "season": 47,
+        "episode_title": "Who You Really Are",
+        "episode_number": 12,
+        "episode_released": "2015-03-10",
+        "episode_imdbid": "tt4120714",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 687,
+    "fields": {
+        "season": 47,
+        "episode_title": "One of Us",
+        "episode_number": 13,
+        "episode_released": "2015-03-17",
+        "episode_imdbid": "tt4120718",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 688,
+    "fields": {
+        "season": 47,
+        "episode_title": "Love in the Time of Hydra",
+        "episode_number": 14,
+        "episode_released": "2015-03-24",
+        "episode_imdbid": "tt4120720",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 689,
+    "fields": {
+        "season": 47,
+        "episode_title": "One Door Closes",
+        "episode_number": 15,
+        "episode_released": "2015-03-31",
+        "episode_imdbid": "tt4120722",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 690,
+    "fields": {
+        "season": 47,
+        "episode_title": "Afterlife",
+        "episode_number": 16,
+        "episode_released": "2015-04-07",
+        "episode_imdbid": "tt4120726",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 691,
+    "fields": {
+        "season": 47,
+        "episode_title": "Melinda",
+        "episode_number": 17,
+        "episode_released": "2015-04-14",
+        "episode_imdbid": "tt4120730",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 692,
+    "fields": {
+        "season": 47,
+        "episode_title": "Frenemy of My Enemy",
+        "episode_number": 18,
+        "episode_released": "2015-04-21",
+        "episode_imdbid": "tt4120738",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 693,
+    "fields": {
+        "season": 47,
+        "episode_title": "The Dirty Half Dozen",
+        "episode_number": 19,
+        "episode_released": "2015-04-28",
+        "episode_imdbid": "tt4120734",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 694,
+    "fields": {
+        "season": 47,
+        "episode_title": "Scars",
+        "episode_number": 20,
+        "episode_released": "2015-05-05",
+        "episode_imdbid": "tt4122454",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 695,
+    "fields": {
+        "season": 47,
+        "episode_title": "S.O.S. Part 1",
+        "episode_number": 21,
+        "episode_released": "2015-05-12",
+        "episode_imdbid": "tt4122456",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 696,
+    "fields": {
+        "season": 47,
+        "episode_title": "S.O.S. Part 2",
+        "episode_number": 22,
+        "episode_released": "2015-05-12",
+        "episode_imdbid": "tt4110822",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 697,
+    "fields": {
+        "season": 48,
+        "episode_title": "Laws of Nature",
+        "episode_number": 1,
+        "episode_released": "2015-09-29",
+        "episode_imdbid": "tt4667540",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 698,
+    "fields": {
+        "season": 48,
+        "episode_title": "Purpose in the Machine",
+        "episode_number": 2,
+        "episode_released": "2015-10-06",
+        "episode_imdbid": "tt4706470",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 699,
+    "fields": {
+        "season": 48,
+        "episode_title": "A Wanted (Inhu)Man",
+        "episode_number": 3,
+        "episode_released": "2015-10-13",
+        "episode_imdbid": "tt4727950",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 700,
+    "fields": {
+        "season": 48,
+        "episode_title": "Devils You Know",
+        "episode_number": 4,
+        "episode_released": "2015-10-20",
+        "episode_imdbid": "tt4732884",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 701,
+    "fields": {
+        "season": 48,
+        "episode_title": "4,722 Hours",
+        "episode_number": 5,
+        "episode_released": "2015-10-27",
+        "episode_imdbid": "tt4742110",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 702,
+    "fields": {
+        "season": 48,
+        "episode_title": "Among Us Hide...",
+        "episode_number": 6,
+        "episode_released": "2015-11-03",
+        "episode_imdbid": "tt4760490",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 703,
+    "fields": {
+        "season": 48,
+        "episode_title": "Chaos Theory",
+        "episode_number": 7,
+        "episode_released": "2015-11-10",
+        "episode_imdbid": "tt4765060",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 704,
+    "fields": {
+        "season": 48,
+        "episode_title": "Many Heads, One Tale",
+        "episode_number": 8,
+        "episode_released": "2015-11-17",
+        "episode_imdbid": "tt4769592",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 705,
+    "fields": {
+        "season": 48,
+        "episode_title": "Closure",
+        "episode_number": 9,
+        "episode_released": "2015-12-01",
+        "episode_imdbid": "tt4778366",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 706,
+    "fields": {
+        "season": 48,
+        "episode_title": "Maveth",
+        "episode_number": 10,
+        "episode_released": "2015-12-08",
+        "episode_imdbid": "tt4786258",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 707,
+    "fields": {
+        "season": 48,
+        "episode_title": "Bouncing Back",
+        "episode_number": 11,
+        "episode_released": "2016-03-08",
+        "episode_imdbid": "tt4794580",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 708,
+    "fields": {
+        "season": 48,
+        "episode_title": "The Inside Man",
+        "episode_number": 12,
+        "episode_released": "2016-03-15",
+        "episode_imdbid": "tt4800060",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 709,
+    "fields": {
+        "season": 48,
+        "episode_title": "Parting Shot",
+        "episode_number": 13,
+        "episode_released": "2016-03-22",
+        "episode_imdbid": "tt4809604",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 710,
+    "fields": {
+        "season": 48,
+        "episode_title": "Watchdogs",
+        "episode_number": 14,
+        "episode_released": "2016-03-29",
+        "episode_imdbid": "tt4819384",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 711,
+    "fields": {
+        "season": 48,
+        "episode_title": "Spacetime",
+        "episode_number": 15,
+        "episode_released": "2016-04-05",
+        "episode_imdbid": "tt4829172",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 712,
+    "fields": {
+        "season": 48,
+        "episode_title": "Paradise Lost",
+        "episode_number": 16,
+        "episode_released": "2016-04-12",
+        "episode_imdbid": "tt4838204",
+        "episode_completed": false
+    }
+},
+{
+    "model": "requestmedia.tvshowepisode",
+    "pk": 713,
+    "fields": {
+        "season": 48,
+        "episode_title": "The Team",
+        "episode_number": 17,
+        "episode_released": "2016-04-19",
+        "episode_imdbid": "tt4842854",
+        "episode_completed": false
+    }
+}
+]
