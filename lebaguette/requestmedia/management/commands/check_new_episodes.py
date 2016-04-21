@@ -18,7 +18,13 @@ class Command(BaseCommand):
         # loop active shows in db
         for show in active_shows:
             print('Start working on ', show.title)
-            season = 1
+            if TVShowSeason.objects.filter(tv_show=show).exists():
+                season = TVShowSeason.objects.filter(
+                    tv_show=show,
+                    season_completed=False).order_by(
+                        '-season_number')[0].season_number
+            else:
+                season = 1
             request = self.get_season_episodes(show.imdb_id, season)
             # loop seasons from omdb api
             while request.json()['Response'] == 'True':
