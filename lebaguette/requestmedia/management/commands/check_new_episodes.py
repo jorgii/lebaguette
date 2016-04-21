@@ -27,7 +27,7 @@ class Command(BaseCommand):
             else:
                 season = 1
             request = self.get_season_episodes(show.imdb_id, season)
-            # loop seasons from omdb api
+            # loop active seasons from omdb api
             while request.json()['Response'] == 'True':
                 if not TVShowSeason.objects.filter(
                         tv_show=show,
