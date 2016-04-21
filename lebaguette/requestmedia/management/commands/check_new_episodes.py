@@ -11,7 +11,7 @@ class Command(BaseCommand):
         self.get_new_episodes(active_shows)
 
     def get_new_episodes(self, active_shows):
-        # loop shows in db
+        # loop active shows in db
         for show in active_shows:
             season = 1
             request = self.get_season_episodes(show.imdb_id, season)
@@ -19,11 +19,26 @@ class Command(BaseCommand):
             while request.json()['Response'] == 'True':
                 if TVShowSeason.objects.filter(tv_show=show,
                                                season_number=season).exists():
-                    print('success')
+                    # loop through episodes
+                    for episode in request.json()['Episodes']:
+                        if TVShowEpisode.objects.filter(
+                                episode_number=episode['Episode']).exists():
+                            pass
+                        else:
+                            tv_show_episode = TVShowEpisode.create(
+                                season=season,
+                                episode_title=episode['Title'],
+                                episode_number=int(episode['Episode']))
+                            tv_show_episode.save()
+                            print(
+                                'Added episode ', episode['Episode'],
+                                ' for Season ', season,
+                                ' in tv show ', show.title)
                 else:
                     tv_show_season = TVShowSeason.create(tv_show=show,
                                                          season_number=season)
                     tv_show_season.save()
+                    print('Added ', show.title, '; Season ', season)
                 season += 1
                 request = self.get_season_episodes(show.imdb_id, season)
 
