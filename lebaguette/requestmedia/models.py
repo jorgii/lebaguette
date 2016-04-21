@@ -52,6 +52,12 @@ class TVShowEpisode(models.Model):
     class Meta:
         unique_together = ('season', 'episode_number')
 
+    def __str__(self):
+        return (
+            self.season.tv_show.title +
+            ': S' + str(self.season.season_number) +
+            'E' + str(self.episode_number))
+
     @classmethod
     def create(cls, season, episode_title, episode_number):
         return cls(season=season,
