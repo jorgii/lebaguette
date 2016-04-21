@@ -48,6 +48,11 @@ class TVShowEpisode(models.Model):
                                      blank=False,
                                      null=False)
     episode_number = models.IntegerField()
+    episode_imdbid = models.CharField(
+        'Episode IMDB ID',
+        max_length=255,
+        blank=False,
+        null=False)
 
     class Meta:
         unique_together = ('season', 'episode_number')
