@@ -12,3 +12,6 @@ class CommandsTest(TestCase):
         self.assertEqual(len(TVShow.objects.all()), 3)
         call_command('check_new_episodes')
         self.assertTrue(TVShowEpisode.objects.all().exists())
+
+    def test_call_with_no_shows(self):
+        call_command('check_new_episodes')
