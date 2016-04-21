@@ -1,6 +1,6 @@
 import requests
 import time
-from datetime import datetime
+from datetime import datetime, date
 
 from django.core.management.base import BaseCommand
 
@@ -40,22 +40,25 @@ class Command(BaseCommand):
                             episode_imdbid=episode['imdbID']).exists():
                         pass
                     else:
-                        # create non existent episodes
-                        tv_show_episode = TVShowEpisode.create(
-                            season=TVShowSeason.objects.get(
-                                tv_show=show,
-                                season_number=season),
-                            episode_title=episode['Title'],
-                            episode_number=int(episode['Episode']),
-                            episode_released=datetime.strptime(
+                        # create non existent episodes that have already aired
+                        if date.today() > datetime.strptime(
                                 episode['Released'],
-                                '%Y-%m-%d').date(),
-                            episode_imdbid=episode['imdbID'])
-                        tv_show_episode.save()
-                        print(
-                            'Added episode ', episode['Episode'],
-                            ' for Season ', season,
-                            ' in tv show ', show.title)
+                                '%Y-%m-%d').date():
+                            tv_show_episode = TVShowEpisode.create(
+                                season=TVShowSeason.objects.get(
+                                    tv_show=show,
+                                    season_number=season),
+                                episode_title=episode['Title'],
+                                episode_number=int(episode['Episode']),
+                                episode_released=datetime.strptime(
+                                    episode['Released'],
+                                    '%Y-%m-%d').date(),
+                                episode_imdbid=episode['imdbID'])
+                            tv_show_episode.save()
+                            print(
+                                'Added episode ', episode['Episode'],
+                                ' for Season ', season,
+                                ' in tv show ', show.title)
                 season += 1
                 request = self.get_season_episodes(show.imdb_id, season)
 
