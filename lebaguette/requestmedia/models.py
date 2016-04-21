@@ -48,6 +48,7 @@ class TVShowEpisode(models.Model):
                                      blank=False,
                                      null=False)
     episode_number = models.IntegerField()
+    episode_released = models.DateField()
     episode_imdbid = models.CharField(
         'Episode IMDB ID',
         max_length=255,
