@@ -28,7 +28,10 @@ class TVShow(MediaItem):
 
 class TVShowSeason(models.Model):
     tv_show = models.ForeignKey(TVShow, on_delete=models.CASCADE)
-    season_number = models.IntegerField(unique=True)
+    season_number = models.IntegerField()
+
+    class Meta:
+        unique_together = ('tv_show', 'season_number')
 
     def __str__(self):
         return (self.tv_show.title + ': Season ' + str(self.season_number))
@@ -44,7 +47,10 @@ class TVShowEpisode(models.Model):
                                      max_length=255,
                                      blank=False,
                                      null=False)
-    episode_number = models.IntegerField(unique=True)
+    episode_number = models.IntegerField()
+
+    class Meta:
+        unique_together = ('season', 'episode_number')
 
     @classmethod
     def create(cls, season, episode_title, episode_number):
