@@ -41,7 +41,7 @@ class Command(BaseCommand):
                         pass
                     else:
                         # create non existent episodes that have already aired
-                        if date.today() > datetime.strptime(
+                        if date.today() >= datetime.strptime(
                                 episode['Released'],
                                 '%Y-%m-%d').date():
                             tv_show_episode = TVShowEpisode.create(
