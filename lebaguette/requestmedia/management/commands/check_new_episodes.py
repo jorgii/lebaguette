@@ -18,6 +18,7 @@ class Command(BaseCommand):
         # loop active shows in db
         for show in active_shows:
             print('Start working on ', show.title)
+            # get the latest active season
             if TVShowSeason.objects.filter(tv_show=show).exists():
                 season = TVShowSeason.objects.filter(
                     tv_show=show,
