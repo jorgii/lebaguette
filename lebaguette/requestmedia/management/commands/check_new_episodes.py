@@ -34,12 +34,12 @@ class Command(BaseCommand):
                                     '&Season=' +
                                     str(season) +
                                     '&plot=short&r=json')
-        except requests.ConnectionError, e:
+        except requests.exceptions.ConnectionError, e:
             print('There was an error connecting to the api. ', e)
-        except request.HTTPError, e:
+        except request.exceptions.HTTPError, e:
             print('Invalid HTTP response received. ', e)
-        except request.Timeout, e:
+        except request.exceptions.Timeout, e:
             print('The connection to the api timed out. ', e)
-        except request.TooManyRedirects, e:
+        except request.exceptions.TooManyRedirects, e:
             print('There have been too many redirects. ', e)
         return episodes
