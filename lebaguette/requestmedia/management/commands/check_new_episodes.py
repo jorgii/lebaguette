@@ -13,6 +13,7 @@ class Command(BaseCommand):
     def get_new_episodes(self, active_shows):
         # loop active shows in db
         for show in active_shows:
+            print('Start working on ', show.title)
             season = 1
             request = self.get_season_episodes(show.imdb_id, season)
             # loop seasons from omdb api
@@ -26,9 +27,12 @@ class Command(BaseCommand):
                             pass
                         else:
                             tv_show_episode = TVShowEpisode.create(
-                                season=season,
+                                season=TVShowSeason.objects.get(
+                                    tv_show=show,
+                                    season_number=season),
                                 episode_title=episode['Title'],
-                                episode_number=int(episode['Episode']))
+                                episode_number=int(episode['Episode']),
+                                episode_imdbid=episode['imdbID'])
                             tv_show_episode.save()
                             print(
                                 'Added episode ', episode['Episode'],
@@ -49,12 +53,12 @@ class Command(BaseCommand):
                                     '&Season=' +
                                     str(season) +
                                     '&plot=short&r=json')
-        except requests.exceptions.ConnectionError, e:
-            print('There was an error connecting to the api. ', e)
-        except request.exceptions.HTTPError, e:
-            print('Invalid HTTP response received. ', e)
-        except request.exceptions.Timeout, e:
-            print('The connection to the api timed out. ', e)
-        except request.exceptions.TooManyRedirects, e:
-            print('There have been too many redirects. ', e)
+        except requests.exceptions.ConnectionError:
+            print('There was an error connecting to the api. ')
+        except request.exceptions.HTTPError:
+            print('Invalid HTTP response received. ')
+        except request.exceptions.Timeout:
+            print('The connection to the api timed out. ')
+        except request.exceptions.TooManyRedirects:
+            print('There have been too many redirects. ')
         return episodes
