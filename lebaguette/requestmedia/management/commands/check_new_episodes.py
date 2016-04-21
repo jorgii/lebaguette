@@ -28,8 +28,18 @@ class Command(BaseCommand):
                 request = self.get_season_episodes(show.imdb_id, season)
 
     def get_season_episodes(self, imdb_id, season):
-        return requests.get('http://www.omdbapi.com/?i=' +
-                            imdb_id +
-                            '&Season=' +
-                            str(season) +
-                            '&plot=short&r=json')
+        try:
+            episodes = requests.get('http://www.omdbapi.com/?i=' +
+                                    imdb_id +
+                                    '&Season=' +
+                                    str(season) +
+                                    '&plot=short&r=json')
+        except requests.ConnectionError, e:
+            print('There was an error connecting to the api. ', e)
+        except request.HTTPError, e:
+            print('Invalid HTTP response received. ', e)
+        except request.Timeout, e:
+            print('The connection to the api timed out. ', e)
+        except request.TooManyRedirects, e:
+            print('There have been too many redirects. ', e)
+        return episodes
