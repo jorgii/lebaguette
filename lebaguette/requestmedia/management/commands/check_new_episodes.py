@@ -9,15 +9,12 @@ from requestmedia.models import TVShow, TVShowSeason, TVShowEpisode
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        start_time = time.time()
         active_shows = TVShow.objects.filter(show_completed=False)
         self.get_new_episodes(active_shows)
-        print("The operation took me %s seconds" % (time.time() - start_time))
 
     def get_new_episodes(self, active_shows):
         # loop active shows in db
         for show in active_shows:
-            print('Start working on ', show.title)
             # get the latest active season
             if TVShowSeason.objects.filter(tv_show=show).exists():
                 season = TVShowSeason.objects.filter(
@@ -36,7 +33,6 @@ class Command(BaseCommand):
                     tv_show_season = TVShowSeason.create(tv_show=show,
                                                          season_number=season)
                     tv_show_season.save()
-                    print('Added ', show.title, '; Season ', season)
                 # loop through episodes
                 for episode in request.json()['Episodes']:
                     if TVShowEpisode.objects.filter(
@@ -62,10 +58,6 @@ class Command(BaseCommand):
                                     '%Y-%m-%d').date(),
                                 episode_imdbid=episode['imdbID'])
                             tv_show_episode.save()
-                            print(
-                                'Added episode ', episode['Episode'],
-                                ' for Season ', season,
-                                ' in tv show ', show.title)
                 season += 1
                 request = self.get_season_episodes(show.imdb_id, season)
 
