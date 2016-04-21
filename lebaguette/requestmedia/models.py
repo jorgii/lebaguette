@@ -29,6 +29,7 @@ class TVShow(MediaItem):
 class TVShowSeason(models.Model):
     tv_show = models.ForeignKey(TVShow, on_delete=models.CASCADE)
     season_number = models.IntegerField()
+    season_completed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('tv_show', 'season_number')
@@ -54,6 +55,7 @@ class TVShowEpisode(models.Model):
         max_length=255,
         blank=False,
         null=False)
+    episode_completed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('season', 'episode_number')
@@ -65,10 +67,19 @@ class TVShowEpisode(models.Model):
             'E' + str(self.episode_number))
 
     @classmethod
-    def create(cls, season, episode_title, episode_number):
-        return cls(season=season,
-                   episode_title=episode_title,
-                   episode_number=episode_number)
+    def create(
+            cls,
+            season,
+            episode_title,
+            episode_number,
+            episode_released,
+            episode_imdbid):
+        return cls(
+            season=season,
+            episode_title=episode_title,
+            episode_number=episode_number,
+            episode_released=episode_released,
+            episode_imdbid=episode_imdbid)
 
 
 class Movie(MediaItem):
