@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 from django.core.management.base import BaseCommand
 
@@ -32,6 +33,9 @@ class Command(BaseCommand):
                                     season_number=season),
                                 episode_title=episode['Title'],
                                 episode_number=int(episode['Episode']),
+                                episode_released=datetime.strptime(
+                                    episode['Released'],
+                                    '%Y-%m-%d').date(),
                                 episode_imdbid=episode['imdbID'])
                             tv_show_episode.save()
                             print(
