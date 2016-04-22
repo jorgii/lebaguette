@@ -8,9 +8,6 @@ from requestmedia.models import TVShow, TVShowSeason, TVShowEpisode
 class Command(BaseCommand):
     def handle(self, *args, **options):
         active_shows = TVShow.objects.filter(show_completed=False)
-        self.get_new_episodes(active_shows)
-
-    def get_new_episodes(self, active_shows):
         # loop active shows in db
         for show in active_shows:
             # add missing seasons from api
