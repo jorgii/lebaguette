@@ -1,3 +1,5 @@
+from datetime import datetime, date
+
 from django.db import models
 
 
@@ -40,6 +42,26 @@ class TVShowSeason(models.Model):
     @classmethod
     def create(cls, tv_show, season_number):
         return cls(tv_show=tv_show, season_number=season_number)
+
+    def create_episodes_from_json(self, episodes_json):
+        for episode in episodes_json['Episodes']:
+            # create non existent episodes that have already aired
+            if not TVShowEpisode.objects.filter(
+                            episode_number=int(episode['Episode']),
+                            season=self,
+                            episode_imdbid=episode['imdbID']).exists() and \
+                    date.today() >= datetime.strptime(
+                                            episode['Released'],
+                                            '%Y-%m-%d').date():
+                tv_show_episode = TVShowEpisode.create(
+                    season=self,
+                    episode_title=episode['Title'],
+                    episode_number=int(episode['Episode']),
+                    episode_released=datetime.strptime(
+                        episode['Released'],
+                        '%Y-%m-%d').date(),
+                    episode_imdbid=episode['imdbID'])
+                tv_show_episode.save()
 
 
 class TVShowEpisode(models.Model):
