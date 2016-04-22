@@ -30,7 +30,7 @@ class Command(BaseCommand):
             if api_season_number not in db_seasons:
                 tv_show_season = TVShowSeason.create(
                     tv_show=show,
-                    season_number=season)
+                    season_number=api_season_number)
                 tv_show_season.save()
         return
 
