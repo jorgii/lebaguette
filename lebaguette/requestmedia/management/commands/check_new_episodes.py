@@ -67,6 +67,7 @@ class Command(BaseCommand):
                     tv_show=show,
                     season_number=season)
                 tv_show_season.save()
+        return
 
     def get_all_seasons_from_api(self, show):
         seasons = []
