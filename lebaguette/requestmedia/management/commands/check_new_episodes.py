@@ -25,9 +25,7 @@ class Command(BaseCommand):
                 episodes_request = self.get_season_from_api(
                     imdb_id=show.imdb_id,
                     season.season_number)
-                show.create_episodes_from_json(
-                    season,
-                    episodes_request.json())
+                season.create_episodes_from_json(episodes_request.json())
 
     def get_season_()
 
