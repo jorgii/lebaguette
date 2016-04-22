@@ -15,16 +15,9 @@ class Command(BaseCommand):
     def get_new_episodes(self, active_shows):
         # loop active shows in db
         for show in active_shows:
+            self.check_and_add_new_seasons(show)
             # get the latest active season
-            if TVShowSeason.objects.filter(
-                    tv_show=show,
-                    season_completed=False).exists():
-                season = TVShowSeason.objects.filter(
-                    tv_show=show,
-                    season_completed=False).order_by(
-                        '-season_number')[0].season_number
-            else:
-                season = 1
+            season = self.get_next_active_season(show)
             request = self.get_season_episodes(show.imdb_id, season)
             # loop active seasons from omdb api
             while request.json()['Response'] == 'True':
@@ -62,6 +55,21 @@ class Command(BaseCommand):
                             tv_show_episode.save()
                 season += 1
                 request = self.get_season_episodes(show.imdb_id, season)
+
+    def check_and_add_new_seasons(self, show):
+        seasons_in_db = TVShowSeason.objects.filter(
+            tv_show=show).values_list('season_number', flat=True)
+        seasons_from_api = self.get_all_seasons_from_api(show)
+
+    def get_all_seasons_from_api(self, show):
+        seasons = []
+        season = 1
+        request = self.get_season_episodes(show.imdb_id, season)
+        while request.json()['Response'] == 'True':
+            seasons.append(season)
+            season += 1
+            request = self.get_season_episodes(show.imdb_id, season)
+
 
     def get_season_episodes(self, imdb_id, season):
         try:
