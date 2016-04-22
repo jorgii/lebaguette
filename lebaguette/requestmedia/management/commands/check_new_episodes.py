@@ -16,7 +16,9 @@ class Command(BaseCommand):
         # loop active shows in db
         for show in active_shows:
             # get the latest active season
-            if TVShowSeason.objects.filter(tv_show=show).exists():
+            if TVShowSeason.objects.filter(
+                    tv_show=show,
+                    season_completed=False).exists():
                 season = TVShowSeason.objects.filter(
                     tv_show=show,
                     season_completed=False).order_by(
