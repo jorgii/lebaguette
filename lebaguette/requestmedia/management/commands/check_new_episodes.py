@@ -27,8 +27,6 @@ class Command(BaseCommand):
                     season.season_number)
                 season.create_episodes_from_json(episodes_request.json())
 
-    def get_season_()
-
     def check_and_add_missing_seasons(self, show):
         db_seasons = TVShowSeason.objects.filter(
             tv_show=show).values_list('season_number', flat=True)
