@@ -57,9 +57,15 @@ class Command(BaseCommand):
                 request = self.get_season_episodes(show.imdb_id, season)
 
     def check_and_add_new_seasons(self, show):
-        seasons_in_db = TVShowSeason.objects.filter(
+        db_seasons = TVShowSeason.objects.filter(
             tv_show=show).values_list('season_number', flat=True)
         seasons_from_api = self.get_all_seasons_from_api(show)
+        for api_season in seasons_from_api:
+            if api_season not in db_seasons:
+                tv_show_season = TVShowSeason.create(
+                    tv_show=show,
+                    season_number=season)
+                tv_show_season.save()
 
     def get_all_seasons_from_api(self, show):
         seasons = []
