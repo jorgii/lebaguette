@@ -17,45 +17,19 @@ class Command(BaseCommand):
         for show in active_shows:
             # add missing seasons from api
             self.check_and_add_missing_seasons(show)
-            # get the latest active season
-            season = self.get_next_active_season(show)
-            request = self.get_season_episodes(show.imdb_id, season)
-            # loop active seasons from omdb api
-            while request.json()['Response'] == 'True':
-                if not TVShowSeason.objects.filter(
-                        tv_show=show,
-                        season_number=season).exists():
-                    # Create tv show season if non existent
-                    tv_show_season = TVShowSeason.create(tv_show=show,
-                                                         season_number=season)
-                    tv_show_season.save()
-                # loop through episodes
-                for episode in request.json()['Episodes']:
-                    if TVShowEpisode.objects.filter(
-                            episode_number=episode['Episode'],
-                            season=TVShowSeason.objects.get(
-                                tv_show=show,
-                                season_number=season),
-                            episode_imdbid=episode['imdbID']).exists():
-                        pass
-                    else:
-                        # create non existent episodes that have already aired
-                        if date.today() >= datetime.strptime(
-                                episode['Released'],
-                                '%Y-%m-%d').date():
-                            tv_show_episode = TVShowEpisode.create(
-                                season=TVShowSeason.objects.get(
-                                    tv_show=show,
-                                    season_number=season),
-                                episode_title=episode['Title'],
-                                episode_number=int(episode['Episode']),
-                                episode_released=datetime.strptime(
-                                    episode['Released'],
-                                    '%Y-%m-%d').date(),
-                                episode_imdbid=episode['imdbID'])
-                            tv_show_episode.save()
-                season += 1
-                request = self.get_season_episodes(show.imdb_id, season)
+            # loop active seasons in db and add missing episodes
+            seasons = TVShowSeason.objects.filter(
+                    tv_show=show,
+                    season_completed=False)
+            for season in seasons:
+                episodes_request = self.get_season_from_api(
+                    imdb_id=show.imdb_id,
+                    season.season_number)
+                show.create_episodes_from_json(
+                    season,
+                    episodes_request.json())
+
+    def get_season_()
 
     def check_and_add_missing_seasons(self, show):
         db_seasons = TVShowSeason.objects.filter(
@@ -72,13 +46,13 @@ class Command(BaseCommand):
     def get_all_seasons_from_api(self, show):
         seasons = []
         season = 1
-        request = self.get_season_episodes(show.imdb_id, season)
+        request = self.get_season_from_api(show.imdb_id, season)
         while request.json()['Response'] == 'True':
             seasons.append(season)
             season += 1
-            request = self.get_season_episodes(show.imdb_id, season)
+            request = self.get_season_from_api(show.imdb_id, season)
 
-    def get_season_episodes(self, imdb_id, season):
+    def get_season_from_api(self, imdb_id, season):
         try:
             episodes_request = requests.get(
                 'http://www.omdbapi.com/?i=' +
