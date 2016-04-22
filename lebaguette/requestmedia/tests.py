@@ -17,7 +17,7 @@ class CommandsTest(TestCase):
         call_command('check_new_episodes')
         self.assertEqual(len(TVShow.objects.all()), 0)
 
-    def test_create_shows_for_completed_season(self):
+    def test_create_episodes_for_completed_season(self):
         call_command(
             'loaddata', 'tv_shows',
             verbosity=0)
