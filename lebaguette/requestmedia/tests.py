@@ -5,12 +5,13 @@ from requestmedia.models import TVShow, TVShowSeason, TVShowEpisode
 
 
 class CommandsTest(TestCase):
-    def test_get_shows_data(self):
+    def test_create_seasons_and_episodes(self):
         call_command(
             'loaddata', 'tv_shows',
             verbosity=0)
         self.assertEqual(len(TVShow.objects.all()), 3)
         call_command('check_new_episodes')
+        self.assertTrue(TVShowSeason.objects.all().exists())
         self.assertTrue(TVShowEpisode.objects.all().exists())
 
     def test_call_with_no_shows(self):
