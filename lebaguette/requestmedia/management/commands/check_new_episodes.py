@@ -15,7 +15,8 @@ class Command(BaseCommand):
     def get_new_episodes(self, active_shows):
         # loop active shows in db
         for show in active_shows:
-            self.check_and_add_new_seasons(show)
+            # add missing seasons from api
+            self.check_and_add_missing_seasons(show)
             # get the latest active season
             season = self.get_next_active_season(show)
             request = self.get_season_episodes(show.imdb_id, season)
@@ -56,7 +57,7 @@ class Command(BaseCommand):
                 season += 1
                 request = self.get_season_episodes(show.imdb_id, season)
 
-    def check_and_add_new_seasons(self, show):
+    def check_and_add_missing_seasons(self, show):
         db_seasons = TVShowSeason.objects.filter(
             tv_show=show).values_list('season_number', flat=True)
         seasons_from_api = self.get_all_seasons_from_api(show)
