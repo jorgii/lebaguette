@@ -19,29 +19,30 @@ class Command(BaseCommand):
             for season in seasons:
                 episodes_request = self.get_season_from_api(
                     imdb_id=show.imdb_id,
-                    season.season_number)
+                    season=season.season_number)
                 season.create_episodes_from_json(episodes_request.json())
 
     def check_and_add_missing_seasons(self, show):
         db_seasons = TVShowSeason.objects.filter(
             tv_show=show).values_list('season_number', flat=True)
-        seasons_from_api = self.get_all_seasons_from_api(show)
-        for api_season in seasons_from_api:
-            if api_season not in db_seasons:
+        seasons_numbers_from_api = self.get_all_seasons_numbers_from_api(show)
+        for api_season_number in seasons_numbers_from_api:
+            if api_season_number not in db_seasons:
                 tv_show_season = TVShowSeason.create(
                     tv_show=show,
                     season_number=season)
                 tv_show_season.save()
         return
 
-    def get_all_seasons_from_api(self, show):
-        seasons = []
+    def get_all_seasons_numbers_from_api(self, show):
+        seasons_numbers = []
         season = 1
         request = self.get_season_from_api(show.imdb_id, season)
         while request.json()['Response'] == 'True':
-            seasons.append(season)
+            seasons_numbers.append(season)
             season += 1
             request = self.get_season_from_api(show.imdb_id, season)
+        return seasons_numbers
 
     def get_season_from_api(self, imdb_id, season):
         try:
