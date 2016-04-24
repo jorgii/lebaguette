@@ -53,3 +53,20 @@ class CommandsTest(TestCase):
         tv_show_season_one_episodes = TVShowEpisode.objects.filter(
             season=tv_show_season_one)
         self.assertTrue(tv_show_season_one_episodes.exists())
+
+    def test_delete_episodes_and_recreate_them(self):
+        self.create_shows()
+        call_command('check_new_episodes')
+        tv_show = TVShow.objects.get(id=1)
+        tv_show_season_one = TVShowSeason.objects.get(
+                                tv_show=tv_show,
+                                season_number=1)
+        tv_show_episode_one = TVShowEpisode.objects.get(
+                                season=tv_show_season_one,
+                                episode_number=1)
+        tv_show_episode_one.delete()
+        call_command('check_new_episodes')
+        tv_show_episode_one = TVShowEpisode.objects.filter(
+                                season=tv_show_season_one,
+                                episode_number=1)
+        self.assertTrue(tv_show_episode_one.exists())
