@@ -4,12 +4,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models.functions import Coalesce
 
 
-from .models import MediaItem
+from .models import TVShowEpisode
 
 
 @login_required
 def request_media(request):
-    media_items = MediaItem.objects.all().order_by(
+    media_items = TVShowEpisode.objects.all().order_by(
         Coalesce('datetime_created', 'title').desc())
     paginator = Paginator(media_items, 5)
     page = request.GET.get('page')
@@ -24,7 +24,7 @@ def request_media(request):
 
 @login_required
 def episodes(request):
-    episodes = MediaItem.objects.all().order_by(
+    episodes = TVShowEpisode.objects.filter(episode_completed=False).order_by(
         Coalesce('datetime_created', 'title').desc())
     paginator = Paginator(episodes, 5)
     page = request.GET.get('page')
