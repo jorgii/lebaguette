@@ -20,3 +20,18 @@ def request_media(request):
     except EmptyPage:
         media_items_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/request_media.html', locals())
+
+
+@login_required
+def episodes(request):
+    media_items = MediaItem.objects.all().order_by(
+        Coalesce('datetime_created', 'title').desc())
+    paginator = Paginator(media_items, 5)
+    page = request.GET.get('page')
+    try:
+        media_items_page = paginator.page(page)
+    except PageNotAnInteger:
+        media_items_page = paginator.page(number=1)
+    except EmptyPage:
+        media_items_page = paginator.page(paginator.num_pages)
+    return render(request, 'requestmedia/request_media.html', locals())
