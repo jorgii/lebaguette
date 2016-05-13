@@ -25,5 +25,5 @@ def request_media(request):
 @login_required
 def episodes(request):
     episodes = TVShowEpisode.objects.filter(episode_completed=False).order_by(
-        Coalesce('datetime_created', 'title').desc())
+        Coalesce('episode_released', 'episode_title').desc())
     return render(request, 'requestmedia/episodes.html', locals())
