@@ -26,12 +26,4 @@ def request_media(request):
 def episodes(request):
     episodes = TVShowEpisode.objects.filter(episode_completed=False).order_by(
         Coalesce('datetime_created', 'title').desc())
-    paginator = Paginator(episodes, 5)
-    page = request.GET.get('page')
-    try:
-        episodes_page = paginator.page(page)
-    except PageNotAnInteger:
-        episodes_page = paginator.page(number=1)
-    except EmptyPage:
-        episodes_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/episodes.html', locals())
