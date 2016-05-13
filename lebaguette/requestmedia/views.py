@@ -10,7 +10,7 @@ from .models import TVShowEpisode
 @login_required
 def request_media(request):
     media_items = TVShowEpisode.objects.all().order_by(
-        Coalesce('datetime_created', 'title').desc())
+        Coalesce('episode_released', 'episode_title').desc())
     paginator = Paginator(media_items, 5)
     page = request.GET.get('page')
     try:
