@@ -25,7 +25,7 @@ def server_status(request):
 
     # Get linux specific data
     if 'Linux' in platform.platform():
-        if 'Ubuntu' in platform.paltform():
+        if 'Ubuntu' in platform.platform():
             services_list = get_services_with_status()
         raid_data = get_raid_data()
         active_fans_count = get_fans_count()
