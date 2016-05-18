@@ -1,6 +1,7 @@
 import psutil
 from datetime import datetime
 from subprocess import check_output, CalledProcessError, Popen, PIPE
+import platform
 
 
 from django.shortcuts import render
@@ -16,15 +17,19 @@ from lebaguette.extra import is_in_group
 def server_status(request):
     ram_usage = get_ram_usage()
     disk_usage = get_disk_usage()
-    services_list = get_services_with_status()
-    raid_data = get_raid_data()
     cpu_logical_count = psutil.cpu_count()
     cpu_physical_count = psutil.cpu_count(logical=False)
     cpu_logical_count_range = range(cpu_logical_count)
     cpu_physical_count_range = range(cpu_physical_count)
-    active_fans_count = get_fans_count()
-    fans_count_range = range(active_fans_count)
     uptime = get_uptime()
+
+    # Get linux specific data
+    if 'Linux' in platform.platform():
+        if 'Ubuntu' in platform.paltform():
+            services_list = get_services_with_status()
+        raid_data = get_raid_data()
+        active_fans_count = get_fans_count()
+        fans_count_range = range(active_fans_count)
     return render(request, 'status/status.html', locals())
 
 
@@ -46,7 +51,7 @@ def get_ram_usage():
     data['units'] = 'MB'
     data['total'] = round(memory.total/1048576, 2)
     data['used'] = round(memory.used/1048576, 2)
-    data['available'] = round(memory.available/1048576, 2)
+    data['free'] = round(memory.available/1048576, 2)
     data['percent'] = memory.percent
     return data
 

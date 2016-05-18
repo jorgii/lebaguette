@@ -1,4 +1,5 @@
 import psutil
+import platform
 from subprocess import check_output, Popen, PIPE
 
 
@@ -24,15 +25,18 @@ def get_cpu_usage(request):
 @login_required
 def get_temperatures(request):
     if request.is_ajax():
-        ps = Popen(['sensors'], stdout=PIPE)
-        temps = check_output(["grep", "Core"], stdin=ps.stdout).decode("utf-8")
-        data = {}
-        for temp in temps.split("\n"):
-            if temp != '':
-                data[temp.split(":")[0]] = temp.split(":")[1].strip()[1:5] \
-                    .strip()
-        data = json.dumps(data)
-        return HttpResponse(data, content_type='application/json')
+        if 'Linux' in platform.platform():
+            ps = Popen(['sensors'], stdout=PIPE)
+            temps = check_output(
+                ["grep", "Core"],
+                stdin=ps.stdout).decode("utf-8")
+            data = {}
+            for temp in temps.split("\n"):
+                if temp != '':
+                    data[temp.split(":")[0]] = temp.split(":")[1].strip()[
+                        1:5].strip()
+            data = json.dumps(data)
+            return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
 
@@ -40,15 +44,18 @@ def get_temperatures(request):
 @login_required
 def get_fanspeed(request):
     if request.is_ajax():
-        ps = Popen(['sensors'], stdout=PIPE)
-        fans = check_output(["grep", "fan"], stdin=ps.stdout).decode("utf-8")
-        data = {}
-        for fan in fans.split("\n"):
-            if fan != '':
-                if fan.split(":")[1].strip()[:5] != "0 RPM":
-                    data[fan.split(":")[0]] = \
-                        fan.split(":")[1].strip()[:4].strip()
-        data = json.dumps(data)
-        return HttpResponse(data, content_type='application/json')
+        if 'Linux' in platform.platform():
+            ps = Popen(['sensors'], stdout=PIPE)
+            fans = check_output(
+                ["grep", "fan"],
+                stdin=ps.stdout).decode("utf-8")
+            data = {}
+            for fan in fans.split("\n"):
+                if fan != '':
+                    if fan.split(":")[1].strip()[:5] != "0 RPM":
+                        data[fan.split(":")[0]] = \
+                            fan.split(":")[1].strip()[:4].strip()
+            data = json.dumps(data)
+            return HttpResponse(data, content_type='application/json')
     else:
         raise Http404
