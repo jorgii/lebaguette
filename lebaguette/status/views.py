@@ -51,7 +51,7 @@ def get_ram_usage():
     data['units'] = 'MB'
     data['total'] = round(memory.total/1048576, 2)
     data['used'] = round(memory.used/1048576, 2)
-    data['free'] = round(memory.available/1048576, 2)
+    data['free'] = round(memory.free/1048576, 2)
     data['percent'] = memory.percent
     return data
 
