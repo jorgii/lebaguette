@@ -25,7 +25,7 @@ def server_status(request):
 
     # Get linux specific data
     if 'Linux' in platform.platform():
-        if 'Ubuntu' in platform.paltform():
+        if 'Ubuntu' in platform.platform():
             services_list = get_services_with_status()
         raid_data = get_raid_data()
         active_fans_count = get_fans_count()
@@ -48,11 +48,12 @@ def get_fans_count():
 def get_ram_usage():
     memory = psutil.virtual_memory()
     data = {}
-    data['units'] = 'MB'
-    data['total'] = round(memory.total/1048576, 2)
-    data['used'] = round(memory.used/1048576, 2)
-    data['free'] = round(memory.available/1048576, 2)
+    data['units'] = 'GB'
+    data['total'] = round(memory.total/1073741824, 2)
+    data['available'] = round(memory.available/1073741824, 2)
     data['percent'] = memory.percent
+    data['used'] = round(memory.used/1073741824, 2)
+    data['free'] = round(memory.free/1073741824, 2)
     return data
 
 
