@@ -1,6 +1,7 @@
 import psutil
 from datetime import datetime
 from subprocess import check_output, CalledProcessError, Popen, PIPE
+import platform
 
 
 from django.shortcuts import render
