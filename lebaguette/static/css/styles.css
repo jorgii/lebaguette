@@ -314,3 +314,6 @@ path {
 .mdl-layout__drawer .mdl-navigation {
   padding-top: 0;
 }
+.poster__image {
+  margin-right: 1em;
+}
