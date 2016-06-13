@@ -10,7 +10,7 @@ from .models import TVShowEpisode
 @login_required
 def request_media(request):
     media_items = TVShowEpisode.objects.all().order_by(
-        Coalesce('datetime_created', 'title').desc())
+        Coalesce('episode_released', 'episode_title').desc())
     paginator = Paginator(media_items, 5)
     page = request.GET.get('page')
     try:
@@ -24,14 +24,9 @@ def request_media(request):
 
 @login_required
 def episodes(request):
-    episodes = TVShowEpisode.objects.filter(episode_completed=False).order_by(
-        Coalesce('datetime_created', 'title').desc())
-    paginator = Paginator(episodes, 5)
-    page = request.GET.get('page')
-    try:
-        episodes_page = paginator.page(page)
-    except PageNotAnInteger:
-        episodes_page = paginator.page(number=1)
-    except EmptyPage:
-        episodes_page = paginator.page(paginator.num_pages)
+    episodes = TVShowEpisode.objects.filter(
+        episode_completed=False,
+        season__tv_show__show_completed=False,
+        season__season_completed=False).order_by(
+        Coalesce('episode_released', 'episode_title').desc())
     return render(request, 'requestmedia/episodes.html', locals())
