@@ -35,12 +35,12 @@
                 </li>
                 {% for episode in episodes %}
                 <li class="mdl-list__item mdl-list__item--two-line">
+                  <img class="poster__image" src="{% static "images/poster_placeholder.jpg" %}" alt="{{episode.season.tv_show.title}} poster" height="130%">
                   <span class="mdl-list__item-primary-content">
-                    <i class="material-icons mdl-list__item-avatar">person</i>
                     <span>
-                        {{episode.season.tv_show.title}} - S{% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}}E{% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
+                        {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
                     </span>
-                    <span class="mdl-list__item-sub-title">{{episode.episode_title}}</span>
+                    <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
                   </span>
                   <span class="mdl-list__item-secondary-content">
                     <a class="list__item-secondary-action" href="#"><i class="material-icons">check</i></a>
