@@ -15,6 +15,11 @@ class MediaItem(models.Model):
                                blank=False,
                                null=False)
     request_completed = models.BooleanField(default=False)
+    poster_link = models.CharField(
+        'Poster Link',
+        max_length=255,
+        blank=True,
+        null=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
     class Meta():

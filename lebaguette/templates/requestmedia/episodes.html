@@ -35,7 +35,7 @@
                 </li>
                 {% for episode in episodes %}
                 <li class="mdl-list__item mdl-list__item--two-line">
-                  <img class="poster__image" src="{% static "images/poster_placeholder.jpg" %}" alt="{{episode.season.tv_show.title}} poster" height="130%">
+                  <img class="poster__image" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
                   <span class="mdl-list__item-primary-content">
                     <span>
                         {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
