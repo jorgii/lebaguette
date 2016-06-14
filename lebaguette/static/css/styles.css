@@ -317,3 +317,32 @@ path {
 .poster__image {
   margin-right: 1em;
 }
+.episode__check {
+  color: #ccc;
+  transition: color 0.5s ease;
+}
+.episode__check:hover {
+  color: rgb(64,196,255);
+}
+.episode__checked {
+  color: rgb(64,196,255);
+}
+.snackbar__error {
+  background-color: #ec407a;
+  width: 100%;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.snackbar__success {
+  background-color: #66bb6a;
+  width: 100%;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.mdl-snackbar__text {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mdl-list__item {
+  transition: all 0.3s ease;
+}
