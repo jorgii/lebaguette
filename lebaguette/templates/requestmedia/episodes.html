@@ -24,7 +24,7 @@
               <h2 class="mdl-card__title-text">Download list</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <ul class="mdl-list">
+              <ul class="mdl-list" id="episodes">
                 <li class="mdl-list__item mdl-list__item--two-line">
                   <span class="mdl-list__item-primary-content">
                     <span>Episode name</span>
@@ -34,7 +34,7 @@
                   </span>
                 </li>
                 {% for episode in episodes %}
-                <li class="mdl-list__item mdl-list__item--two-line">
+                <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
                   <img class="poster__image" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
                   <span class="mdl-list__item-primary-content">
                     <span>
@@ -43,15 +43,30 @@
                     <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
                   </span>
                   <span class="mdl-list__item-secondary-content">
-                    <a class="list__item-secondary-action" href="#"><i class="material-icons">check</i></a>
+                    <a class="list__item-secondary-action" href="#"><i class="material-icons episode__check">check</i></a>
                   </span>
                 </li>
                 {% endfor %}
               </ul>
+              <div id="snackbar-error" class="mdl-js-snackbar mdl-snackbar snackbar__error">
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action" type="button"></button>
+                <div class="mdl-layout-spacer"></div>
+              </div>
+              <div id="snackbar-success" class="mdl-js-snackbar mdl-snackbar snackbar__success">
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action" type="button"></button>
+                <div class="mdl-layout-spacer"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
   </div>
+  {% endblock %}
+  {% block post_load %}
+    <script type = "text/javascript" src="{% static "js/episodes.js" %}"></script>
   {% endblock %}
