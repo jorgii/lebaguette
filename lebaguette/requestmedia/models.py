@@ -70,13 +70,7 @@ class TVShowSeason(models.Model):
                             '%Y-%m-%d').date(),
                         episode_imdbid=episode['imdbID'])
                     tv_show_episode.save()
-                    tv_show_episode_request = Request(
-                        status='N',
-                        request_type='EP',
-                        episode=tv_show_episode,
-                        requested_by=User.objects.get(username='cronjob')
-                        )
-                    tv_show_episode_request.save()
+                    tv_show_episode.create_request()
             except ValueError:
                 continue
 
@@ -101,6 +95,15 @@ class TVShowEpisode(models.Model):
     def mark_as_complete(self):
         self.episode_completed = True
         self.save()
+
+    def create_request(self):
+        tv_show_episode_request = Request(
+            status='N',
+            request_type='EP',
+            episode=self,
+            requested_by=User.objects.get(username='cronjob')
+            )
+        tv_show_episode_request.save()
 
     def __str__(self):
         return (
