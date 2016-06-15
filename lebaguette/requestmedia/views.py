@@ -11,7 +11,7 @@ from lebaguette.extra import is_in_group
 @login_required
 def request_media(request):
     request_items = Request.objects.filter(status='N').order_by(
-        Coalesce('datetime_requested').desc())
+        '-datetime_requested')
 #    paginator = Paginator(media_items, 5)
 #    page = request.GET.get('page')
 #    try:

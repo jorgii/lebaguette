@@ -71,17 +71,17 @@
                       Reject
                     </span>
                   </li>
-                  {% for episode in episodes %}
+                  {% for item in request_items %}
                   <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
+                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item.title }} poster" height="130%">
                     <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                       <span>
-                          {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
+                          {{ item.get_media_item }}
                       </span>
                       <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
                     </span>
                     <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                      Iavan4o
+                      {{ item.requested_by }}
                     </span>
                     <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                       21.05.2016 on 14:30

@@ -102,6 +102,9 @@ class TVShowEpisode(models.Model):
         self.episode_completed = True
         self.save()
 
+    def get_poster_url(self):
+        return self.season.tv_show.get_poster_url()
+
     def create_request(self):
         tv_show_episode_request = Request(
             status='N',
@@ -174,6 +177,9 @@ class Request(models.Model):
         null=True,
         blank=True)
     datetime_rejected = models.DateTimeField(null=True, blank=True)
+
+    def get_media_item(self):
+        return (self.tv_show or self.movie or self.episode)
 
     def __str__(self):
         text = str(self.tv_show or self.movie or self.episode) +\
