@@ -166,3 +166,10 @@ class Request(models.Model):
         blank=True)
     datetime_rejected = models.DateTimeField(null=True, blank=True)
 
+    def __str__(self):
+        text = str(self.tv_show or self.movie or self.episode) +\
+            ' by ' +\
+            str(self.requested_by.first_name) +\
+            ' ' +\
+            str(self.requested_by.last_name)
+        return text
