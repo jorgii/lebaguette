@@ -44,7 +44,7 @@ $(".episode__check").click(function(){
       var snackbarContainer = document.querySelector('#snackbar-success'),
           data = {
         message: 'Success!',
-        timeout: 3000,
+        timeout: 1000,
       };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
     },
