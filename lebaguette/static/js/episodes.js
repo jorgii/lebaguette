@@ -36,7 +36,7 @@ $(".episode__check").click(function(){
 
   $.ajax({
     type: 'POST',
-    url: "/requestmedia/episodes/complete",
+    url: "/requestmedia/episodes/complete/",
     data: dataMerged,
     dataType: "text",
     success: function() {
