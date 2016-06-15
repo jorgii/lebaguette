@@ -9,7 +9,6 @@ from .models import TVShowEpisode
 def mark_episode_complete(request):
     if request.method == 'POST':
         imdbid = request.POST.get('imdbid')
-        print(request.POST)
         try:
             episode = TVShowEpisode.objects.get(episode_imdbid=imdbid)
             episode.mark_as_complete()
