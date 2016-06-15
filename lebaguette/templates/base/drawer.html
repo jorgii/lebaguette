@@ -20,8 +20,10 @@
         {% if "/status/" == group.name %}
             <a class="mdl-navigation__link" href="/status"><i class="material-icons" role="presentation">data_usage</i>Server status</a>
         {% endif %}
+        {% if "/requestmedia/episodes/" == group.name %}
+            <a class="mdl-navigation__link" href="/requestmedia/episodes"><i class="material-icons" role="presentation">list</i>Episodes list</a>
+        {% endif %}
     {% endfor %}
-    <a class="mdl-navigation__link" href="/requestmedia/episodes"><i class="material-icons" role="presentation">list</i>Episodes list</a>
     <a class="mdl-navigation__link" href="/profile"><i class="material-icons" role="presentation">settings</i>Account setup</a>
     {% if request.user.is_staff %}
         <a class="mdl-navigation__link" href="/admin"><i class="material-icons" role="presentation">security</i>Admin Page</a>

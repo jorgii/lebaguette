@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import TVShowEpisode
+from lebaguette.extra import is_in_group
 
 
+@is_in_group
 @login_required
 def mark_episode_complete(request):
     if request.is_ajax() and request.method == 'POST':

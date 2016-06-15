@@ -5,6 +5,7 @@ from django.db.models.functions import Coalesce
 
 
 from .models import TVShowEpisode
+from lebaguette.extra import is_in_group
 
 
 @login_required
@@ -22,6 +23,7 @@ def request_media(request):
     return render(request, 'requestmedia/request_media.html', locals())
 
 
+@is_in_group
 @login_required
 def episodes(request):
     episodes = TVShowEpisode.objects.filter(
