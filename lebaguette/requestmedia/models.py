@@ -1,6 +1,7 @@
 from datetime import datetime, date
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class MediaItem(models.Model):
@@ -68,6 +69,13 @@ class TVShowSeason(models.Model):
                             '%Y-%m-%d').date(),
                         episode_imdbid=episode['imdbID'])
                     tv_show_episode.save()
+                    tv_show_episode_request = Request(
+                        status='N',
+                        request_type='EP',
+                        episode=tv_show_episode,
+                        requested_by=User.objects.get(username='cronjob')
+                        )
+                    tv_show_episode_request.save()
             except ValueError:
                 continue
 
