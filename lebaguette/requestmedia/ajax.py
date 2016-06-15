@@ -6,7 +6,6 @@ from .models import TVShowEpisode
 
 
 #@login_required
-@csrf_exempt
 def mark_episode_complete(request):
     if request.method == 'POST':
         imdbid = request.POST.get('imdbid')
