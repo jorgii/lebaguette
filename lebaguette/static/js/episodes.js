@@ -28,7 +28,7 @@ $.ajaxSetup({
     }
 });
 
-//Event handler on episode removal
+//Event handler on episode action
 $(".episode__check").click(function(){
   var imdbid = $(this).parents("li").attr("id"),
       dataMerged = {"imdbid":imdbid};

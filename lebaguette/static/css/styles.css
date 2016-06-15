@@ -317,15 +317,25 @@ path {
 .poster__image {
   margin-right: 1em;
 }
-.episode__check {
+.episode__check, .episode__approve {
   color: #ccc;
   transition: color 0.5s ease;
 }
-.episode__check:hover {
+.episode__reject {
+  color: #ccc;
+  transition: color 0.5s ease;
+}
+.episode__check:hover,  .episode__approve:hover {
   color: rgb(64,196,255);
+}
+.episode__reject:hover {
+  color: #EC407A;
 }
 .episode__checked {
   color: rgb(64,196,255);
+}
+.episode__rejected {
+  color: #EC407A;
 }
 .snackbar__error {
   background-color: #ec407a;
