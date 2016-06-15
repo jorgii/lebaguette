@@ -146,20 +146,23 @@ class Request(models.Model):
     tv_show = models.OneToOneField(TVShow, null=True, blank=True)
     movie = models.OneToOneField(Movie, null=True, blank=True)
     episode = models.OneToOneField(TVShowEpisode, null=True, blank=True)
+    requested_by = models.ForeignKey('auth.User', related_name="+")
     datetime_requested = models.DateTimeField(auto_now_add=True)
-    datetime_completed = models.DateTimeField(null=True, blank=True)
     completed_by = models.ForeignKey(
         'auth.User',
         related_name="+",
         null=True, blank=True)
+    datetime_completed = models.DateTimeField(null=True, blank=True)
     approved_by = models.ForeignKey(
         'auth.User',
         related_name="+",
         null=True,
         blank=True)
+    datetime_approved = models.DateTimeField(null=True, blank=True)
     rejected_by = models.ForeignKey(
         'auth.User',
         related_name="+",
         null=True,
         blank=True)
-    requested_by = models.ForeignKey('auth.User', related_name="+")
+    datetime_rejected = models.DateTimeField(null=True, blank=True)
+
