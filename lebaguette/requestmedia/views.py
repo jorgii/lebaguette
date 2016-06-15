@@ -21,13 +21,3 @@ def request_media(request):
 #    except EmptyPage:
 #        media_items_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/request_media.html', locals())
-
-
-@is_in_group
-@login_required
-def episodes(request):
-    episodes = TVShowEpisode.objects.filter(
-        season__tv_show__show_completed=False,
-        season__season_completed=False).order_by(
-        Coalesce('episode_released', 'episode_title').desc())
-    return render(request, 'requestmedia/episodes.html', locals())
