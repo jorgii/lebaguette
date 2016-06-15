@@ -119,3 +119,39 @@ class TVShowEpisode(models.Model):
 class Movie(MediaItem):
     def __str__(self):
         return self.title
+
+
+class Request(models.Model):
+    STATUS_CHOICES = (
+        ('N', 'New'),
+        ('A', 'Approved'),
+        ('R', 'Rejected'),
+        ('C', 'Completed')
+    )
+    REQUEST_TYPE_CHOICES = (
+        ('TV', 'TV Show'),
+        ('M', 'Movie'),
+        ('EP', 'Episode'),
+    )
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    request_type = models.CharField(max_length=2, choices=REQUEST_TYPE_CHOICES)
+    tv_show = models.OneToOneField(TVShow, null=True, blank=True)
+    movie = models.OneToOneField(Movie, null=True, blank=True)
+    episode = models.OneToOneField(TVShowEpisode, null=True, blank=True)
+    datetime_requested = models.DateTimeField(auto_now_add=True)
+    datetime_completed = models.DateTimeField(null=True, blank=True)
+    completed_by = models.ForeignKey(
+        'auth.User',
+        related_name="+",
+        null=True, blank=True)
+    approved_by = models.ForeignKey(
+        'auth.User',
+        related_name="+",
+        null=True,
+        blank=True)
+    rejected_by = models.ForeignKey(
+        'auth.User',
+        related_name="+",
+        null=True,
+        blank=True)
+    requested_by = models.ForeignKey('auth.User', related_name="+")
