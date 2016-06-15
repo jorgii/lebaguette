@@ -29,7 +29,6 @@ def login_user(request):
                 if user.is_active:
                     login(request, user)
                     return redirect(LOGIN_REDIRECT_URL)
-    csrf(request)
     return render(request, 'login/login.html', locals())
 
 
@@ -66,7 +65,6 @@ def edit_user(request):
         if password_change_form.has_changed() and \
                 password_change_form.is_valid():
             password_change_form.save()
-    csrf(request)
     return render(request, 'profile/profile.html', locals())
 
 
@@ -89,5 +87,4 @@ def home_page(request):
             if message_form.is_valid():
                 message_form.save()
                 return redirect('/')
-    csrf(request)
     return render(request, 'home/home.html', locals())
