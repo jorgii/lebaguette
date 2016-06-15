@@ -51,22 +51,25 @@ class TVShowSeason(models.Model):
     def create_episodes_from_json(self, episodes_json):
         for episode in episodes_json['Episodes']:
             # create non existent episodes that have already aired
-            if not TVShowEpisode.objects.filter(
+            try:
+                if not TVShowEpisode.objects.filter(
                             episode_number=int(episode['Episode']),
                             season=self,
                             episode_imdbid=episode['imdbID']).exists() and \
-                    date.today() >= datetime.strptime(
-                                            episode['Released'],
-                                            '%Y-%m-%d').date():
-                tv_show_episode = TVShowEpisode.create(
-                    season=self,
-                    episode_title=episode['Title'],
-                    episode_number=int(episode['Episode']),
-                    episode_released=datetime.strptime(
-                        episode['Released'],
-                        '%Y-%m-%d').date(),
-                    episode_imdbid=episode['imdbID'])
-                tv_show_episode.save()
+                        date.today() >= datetime.strptime(
+                            episode['Released'],
+                            '%Y-%m-%d').date():
+                    tv_show_episode = TVShowEpisode.create(
+                        season=self,
+                        episode_title=episode['Title'],
+                        episode_number=int(episode['Episode']),
+                        episode_released=datetime.strptime(
+                            episode['Released'],
+                            '%Y-%m-%d').date(),
+                        episode_imdbid=episode['imdbID'])
+                    tv_show_episode.save()
+            except ValueError:
+                continue
 
 
 class TVShowEpisode(models.Model):
