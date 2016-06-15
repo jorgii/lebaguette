@@ -27,6 +27,12 @@ class MediaItem(models.Model):
     class Meta():
         abstract = True
 
+    def get_poster_url(self):
+        try:
+            return self.poster.url
+        except ValueError:
+            return None
+
     def __str__(self):
         return self.title
 
