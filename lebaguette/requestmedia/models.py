@@ -15,7 +15,6 @@ class MediaItem(models.Model):
                                max_length=255,
                                blank=False,
                                null=False)
-    request_completed = models.BooleanField(default=False)
     poster_link = models.CharField(
         'Poster Link',
         max_length=255,
@@ -93,7 +92,6 @@ class TVShowEpisode(models.Model):
         max_length=255,
         blank=False,
         null=False)
-    episode_completed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('season', 'episode_number')
