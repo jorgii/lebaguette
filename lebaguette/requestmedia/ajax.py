@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import TVShowEpisode
 
 
-#@login_required
+@login_required
 def mark_episode_complete(request):
     if request.method == 'POST':
         imdbid = request.POST.get('imdbid')
