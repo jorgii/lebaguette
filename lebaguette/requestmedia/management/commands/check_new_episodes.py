@@ -38,10 +38,8 @@ class Command(BaseCommand):
         seasons_numbers = []
         season = 1
         request = self.get_season_from_api(show.imdb_id, season)
-        while request.json()['Response'] == 'True':
-            seasons_numbers.append(season)
-            season += 1
-            request = self.get_season_from_api(show.imdb_id, season)
+        if request.json()['Response'] == 'True':
+            seasons_numbers = range(1, int(request.json()['totalSeasons'])+1)
         return seasons_numbers
 
     def get_season_from_api(self, imdb_id, season):
