@@ -1,7 +1,10 @@
 from datetime import datetime, date
+import os
 
 from django.db import models
 from django.contrib.auth.models import User
+
+from lebaguette.settings import MEDIA_URL
 
 
 class MediaItem(models.Model):
@@ -15,9 +18,8 @@ class MediaItem(models.Model):
                                max_length=255,
                                blank=False,
                                null=False)
-    poster_link = models.CharField(
-        'Poster Link',
-        max_length=255,
+    poster = models.ImageField(
+        upload_to='posters/',
         blank=True,
         null=True)
     datetime_created = models.DateTimeField(auto_now_add=True)

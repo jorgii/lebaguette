@@ -27,7 +27,6 @@ def request_media(request):
 @login_required
 def episodes(request):
     episodes = TVShowEpisode.objects.filter(
-        episode_completed=False,
         season__tv_show__show_completed=False,
         season__season_completed=False).order_by(
         Coalesce('episode_released', 'episode_title').desc())
