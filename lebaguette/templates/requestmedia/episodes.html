@@ -43,18 +43,18 @@
         </div>
         <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+
               <div class="mdl-cell mdl-cell--12-col mdl-grid">
                 <div class="mdl-layout-spacer"></div>
-                <a href="#new-tab" class="mdl-tabs__tab is-active">New</a>
-                <a href="#approved-tab" class="mdl-tabs__tab">Approved</a>
-                <a href="#rejected-tab" class="mdl-tabs__tab">Rejected</a>
-                <a href="#completed-tab" class="mdl-tabs__tab">Completed</a>
+                <a href="#new-tab" class="mdl-layout__tab is-active">New</a>
+                <a href="#approved-tab" class="mdl-layout__tab">Approved</a>
+                <a href="#rejected-tab" class="mdl-layout__tab">Rejected</a>
+                <a href="#completed-tab" class="mdl-layout__tab">Completed</a>
                 <div class="mdl-layout-spacer"></div>
               </div>
               <!-- NEW TAB START -->
-              <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col mdl-grid is-active" id="new-tab">
-                <ul class="mdl-list" id="new-episodes">
+              <div class="mdl-cell mdl-cell--12-col mdl-grid is-active" id="new-tab">
+                <ul class="mdl-list mdl-cell mdl-cell--12-col" id="new-episodes">
                   <li class="mdl-list__item mdl-list__item--two-line">
                     <span class="mdl-cell mdl-cell--6-col">
                       Episode name
@@ -103,8 +103,8 @@
               </div>
               <!-- NEW TAB END -->
               <!-- APPROVED TAB START -->
-              <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col mdl-grid" id="approved-tab">
-                <ul class="mdl-list" id="new-episodes">
+              <div class="mdl-cell mdl-cell--12-col mdl-grid" id="approved-tab">
+                <ul class="mdl-list mdl-cell mdl-cell--12-col" id="approved-episodes">
                   <li class="mdl-list__item mdl-list__item--two-line">
                     <span class="mdl-cell mdl-cell--7-col">
                       Episode name
@@ -145,8 +145,8 @@
               </div>
               <!-- APPROVED TAB END -->
               <!-- REJECTED TAB START -->
-              <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col mdl-grid is-active" id="rejected-tab">
-                <ul class="mdl-list" id="rejected-episodes">
+              <div class="mdl-cell mdl-cell--12-col mdl-grid is-active" id="rejected-tab">
+                <ul class="mdl-list mdl-cell mdl-cell--12-col" id="rejected-episodes">
                   <li class="mdl-list__item mdl-list__item--two-line">
                     <span class="mdl-cell mdl-cell--8-col">
                       Episode name
@@ -179,8 +179,8 @@
               </div>
               <!-- REJECTED TAB END -->
               <!-- COMPETED TAB START -->
-              <div class="mdl-tabs__panel mdl-cell mdl-cell--12-col mdl-grid is-active" id="completed-tab">
-                <ul class="mdl-list" id="completed-episodes">
+              <div class="mdl-cell mdl-cell--12-col mdl-grid is-active" id="completed-tab">
+                <ul class="mdl-list mdl-cell mdl-cell--12-col" id="completed-episodes">
                   <li class="mdl-list__item mdl-list__item--two-line">
                     <span class="mdl-cell mdl-cell--8-col">
                       Episode name
@@ -212,7 +212,6 @@
                 </ul>
               </div>
               <!-- COMPLETED TAB END -->
-            </div>
           </div>
         </div>
       </div>
