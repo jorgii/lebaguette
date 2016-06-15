@@ -7,7 +7,7 @@ from .models import TVShowEpisode
 
 @login_required
 def mark_episode_complete(request):
-    if request.method == 'POST':
+    if request.is_ajax() and request.method == 'POST':
         imdbid = request.POST.get('imdbid')
         try:
             episode = TVShowEpisode.objects.get(episode_imdbid=imdbid)
@@ -15,4 +15,5 @@ def mark_episode_complete(request):
         except:
             raise Http404
         return HttpResponse('"' + str(episode) + '" marked as complete')
-    return HttpResponseForbidden()
+    else:
+        return HttpResponseForbidden()
