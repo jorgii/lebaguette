@@ -87,6 +87,10 @@ class TVShowEpisode(models.Model):
     class Meta:
         unique_together = ('season', 'episode_number')
 
+    def mark_as_complete(self):
+        self.episode_completed = True
+        self.save()
+
     def __str__(self):
         return (
             self.season.tv_show.title +
