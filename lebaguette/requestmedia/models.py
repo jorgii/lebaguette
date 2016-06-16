@@ -104,10 +104,6 @@ class TVShowEpisode(models.Model):
     class Meta:
         unique_together = ('season', 'episode_number')
 
-    def mark_as_complete(self):
-        self.episode_completed = True
-        self.save()
-
     def get_poster_url(self):
         return self.season.tv_show.get_poster_url()
 
@@ -192,6 +188,12 @@ class Request(models.Model):
 
     def get_media_item(self):
         return (self.tv_show or self.movie or self.episode)
+
+    def mark_as_complete(self, completed_by):
+        self.status = 'C'
+        self.completed_by = completed_by
+        self.self.datetime_completed = datetime.now()
+        self.save()
 
     def __str__(self):
         text = str(self.tv_show or self.movie or self.episode) +\
