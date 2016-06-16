@@ -8,7 +8,7 @@ from lebaguette.extra import is_in_group
 
 @is_in_group
 @login_required
-def mark_episode_complete(request):
+def mark_request_complete(request):
     if request.is_ajax() and request.method == 'POST':
         imdbid = request.POST.get('imdbid')
         try:
