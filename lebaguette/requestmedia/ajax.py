@@ -13,30 +13,48 @@ def complete_request(request):
         itemid = request.POST.get('itemid')
         try:
             request_item = Request.objects.get(id=itemid)
-            request_item.mark_as_complete(request.user)
+            request_item.complete(request.user)
         except:
             raise Http404
         return HttpResponse(
             '"' +
             str(request_item.get_media_item()) +
-            '" marked as complete')
+            '" marked as completed')
     else:
         return HttpResponseForbidden()
 
 
 @is_in_group
 @login_required
-def mark_request_approved(request):
+def approve_request(request):
     if request.is_ajax() and request.method == 'POST':
         itemid = request.POST.get('itemid')
         try:
             request_item = Request.objects.get(id=itemid)
-            request_item.mark_as_complete(request.user)
+            request_item.approve(request.user)
         except:
             raise Http404
         return HttpResponse(
             '"' +
             str(request_item.get_media_item()) +
-            '" marked as complete')
+            '" marked as approved')
+    else:
+        return HttpResponseForbidden()
+
+
+@is_in_group
+@login_required
+def reject_request(request):
+    if request.is_ajax() and request.method == 'POST':
+        itemid = request.POST.get('itemid')
+        try:
+            request_item = Request.objects.get(id=itemid)
+            request_item.reject(request.user)
+        except:
+            raise Http404
+        return HttpResponse(
+            '"' +
+            str(request_item.get_media_item()) +
+            '" marked as rejected')
     else:
         return HttpResponseForbidden()

@@ -189,10 +189,22 @@ class Request(models.Model):
     def get_media_item(self):
         return (self.tv_show or self.movie or self.episode)
 
-    def mark_as_complete(self, completed_by):
+    def complete(self, completed_by):
         self.status = 'C'
         self.completed_by = completed_by
         self.self.datetime_completed = datetime.now()
+        self.save()
+
+    def approve(self, approved_by):
+        self.status = 'A'
+        self.completed_by = approved_by
+        self.self.datetime_approved = datetime.now()
+        self.save()
+
+    def reject(self, rejected_by):
+        self.status = 'R'
+        self.rejected_by = rejected_by
+        self.self.datetime_rejected = datetime.now()
         self.save()
 
     def __str__(self):
