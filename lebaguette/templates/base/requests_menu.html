@@ -1,8 +1,8 @@
 <div class="mdl-cell mdl-cell--12-col mdl-grid">
   <div class="mdl-layout-spacer"></div>
-  <a href="/requestmedia/" class="mdl-layout__tab {% if request.path = '/requestmedia/' %}is-active{% endif %}">New</a>
-  <a href="/requestmedia/approved" class="mdl-layout__tab {% if request.path = '/requestmedia/approved' %}is-active{% endif %}">Approved</a>
-  <a href="/requestmedia/rejected" class="mdl-layout__tab {% if request.path = '/requestmedia/rejected' %}is-active{% endif %}">Rejected</a>
-  <a href="/requestmedia/completed" class="mdl-layout__tab {% if request.path = '/requestmedia/completed' %}is-active{% endif %}">Completed</a>
+  <a href="/requestmedia/" class="mdl-layout__tab {% if request.path == '/requestmedia/' %}is-active{% endif %}">New</a>
+  <a href="/requestmedia/approved" class="mdl-layout__tab {% if request.path == '/requestmedia/approved' %}is-active{% endif %}">Approved</a>
+  <a href="/requestmedia/rejected" class="mdl-layout__tab {% if request.path == '/requestmedia/rejected' %}is-active{% endif %}">Rejected</a>
+  <a href="/requestmedia/completed" class="mdl-layout__tab {% if request.path == '/requestmedia/completed' %}is-active{% endif %}">Completed</a>
   <div class="mdl-layout-spacer"></div>
 </div>
