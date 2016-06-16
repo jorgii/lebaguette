@@ -72,19 +72,19 @@
                     </span>
                   </li>
                   {% for item in request_items %}
-                  <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item.title }} poster" height="130%">
+                  <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
+                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="130%">
                     <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                       <span>
                           {{ item.get_media_item }}
                       </span>
-                      <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
+                      <span class="mdl-list__item-sub-title">{{ item.get_media_item.get_title }} aired on {{ item.get_media_item.get_released }}</span>
                     </span>
                     <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                      {{ item.requested_by }}
+                      {{ item.requested_by.first_name }} {{ item.requested_by.last_name }}
                     </span>
                     <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                      21.05.2016 on 14:30
+                      {{ item.datetime_requested }}
                     </span>
                     <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                       <button class="mdl-button mdl-js-button mdl-button--icon">

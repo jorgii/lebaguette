@@ -33,6 +33,12 @@ class MediaItem(models.Model):
         except ValueError:
             return None
 
+    def get_title(self):
+        return self.title
+
+    def get_released(self):
+        return self.released
+
     def __str__(self):
         return self.title
 
@@ -113,6 +119,12 @@ class TVShowEpisode(models.Model):
             requested_by=User.objects.get(username='cronjob')
             )
         tv_show_episode_request.save()
+
+    def get_title(self):
+        return self.episode_title
+
+    def get_released(self):
+        return self.episode_released
 
     def __str__(self):
         return (
