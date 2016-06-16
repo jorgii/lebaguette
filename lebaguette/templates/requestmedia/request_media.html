@@ -57,12 +57,20 @@
                   <span class="mdl-cell mdl-cell--2-col">
                     Requested on
                   </span>
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/approve/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     Approve
                   </span>
+                  {% endif %}
+                  {% endfor %}
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/reject/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     Reject
                   </span>
+                  {% endif %}
+                  {% endfor %}
                 </li>
                 {% for item in request_items %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
@@ -81,16 +89,24 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     {{ item.datetime_requested }}
                   </span>
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/approve/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="list__item-secondary-action material-icons episode__approve">check</i></a>
                     </button>
                   </span>
+                  {% endif %}
+                  {% endfor %}
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/reject/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="list__item-secondary-action material-icons episode__reject">clear</i></a>
                     </button>
                   </span>
+                    {% endif %}
+                  {% endfor %}
                 </li>
                 {% endfor %}
               </ul>

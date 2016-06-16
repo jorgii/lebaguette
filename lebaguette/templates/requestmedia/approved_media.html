@@ -57,9 +57,13 @@
                   <span class="mdl-cell mdl-cell--2-col">
                     Approved on
                   </span>
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/complete/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col">
                     Complete
                   </span>
+                    {% endif %}
+                  {% endfor %}
                 </li>
                 {% for item in request_items %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
@@ -78,11 +82,15 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                       {{ item.datetime_approved }}
                   </span>
+                  {% for group in user.groups.all %}
+                      {% if "/requestmedia/complete/" == group.name %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="list__item-secondary-action material-icons episode__check">check</i></a>
                     </button>
                   </span>
+                    {% endif %}
+                  {% endfor %}
                 </li>
                 {% endfor %}
               </ul>
