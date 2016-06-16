@@ -3,6 +3,7 @@ import os
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from lebaguette.settings import MEDIA_URL
 
@@ -192,19 +193,19 @@ class Request(models.Model):
     def complete(self, completed_by):
         self.status = 'C'
         self.completed_by = completed_by
-        self.self.datetime_completed = datetime.now()
+        self.datetime_completed = timezone.now()
         self.save()
 
     def approve(self, approved_by):
         self.status = 'A'
-        self.completed_by = approved_by
-        self.self.datetime_approved = datetime.now()
+        self.approved_by = approved_by
+        self.datetime_approved = timezone.now()
         self.save()
 
     def reject(self, rejected_by):
         self.status = 'R'
         self.rejected_by = rejected_by
-        self.self.datetime_rejected = datetime.now()
+        self.datetime_rejected = timezone.now()
         self.save()
 
     def __str__(self):
