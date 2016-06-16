@@ -87,18 +87,7 @@
           </div>
         </div>
       </div>
-      <div id="snackbar-error" class="mdl-js-snackbar mdl-snackbar snackbar__error">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-        <div class="mdl-layout-spacer"></div>
-      </div>
-      <div id="snackbar-success" class="mdl-js-snackbar mdl-snackbar snackbar__success">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-        <div class="mdl-layout-spacer"></div>
-      </div>
+      {% include "base/snackbar.html" %}
     </main>
   </div>
   {% endblock %}
