@@ -44,58 +44,42 @@
         <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             {% include "base/requests_menu.html" %}
-            <!-- NEW TAB START -->
-            <div class="mdl-cell mdl-cell--12-col mdl-grid is-active" id="new-tab">
-              <ul class="mdl-list mdl-cell mdl-cell--12-col" id="new-episodes">
+            <!-- COMPETED TAB START -->
+            <div class="mdl-cell mdl-cell--12-col mdl-grid is-active" id="completed-tab">
+              <ul class="mdl-list mdl-cell mdl-cell--12-col" id="completed-episodes">
                 <li class="mdl-list__item mdl-list__item--two-line">
-                  <span class="mdl-cell mdl-cell--6-col">
+                  <span class="mdl-cell mdl-cell--8-col">
                     Episode name
                   </span>
                   <span class="mdl-cell mdl-cell--2-col">
-                    Requested by
+                    Completed by
                   </span>
                   <span class="mdl-cell mdl-cell--2-col">
-                    Requested on
-                  </span>
-                  <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
-                    Approve
-                  </span>
-                  <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
-                    Reject
+                    Completed on
                   </span>
                 </li>
-                {% for item in request_items %}
-                <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
+                {% for episode in episodes %}
+                <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
                     <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
                   </div>
-                  <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
+                  <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                     <span>
-                        {{ item.get_media_item }}
+                        {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
                     </span>
-                    <span class="mdl-list__item-sub-title">{{ item.get_media_item.get_title }} aired on {{ item.get_media_item.get_released }}</span>
+                    <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                    {{ item.requested_by.first_name }} {{ item.requested_by.last_name }}
+                    Iavan4o
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                    {{ item.datetime_requested }}
-                  </span>
-                  <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
-                    <button class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="list__item-secondary-action material-icons episode__approve">check</i></a>
-                    </button>
-                  </span>
-                  <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
-                    <button class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="list__item-secondary-action material-icons episode__reject">clear</i></a>
-                    </button>
+                    21.05.2016 on 14:30
                   </span>
                 </li>
                 {% endfor %}
               </ul>
             </div>
-            <!-- NEW TAB END -->
+            <!-- COMPLETED TAB END -->
           </div>
         </div>
       </div>

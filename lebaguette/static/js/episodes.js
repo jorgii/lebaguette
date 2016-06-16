@@ -29,18 +29,18 @@ $.ajaxSetup({
 });
 
 //Event handler on episode action
-$(".episode__check").click(function(){
-  var imdbid = $(this).parents("li").attr("id"),
-      dataMerged = {"imdbid":imdbid};
+$(".episode__approve").click(function(){
+  var epid = $(this).parents("li").attr("id"),
+      dataMerged = {"itemid":epid};
   $(this).addClass("episode__checked");
 
   $.ajax({
     type: 'POST',
-    url: "/requestmedia/complete/",
+    url: "/requestmedia/approve",
     data: dataMerged,
     dataType: "text",
     success: function() {
-      $("#"+imdbid).fadeOut(800, function(){ $(this).remove();});
+      $("#"+epid).fadeOut(800, function(){ $(this).remove();});
       var snackbarContainer = document.querySelector('#snackbar-success'),
           data = {
         message: 'Success!',
@@ -51,7 +51,7 @@ $(".episode__check").click(function(){
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not remove entry '+imdbid,
+        message: 'Could not remove entry '+epid,
         timeout: 3000,
       };
       console.log(ts.responseText);
