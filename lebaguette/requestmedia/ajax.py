@@ -8,7 +8,25 @@ from lebaguette.extra import is_in_group
 
 @is_in_group
 @login_required
-def mark_request_complete(request):
+def complete_request(request):
+    if request.is_ajax() and request.method == 'POST':
+        itemid = request.POST.get('itemid')
+        try:
+            request_item = Request.objects.get(id=itemid)
+            request_item.mark_as_complete(request.user)
+        except:
+            raise Http404
+        return HttpResponse(
+            '"' +
+            str(request_item.get_media_item()) +
+            '" marked as complete')
+    else:
+        return HttpResponseForbidden()
+
+
+@is_in_group
+@login_required
+def mark_request_approved(request):
     if request.is_ajax() and request.method == 'POST':
         itemid = request.POST.get('itemid')
         try:
