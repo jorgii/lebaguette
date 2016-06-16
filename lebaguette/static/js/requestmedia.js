@@ -29,14 +29,15 @@ $.ajaxSetup({
 });
 
 //Event handler on episode action
-$(".episode__approve").click(function(){
-  var epid = $(this).parents("li").attr("id"),
+function pushRequest(requestUrl,element,cssClass) {
+  // var element = event.target,
+  var epid = $(element).parents("li").attr("id"),
       dataMerged = {"itemid":epid};
-  $(this).addClass("episode__checked");
+  $(element).addClass(cssClass);
 
   $.ajax({
     type: 'POST',
-    url: "/requestmedia/approve/",
+    url: requestUrl,
     data: dataMerged,
     dataType: "text",
     success: function() {
@@ -58,4 +59,19 @@ $(".episode__approve").click(function(){
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
   });
+}
+$('.episode__approve').click(function(){
+  var element = $(this),
+      cssClass = "episode__approved";
+  pushRequest("/requestmedia/approve/", element, cssClass);
+});
+$('.episode__reject').click(function(){
+  var element = $(this);
+      cssClass = "episode__rejected";
+  pushRequest("/requestmedia/reject/", element, cssClass);
+});
+$('.episode__complete').click(function(){
+  var element = $(this);
+      cssClass = "episode__approved";
+  pushRequest("/requestmedia/complete/", element, cssClass);
 });
