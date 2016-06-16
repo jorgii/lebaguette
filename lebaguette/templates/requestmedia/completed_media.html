@@ -58,22 +58,22 @@
                     Completed on
                   </span>
                 </li>
-                {% for episode in episodes %}
-                <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
+                {% for item in request_items %}
+                <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
-                    <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
                   </div>
                   <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                     <span>
-                        {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
+                        {{ item.get_media_item }}
                     </span>
-                    <span class="mdl-list__item-sub-title">{{episode.episode_title}} aired on {{episode.episode_released}}</span>
+                    <span class="mdl-list__item-sub-title">{{ item.get_media_item.get_title }} aired on {{ item.get_media_item.get_released }}</span>
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                    Iavan4o
+                      {{ item.completed_by.first_name }} {{ item.completed_by.last_name }}
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
-                    21.05.2016 on 14:30
+                      {{ item.datetime_completed }}
                   </span>
                 </li>
                 {% endfor %}
