@@ -48,18 +48,18 @@
             <div class="mdl-cell mdl-cell--12-col mdl-grid" id="approved-tab">
               <ul class="mdl-list mdl-cell mdl-cell--12-col" id="approved-episodes">
                 <li class="mdl-list__item mdl-list__item--two-line">
-                  <span class="mdl-cell mdl-cell--7-col">
+                  <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                     Episode name
                   </span>
-                  <span class="mdl-cell mdl-cell--2-col">
+                  <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Approved by
                   </span>
-                  <span class="mdl-cell mdl-cell--2-col">
+                  <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Approved on
                   </span>
                   {% for group in user.groups.all %}
                       {% if "/requestmedia/complete/" == group.name %}
-                  <span class="mdl-cell mdl-cell--1-col">
+                  <span class="mdl-cell mdl-cell--1-col mdl-list__item-primary-content">
                     Complete
                   </span>
                     {% endif %}
@@ -115,5 +115,5 @@
   </div>
   {% endblock %}
   {% block post_load %}
-    <script type = "text/javascript" src="{% static "js/episodes.js" %}"></script>
+    <script type = "text/javascript" src="{% static "js/requestmedia.js" %}"></script>
   {% endblock %}
