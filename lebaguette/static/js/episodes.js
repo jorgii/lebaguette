@@ -36,7 +36,7 @@ $(".episode__approve").click(function(){
 
   $.ajax({
     type: 'POST',
-    url: "/requestmedia/approve",
+    url: "/requestmedia/approve/",
     data: dataMerged,
     dataType: "text",
     success: function() {
