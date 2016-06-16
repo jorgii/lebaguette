@@ -13,14 +13,16 @@
     <div class="nav_divider mdl-color--blue-grey-700">Services</div>
     <a class="mdl-navigation__link" href="/plex"><i class="material-icons" role="presentation">movie</i>Plex</a>
     <a class="mdl-navigation__link" href="/owncloud"><i class="material-icons" role="presentation">backup</i>OwnCloud</a>
+    {% if request.user.is_staff %}
     <a class="mdl-navigation__link" href="/transmission"><i class="material-icons" role="presentation">file_download</i>Transmission</a>
+    {% endif %}
+    {% if perms.requestmedia.view %}
     <a class="mdl-navigation__link" href="/requestmedia"><i class="material-icons" role="presentation">video_library</i>Request Media</a>
+    {% endif %}
     <div class="nav_divider mdl-color--blue-grey-700">Information</div>
-    {% for group in user.groups.all %}
-        {% if "/status/" == group.name %}
+    {% if perms.status.view %}
             <a class="mdl-navigation__link" href="/status"><i class="material-icons" role="presentation">data_usage</i>Server status</a>
-        {% endif %}
-    {% endfor %}
+    {% endif %}
     <a class="mdl-navigation__link" href="/profile"><i class="material-icons" role="presentation">settings</i>Account setup</a>
     {% if request.user.is_staff %}
         <a class="mdl-navigation__link" href="/admin"><i class="material-icons" role="presentation">security</i>Admin Page</a>

@@ -6,8 +6,10 @@ from subprocess import check_output, Popen, PIPE
 import json
 from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
+@permission_required('status.view')
 @login_required
 def get_cpu_usage(request):
     if request.is_ajax():
@@ -22,6 +24,7 @@ def get_cpu_usage(request):
         raise Http404
 
 
+@permission_required('status.view')
 @login_required
 def get_temperatures(request):
     if request.is_ajax():
@@ -41,6 +44,7 @@ def get_temperatures(request):
         raise Http404
 
 
+@permission_required('status.view')
 @login_required
 def get_fanspeed(request):
     if request.is_ajax():

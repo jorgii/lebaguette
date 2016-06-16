@@ -187,6 +187,14 @@ class Request(models.Model):
         blank=True)
     datetime_rejected = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        permissions = {
+            ('view', 'Can view requests'),
+            ('approve', 'Can approve requests'),
+            ('reject', 'Can reject requests'),
+            ('complete', 'Can complete requests')
+        }
+
     def get_media_item(self):
         return (self.tv_show or self.movie or self.episode)
 

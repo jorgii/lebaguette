@@ -18,6 +18,7 @@
     {% include "base/drawer.html" %}
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid container">
+         {% if perms.requestmedia.add_request %}
         <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             <div class="mdl-card__title mdl-color--cyan-400">
@@ -41,6 +42,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
         <div class="cards mdl-cell mdl-cell--12-col mdl-grid">
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
             {% include "base/requests_menu.html" %}
@@ -57,20 +59,16 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Requested on
                   </span>
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/approve/" == group.name %}
+                  {% if perms.requestmedia.approve %}
                   <span class="mdl-cell mdl-cell--1-col mdl-list__item-primary-content mdl-typography--text-center">
                     Approve
                   </span>
                   {% endif %}
-                  {% endfor %}
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/reject/" == group.name %}
+                      {% if perms.requestmedia.reject %}
                   <span class="mdl-cell mdl-cell--1-col mdl-list__item-primary-content mdl-typography--text-center">
                     Reject
                   </span>
                   {% endif %}
-                  {% endfor %}
                 </li>
                 {% for item in request_items %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
@@ -89,24 +87,20 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     {{ item.datetime_requested }}
                   </span>
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/approve/" == group.name %}
+                  {% if perms.requestmedia.approve %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="list__item-secondary-action material-icons episode__approve">check</i></a>
                     </button>
                   </span>
                   {% endif %}
-                  {% endfor %}
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/reject/" == group.name %}
+                  {% if perms.requestmedia.reject %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon">
                       <i class="list__item-secondary-action material-icons episode__reject">clear</i></a>
                     </button>
                   </span>
                     {% endif %}
-                  {% endfor %}
                 </li>
                 {% endfor %}
               </ul>

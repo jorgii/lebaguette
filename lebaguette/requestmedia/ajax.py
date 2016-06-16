@@ -1,12 +1,11 @@
 from django.http import HttpResponseForbidden, Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import permission_required
 
 from .models import Request
-from lebaguette.extra import is_in_group
 
 
-@is_in_group
+@permission_required('requestmedia.complete')
 @login_required
 def complete_request(request):
     if request.is_ajax() and request.method == 'POST':
@@ -24,7 +23,7 @@ def complete_request(request):
         return HttpResponseForbidden()
 
 
-@is_in_group
+@permission_required('requestmedia.approve')
 @login_required
 def approve_request(request):
     if request.is_ajax() and request.method == 'POST':
@@ -42,7 +41,7 @@ def approve_request(request):
         return HttpResponseForbidden()
 
 
-@is_in_group
+@permission_required('requestmedia.reject')
 @login_required
 def reject_request(request):
     if request.is_ajax() and request.method == 'POST':
