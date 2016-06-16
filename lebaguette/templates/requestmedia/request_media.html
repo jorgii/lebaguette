@@ -73,7 +73,9 @@
                   </li>
                   {% for item in request_items %}
                   <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="130%">
+                    <div class="mdl-cell mdl-cell--1-col mdl-grid">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                    </div>
                     <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                       <span>
                           {{ item.get_media_item }}
@@ -120,7 +122,9 @@
                   </li>
                   {% for episode in episodes %}
                   <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
+                    <div class="mdl-cell mdl-cell--1-col mdl-grid">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                    </div>
                     <span class="mdl-cell mdl-cell--6-col mdl-list__item-primary-content">
                       <span>
                           {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
@@ -159,7 +163,9 @@
                   </li>
                   {% for episode in episodes %}
                   <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
+                    <div class="mdl-cell mdl-cell--1-col mdl-grid">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                    </div>
                     <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                       <span>
                           {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
@@ -193,7 +199,9 @@
                   </li>
                   {% for episode in episodes %}
                   <li class="mdl-list__item mdl-list__item--two-line" id="{{episode.episode_imdbid}}">
-                    <img class="poster__image mdl-cell mdl-cell--1-col" src="{{ episode.season.tv_show.poster_link }}" alt="{{episode.season.tv_show.title}} poster" height="130%">
+                    <div class="mdl-cell mdl-cell--1-col mdl-grid">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                    </div>
                     <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                       <span>
                           {{episode.season.tv_show.title}} Season {% if episode.season.season_number <= 9 %}0{% endif %}{{episode.season.season_number}} Episode {% if episode.episode_number <= 9 %}0{% endif %}{{episode.episode_number}}
