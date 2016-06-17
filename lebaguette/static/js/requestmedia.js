@@ -60,18 +60,56 @@ function pushRequest(requestUrl,element,cssClass) {
     }
   });
 }
-$('.episode__approve').click(function(){
+$(document).on('click', '.episode__approve', function(){
   var element = $(this),
       cssClass = "episode__approved";
   pushRequest("/requestmedia/approve/", element, cssClass);
 });
-$('.episode__reject').click(function(){
+$(document).on('click', '.episode__reject', function(){
   var element = $(this);
       cssClass = "episode__rejected";
   pushRequest("/requestmedia/reject/", element, cssClass);
 });
-$('.episode__complete').click(function(){
+$(document).on('click', '.episode__complete', function(){
   var element = $(this);
       cssClass = "episode__approved";
   pushRequest("/requestmedia/complete/", element, cssClass);
+});
+
+
+$(window).load(function() {
+	var win = $('main'),
+      totalPages = $('#total_pages').text();
+  $('#paginator').addClass('hidden');
+	// Each time the user scrolls
+	$(win).scroll(function() {
+		// End of the document reached?
+    var element = event.target;
+		if(element.scrollHeight - element.scrollTop === element.clientHeight) {
+      var currentPage = parseInt($('#current_page_number').text()),
+          nextPageNumber = currentPage + 1,
+          newCurrentPage = nextPageNumber,
+          pageBaseLink = $('#paginator_next').attr('href')
+          newNextPageLink = "?page="+(nextPageNumber+1);
+      if(newCurrentPage <= totalPages) {
+  	    $('#loading').addClass('is-active');
+        $('#current_page_number').html(newCurrentPage);
+        $('#paginator_next').attr('href', newNextPageLink);
+
+    		$.ajax({
+          data: {
+                txtsearch: $('#items_list').val()
+            },
+          type: "GET",
+    			url: '?page=' + nextPageNumber,
+    			dataType: 'html',
+    			success: function(data) {
+            var result = $('<div />').append(data).find('#items_list').html();
+    				$('#items_list').append(result);
+    				$('#loading').removeClass('is-active');
+    				}
+    			});
+        }
+  		}
+	});
 });
