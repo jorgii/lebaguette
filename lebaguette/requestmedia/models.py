@@ -1,5 +1,6 @@
 from datetime import datetime, date
 import os
+import requests
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -195,6 +196,21 @@ class Request(models.Model):
             ('complete', 'Can complete requests')
         }
 
+    def get_media_from_api(imdbid):
+        try:
+            media_request = requests.get(
+                'http://www.omdbapi.com/?i=' +
+                imdb_id +
+                '&plot=short&r=json')
+        except requests.exceptions.ConnectionError:
+            print('There was an error connecting to the api. ')
+        except request.exceptions.HTTPError:
+            print('Invalid HTTP response received. ')
+        except request.exceptions.Timeout:
+            print('The connection to the api timed out. ')
+        except request.exceptions.TooManyRedirects:
+            print('There have been too many redirects. ')
+        return media_request.json()
     def get_media_item(self):
         return (self.tv_show or self.movie or self.episode)
 
