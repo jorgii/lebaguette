@@ -52,10 +52,10 @@ class Command(BaseCommand):
                 '&plot=short&r=json')
         except requests.exceptions.ConnectionError:
             print('There was an error connecting to the api. ')
-        except request.exceptions.HTTPError:
+        except requests.exceptions.HTTPError:
             print('Invalid HTTP response received. ')
-        except request.exceptions.Timeout:
+        except requests.exceptions.Timeout:
             print('The connection to the api timed out. ')
-        except request.exceptions.TooManyRedirects:
+        except requests.exceptions.TooManyRedirects:
             print('There have been too many redirects. ')
         return episodes_request

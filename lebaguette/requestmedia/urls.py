@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^complete/$', ajax.complete_request, name='complete_request'),
     url(r'^approve/$', ajax.approve_request, name='approve_request'),
     url(r'^reject/$', ajax.reject_request, name='reject_request'),
+    url(r'^add/$', ajax.add_request, name='add_request'),
 ]

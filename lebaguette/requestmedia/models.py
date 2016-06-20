@@ -15,7 +15,6 @@ class MediaItem(models.Model):
                              blank=False,
                              null=False)
     released = models.DateField()
-    imdb_rating = models.DecimalField(decimal_places=1, max_digits=2)
     imdb_id = models.CharField('IMDB ID',
                                max_length=255,
                                blank=False,
@@ -196,21 +195,22 @@ class Request(models.Model):
             ('complete', 'Can complete requests')
         }
 
-    def get_media_from_api(imdbid):
-        try:
-            media_request = requests.get(
-                'http://www.omdbapi.com/?i=' +
-                imdb_id +
-                '&plot=short&r=json')
-        except requests.exceptions.ConnectionError:
-            print('There was an error connecting to the api. ')
-        except request.exceptions.HTTPError:
-            print('Invalid HTTP response received. ')
-        except request.exceptions.Timeout:
-            print('The connection to the api timed out. ')
-        except request.exceptions.TooManyRedirects:
-            print('There have been too many redirects. ')
-        return media_request.json()
+    @classmethod
+    def create(cls, imdbdid, requested_by):
+        media_type, media = create_media_from_imdbid(imdbdid)
+        if media_type == 'series':
+            return cls(
+                status='N',
+                request_type='TV',
+                tv_show=media,
+                requested_by=requested_by)
+        elif media_type == 'movie':
+            return cls(
+                status='N',
+                request_type='M',
+                tv_show=media,
+                requested_by=requested_by)
+
     def get_media_item(self):
         return (self.tv_show or self.movie or self.episode)
 
@@ -239,3 +239,49 @@ class Request(models.Model):
             ' ' +\
             str(self.requested_by.last_name)
         return text
+
+
+def create_media_from_imdbid(imdbid):
+    request = get_media_from_api(imdbid)
+    print(request['imdbID'])
+    if request['Type'] == 'series':
+        tv_show = TVShow.objects.create(
+            title=request['Title'],
+            released=datetime.strptime(
+                request['Released'],
+                '%d %b %Y').date(),
+            imdb_id=request['imdbID'],
+            #poster=request['Poster']
+        )
+        tv_show.save()
+        return request['Type'], tv_show
+    elif request['Type'] == 'movie':
+        movie = Movie.objects.create(
+            title=request['Title'],
+            released=datetime.strptime(
+                request['Released'],
+                '%d %b %Y').date(),
+            imdb_id=request['imdbID'],
+            #poster=request['Poster']
+        )
+        movie.save()
+        return movie
+    else:
+        return
+
+
+def get_media_from_api(imdbid):
+    try:
+        media_request = requests.get(
+            'http://www.omdbapi.com/?i=' +
+            imdbid +
+            '&plot=short&r=json')
+    except requests.exceptions.ConnectionError:
+        print('There was an error connecting to the api. ')
+    except requests.exceptions.HTTPError:
+        print('Invalid HTTP response received. ')
+    except requests.exceptions.Timeout:
+        print('The connection to the api timed out. ')
+    except requests.exceptions.TooManyRedirects:
+        print('There have been too many redirects. ')
+    return media_request.json()
