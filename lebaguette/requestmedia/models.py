@@ -10,6 +10,13 @@ from lebaguette.settings import MEDIA_URL
 
 
 class MediaItem(models.Model):
+    # General properties
+    MEDIA_TYPE_CHOICES = (
+        ('TV', 'TV Show'),
+        ('MV', 'Movie'),
+        ('EP', 'Episode'),
+    )
+    media_type = models.CharField(max_length=2, choices=MEDIA_TYPE_CHOICES)
     title = models.CharField('Title',
                              max_length=255,
                              blank=False,
@@ -23,10 +30,12 @@ class MediaItem(models.Model):
         upload_to='posters/',
         blank=True,
         null=True)
-    datetime_created = models.DateTimeField(auto_now_add=True)
-
-    class Meta():
-        abstract = True
+    # TV Show properties
+    media_completed models.BooleanField(default=False)
+    # Episode properties
+    season = models.IntegerField()
+    episode = models.IntegerField()
+    tv_show = models.ForeignKey(MediaItem, on_delete=models.CASCADE)
 
     def get_poster_url(self):
         try:
@@ -41,7 +50,15 @@ class MediaItem(models.Model):
         return self.released
 
     def __str__(self):
-        return self.title
+        if self.media_type == 'TV':
+            return (self.title + '(TV Show)')
+        elif slef.media_type == 'EP':
+            return (
+                self.tv_show.title +
+                (' S0' if self.season < 10 else ' S') + self.season +
+                (' E0' if self.episode < 10 else ' E') + self.episode)
+        else:
+            return (self.title)
 
 
 class TVShow(MediaItem):
