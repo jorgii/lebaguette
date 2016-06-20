@@ -29,14 +29,14 @@ def request_media(request):
 def approved_media(request):
     request_items = Request.objects.filter(status='A').order_by(
         '-datetime_requested')
-#    paginator = Paginator(media_items, 5)
-#    page = request.GET.get('page')
-#    try:
-#        media_items_page = paginator.page(page)
-#    except PageNotAnInteger:
-#        media_items_page = paginator.page(number=1)
-#    except EmptyPage:
-#        media_items_page = paginator.page(paginator.num_pages)
+    paginator = Paginator(request_items, 5)
+    page = request.GET.get('page')
+    try:
+        request_items_page = paginator.page(page)
+    except PageNotAnInteger:
+        request_items_page = paginator.page(number=1)
+    except EmptyPage:
+        request_items_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/approved_media.html', locals())
 
 
@@ -45,14 +45,14 @@ def approved_media(request):
 def rejected_media(request):
     request_items = Request.objects.filter(status='R').order_by(
         '-datetime_requested')
-#    paginator = Paginator(media_items, 5)
-#    page = request.GET.get('page')
-#    try:
-#        media_items_page = paginator.page(page)
-#    except PageNotAnInteger:
-#        media_items_page = paginator.page(number=1)
-#    except EmptyPage:
-#        media_items_page = paginator.page(paginator.num_pages)
+    paginator = Paginator(request_items, 15)
+    page = request.GET.get('page')
+    try:
+        request_items_page = paginator.page(page)
+    except PageNotAnInteger:
+        request_items_page = paginator.page(number=1)
+    except EmptyPage:
+        request_items_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/rejected_media.html', locals())
 
 
@@ -61,12 +61,12 @@ def rejected_media(request):
 def completed_media(request):
     request_items = Request.objects.filter(status='C').order_by(
         '-datetime_requested')
-#    paginator = Paginator(media_items, 5)
-#    page = request.GET.get('page')
-#    try:
-#        media_items_page = paginator.page(page)
-#    except PageNotAnInteger:
-#        media_items_page = paginator.page(number=1)
-#    except EmptyPage:
-#        media_items_page = paginator.page(paginator.num_pages)
+    paginator = Paginator(request_items, 15)
+    page = request.GET.get('page')
+    try:
+        request_items_page = paginator.page(page)
+    except PageNotAnInteger:
+        request_items_page = paginator.page(number=1)
+    except EmptyPage:
+        request_items_page = paginator.page(paginator.num_pages)
     return render(request, 'requestmedia/completed_media.html', locals())
