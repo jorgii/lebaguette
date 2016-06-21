@@ -1,12 +1,12 @@
 from datetime import datetime, date
+from urllib.parse import urlparse
 import os
 import requests
 
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
-from lebaguette.settings import MEDIA_URL
+from django.core.files import File
 
 
 class MediaItem(models.Model):
@@ -40,6 +40,21 @@ class MediaItem(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.poster:
+            media_request = self.get_data_from_api()
+            image_url = media_request['Poster']
+            r = requests.get(image_url)
+            file_name = os.path.basename(urlparse(image_url).path)
+            with open('tmp_logo.png', 'wb') as f:
+                f.write(r.content)
+            reopen = open('tmp_logo.png', 'rb')
+            django_file = File(reopen)
+            self.poster.save(file_name, django_file, save=True)
+            reopen.close()
+            os.remove('tmp_logo.png')
+        super(MediaItem, self).save(*args, **kwargs)
 
     def save_and_create_request(self, requested_by, status, *args, **kwargs):
         super(MediaItem, self).save(*args, **kwargs)
