@@ -51,13 +51,13 @@ class MediaItem(models.Model):
         return MediaItem.objects.filter(tv_show=self).order_by('-released')[0]
 
     def __str__(self):
-        if self.media_type == 'TV':
-            return (self.title + '(TV Show)')
-        elif slef.media_type == 'EP':
+        if self.media_type == 'series':
+            return (self.title + ' (TV Show)')
+        elif self.media_type == 'episode':
             return (
                 self.tv_show.title +
-                (' S0' if self.season < 10 else ' S') + self.season +
-                (' E0' if self.episode < 10 else ' E') + self.episode)
+                (' S0' if self.season < 10 else ' S') + str(self.season) +
+                ('E0' if self.episode < 10 else 'E') + str(self.episode))
         else:
             return (self.title)
 
