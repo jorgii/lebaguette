@@ -76,10 +76,11 @@ $(document).on('click', '.episode__complete', function(){
   pushRequest("/requestmedia/complete/", element, cssClass);
 });
 
-
 $(window).load(function() {
 	var win = $('main'),
-      totalPages = $('#total_pages').text();
+      totalPages = $('#total_pages').text(),
+      viewParam = $(location).attr('href');
+
   $('#paginator').addClass('hidden');
 	// Each time the user scrolls
 	$(win).scroll(function() {
@@ -101,7 +102,7 @@ $(window).load(function() {
                 txtsearch: $('#items_list').val()
             },
           type: "GET",
-    			url: '?page=' + nextPageNumber,
+    			url: viewParam + '?page=' + nextPageNumber,
     			dataType: 'html',
     			success: function(data) {
             var result = $('<div />').append(data).find('#items_list').html();
