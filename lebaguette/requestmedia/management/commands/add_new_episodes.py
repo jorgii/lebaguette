@@ -14,7 +14,7 @@ class Command(BaseCommand):
             media_completed=False)
         # loop active shows in db
         for show in active_shows:
-            start_episode = 1
+            start_episode = 0
             start_season = 1
             # add missing seasons from api
             latest_episode = show.get_latest_episode()
