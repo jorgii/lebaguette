@@ -3,7 +3,6 @@ import os
 import requests
 
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
 
 from lebaguette.settings import MEDIA_URL
@@ -41,6 +40,14 @@ class MediaItem(models.Model):
         null=True,
         blank=True)
 
+    def save_and_create_request(self, requested_by, *args, **kwargs):
+        super(MediaItem, self).save(*args, **kwargs)
+        media_request = Request.objects.create(
+            status='N',
+            media_item=self,
+            requested_by=requested_by)
+        media_request.save()
+
     def get_poster_url(self):
         try:
             return self.poster.url
@@ -48,7 +55,58 @@ class MediaItem(models.Model):
             return None
 
     def get_latest_episode(self):
-        return MediaItem.objects.filter(tv_show=self).order_by('-released')[0]
+        try:
+            latest_episode = MediaItem.objects.filter(
+                tv_show=self).order_by('-released')[0]
+        except IndexError:
+            latest_episode = None
+        return latest_episode
+
+    def create_new_episodes(self, episode, season, requested_by):
+        season_request = self.get_data_from_api(season)
+        total_seasons = range(season, int(season_request['totalSeasons']))
+        while season_request['Response'] == 'True':
+            for api_episode in season_request['Episodes'][episode:]:
+                try:
+                    if not MediaItem.objects.filter(
+                                episode=int(api_episode['Episode']),
+                                season=season,
+                                imdb_id=api_episode['imdbID']).exists() and \
+                            date.today() >= datetime.strptime(
+                                api_episode['Released'],
+                                '%Y-%m-%d').date():
+                        new_episode = MediaItem.objects.create(
+                            media_type='episode',
+                            title=api_episode['Title'],
+                            released=datetime.strptime(
+                                api_episode['Released'],
+                                '%Y-%m-%d').date(),
+                            imdb_id=api_episode['imdbID'],
+                            season=season,
+                            episode=int(api_episode['Episode']),
+                            tv_show=self)
+                        new_episode.save_and_create_request(requested_by)
+                except ValueError:
+                    continue
+            season += 1
+            season_request = self.get_data_from_api(season)
+
+    def get_data_from_api(self, season=None):
+        try:
+            season_request = requests.get(
+                'http://www.omdbapi.com/?i=' +
+                self.imdb_id +
+                ('&Season=' + str(season) if season else '') +
+                '&plot=short&r=json')
+        except requests.exceptions.ConnectionError:
+            print('There was an error connecting to the api. ')
+        except requests.exceptions.HTTPError:
+            print('Invalid HTTP response received. ')
+        except requests.exceptions.Timeout:
+            print('The connection to the api timed out. ')
+        except requests.exceptions.TooManyRedirects:
+            print('There have been too many redirects. ')
+        return season_request.json()
 
     def __str__(self):
         if self.media_type == 'series':
