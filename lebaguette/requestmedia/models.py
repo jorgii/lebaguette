@@ -16,7 +16,7 @@ class MediaItem(models.Model):
         ('movie', 'Movie'),
         ('episode', 'Episode'),
     )
-    media_type = models.CharField(max_length=2, choices=MEDIA_TYPE_CHOICES)
+    media_type = models.CharField(max_length=7, choices=MEDIA_TYPE_CHOICES)
     title = models.CharField('Title',
                              max_length=255,
                              blank=False,
@@ -33,9 +33,13 @@ class MediaItem(models.Model):
     # TV Show properties
     media_completed = models.BooleanField(default=False)
     # Episode properties
-    season = models.IntegerField()
-    episode = models.IntegerField()
-    tv_show = models.ForeignKey('self', on_delete=models.CASCADE)
+    season = models.IntegerField(null=True, blank=True)
+    episode = models.IntegerField(null=True, blank=True)
+    tv_show = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True)
 
     def get_poster_url(self):
         try:
