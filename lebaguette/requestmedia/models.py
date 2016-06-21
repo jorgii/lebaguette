@@ -69,6 +69,18 @@ class MediaItem(models.Model):
             latest_episode = None
         return latest_episode
 
+    @classmethod
+    def create_media_from_imdbid(cls, imdb_id):
+        media_item = cls(imdb_id=imdb_id)
+        media_request = media_item.get_data_from_api()
+        if media_request['Type'] == 'episode':
+            return None
+        media_item.media_type = media_request['Type']
+        media_item.title = media_request['Title']
+        media_item.released = datetime.strptime(
+                media_request['Released'], '%d %b %Y').date()
+        return media_item
+
     def create_new_episodes(self, episode, season, requested_by, status):
         season_request = self.get_data_from_api(season)
         total_seasons = range(season, int(season_request['totalSeasons']))
@@ -102,7 +114,7 @@ class MediaItem(models.Model):
 
     def get_data_from_api(self, season=None):
         try:
-            season_request = requests.get(
+            media_request = requests.get(
                 'http://www.omdbapi.com/?i=' +
                 self.imdb_id +
                 ('&Season=' + str(season) if season else '') +
@@ -115,7 +127,7 @@ class MediaItem(models.Model):
             print('The connection to the api timed out. ')
         except requests.exceptions.TooManyRedirects:
             print('There have been too many redirects. ')
-        return season_request.json()
+        return media_request.json()
 
     def __str__(self):
         if self.media_type == 'series':
