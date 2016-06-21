@@ -25,7 +25,7 @@ def add_request(request):
         #    raise Http404
         #return HttpResponse(
         #    '"' +
-            #str(media_request.get_media_item()) +
+            #str(media_request.media_item) +
         #    '" added')
 #    else:
 #        return HttpResponseForbidden()
@@ -43,7 +43,7 @@ def complete_request(request):
             raise Http404
         return HttpResponse(
             '"' +
-            str(request_item.get_media_item()) +
+            str(request_item.media_item) +
             '" marked as completed')
     else:
         return HttpResponseForbidden()
@@ -55,13 +55,14 @@ def approve_request(request):
     if request.is_ajax() and request.method == 'POST':
         itemid = request.POST.get('itemid')
         try:
+            print('in here')
             request_item = Request.objects.get(id=itemid)
             request_item.approve(request.user)
         except:
             raise Http404
         return HttpResponse(
             '"' +
-            str(request_item.get_media_item()) +
+            str(request_item.media_item) +
             '" marked as approved')
     else:
         return HttpResponseForbidden()
@@ -79,7 +80,7 @@ def reject_request(request):
             raise Http404
         return HttpResponse(
             '"' +
-            str(request_item.get_media_item()) +
+            str(request_item.media_item) +
             '" marked as rejected')
     else:
         return HttpResponseForbidden()
