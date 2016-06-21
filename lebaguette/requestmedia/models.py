@@ -46,6 +46,7 @@ class MediaItem(models.Model):
             status=status,
             media_item=self,
             requested_by=requested_by)
+        media_request.approve(requested_by)
         media_request.save()
 
     def get_poster_url(self):
