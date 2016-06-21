@@ -2,25 +2,19 @@ import requests
 
 from django.core.management.base import BaseCommand
 
-from requestmedia.models import TVShow, TVShowSeason, TVShowEpisode
+from requestmedia.models import MediaItem
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        active_shows = TVShow.objects.filter(show_completed=False)
+        active_shows = MediaItem.objects.filter(
+            media_type='series',
+            media_completed=False)
         # loop active shows in db
         for show in active_shows:
             # add missing seasons from api
-            self.check_and_add_missing_seasons(show)
-            # loop active seasons in db and add missing episodes
-            seasons = TVShowSeason.objects.filter(
-                    tv_show=show,
-                    season_completed=False)
-            for season in seasons:
-                episodes_request = self.get_season_from_api(
-                    imdb_id=show.imdb_id,
-                    season=season.season_number)
-                season.create_episodes_from_json(episodes_request.json())
+            latest_episode = show.get_latest_episode()
+            print(latest_episode)
 
     def check_and_add_missing_seasons(self, show):
         db_seasons = TVShowSeason.objects.filter(

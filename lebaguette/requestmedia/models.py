@@ -43,29 +43,8 @@ class MediaItem(models.Model):
         except ValueError:
             return None
 
-    def create_episodes_from_json(self, episodes_json):
-        for episode in episodes_json['Episodes']:
-            # create non existent episodes that have already aired
-            try:
-                if not TVShowEpisode.objects.filter(
-                            episode_number=int(episode['Episode']),
-                            season=self,
-                            episode_imdbid=episode['imdbID']).exists() and \
-                        date.today() >= datetime.strptime(
-                            episode['Released'],
-                            '%Y-%m-%d').date():
-                    tv_show_episode = TVShowEpisode.create(
-                        season=self,
-                        episode_title=episode['Title'],
-                        episode_number=int(episode['Episode']),
-                        episode_released=datetime.strptime(
-                            episode['Released'],
-                            '%Y-%m-%d').date(),
-                        episode_imdbid=episode['imdbID'])
-                    tv_show_episode.save()
-                    tv_show_episode.create_request()
-            except ValueError:
-                continue
+    def get_latest_episode(self):
+        return MediaItem.objects.filter(tv_show=self).order_by('-released')[0]
 
     def __str__(self):
         if self.media_type == 'TV':
