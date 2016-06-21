@@ -54,7 +54,10 @@ class MediaItem(models.Model):
 
     def get_poster_url(self):
         try:
-            return self.poster.url
+            if self.media_type == 'episode':
+                return self.tv_show.poster.url
+            else:
+                return self.poster.url
         except ValueError:
             return None
 

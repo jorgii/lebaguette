@@ -53,13 +53,13 @@
                 {% for item in request_items_page %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
-                    <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.get_media_item.get_poster_url }}" alt="{{ item.get_media_item }} poster" height="100%" width="auto">
+                    <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.media_item.get_poster_url }}" alt="{{ item.media_item }} poster" height="100%" width="auto">
                   </div>
                   <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                     <span>
-                        {{ item.get_media_item }}
+                        {{ item.media_item }}
                     </span>
-                    <span class="mdl-list__item-sub-title">{{ item.get_media_item.get_title }} aired on {{ item.get_media_item.get_released }}</span>
+                    <span class="mdl-list__item-sub-title">{{ item.media_item.title }} aired on {{ item.media_item.released }}</span>
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     {{ item.requested_by.first_name }} {{ item.requested_by.last_name }}
