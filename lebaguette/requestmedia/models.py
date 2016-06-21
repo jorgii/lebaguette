@@ -4,6 +4,7 @@ import requests
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from lebaguette.settings import MEDIA_URL
 
@@ -42,11 +43,13 @@ class MediaItem(models.Model):
 
     def save_and_create_request(self, requested_by, status, *args, **kwargs):
         super(MediaItem, self).save(*args, **kwargs)
+        user = User.objects.get(username='cronjob')
         media_request = Request.objects.create(
             status=status,
             media_item=self,
             requested_by=requested_by)
-        media_request.approve(requested_by)
+        if requested_by == user:
+            media_request.approve(requested_by)
         media_request.save()
 
     def get_poster_url(self):
