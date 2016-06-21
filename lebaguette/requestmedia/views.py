@@ -29,7 +29,7 @@ def request_media(request):
 def approved_media(request):
     request_items = Request.objects.filter(status='A').order_by(
         '-datetime_requested')
-    paginator = Paginator(request_items, 5)
+    paginator = Paginator(request_items, 15)
     page = request.GET.get('page')
     try:
         request_items_page = paginator.page(page)
