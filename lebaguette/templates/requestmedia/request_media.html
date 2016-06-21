@@ -128,7 +128,7 @@
                 {% endif %}
                 {% if request_items_page.number != paginator.num_pages and request_items_page.next_page_number != paginator.num_pages %}
                 <a href="?page={{ paginator.num_pages }}">
-                  <button  id="total_pages" class="mdl-button mdl-js-button mdl-button--primary">{{ paginator.num_pages }}</button>
+                  <button class="mdl-button mdl-js-button mdl-button--primary">{{ paginator.num_pages }}</button>
                 </a>
                 {% endif %}
                 {% if request_items_page.has_next %}
@@ -136,6 +136,7 @@
                   <button class="mdl-button mdl-js-button mdl-button--primary">Next</button>
                 </a>
                 {% endif %}
+                <div id="total_pages" class="hidden">{{ paginator.num_pages }}</div>
                 <div class="mdl-layout-spacer"></div>
               </div>
               {% endif %}

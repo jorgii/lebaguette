@@ -96,6 +96,7 @@ $(window).load(function() {
   	    $('#loading').addClass('is-active');
         $('#current_page_number').html(newCurrentPage);
         $('#paginator_next').attr('href', newNextPageLink);
+        console.log('ajax fired');
 
     		$.ajax({
           data: {

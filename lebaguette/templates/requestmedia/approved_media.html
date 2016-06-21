@@ -82,15 +82,15 @@
                 <div class="mdl-layout-spacer"></div>
               </div>
               {% if paginator.num_pages > 1 %}
-              <div class="mdl-cell mdl-cell--12-col mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col mdl-grid" id="paginator">
                 <div class="mdl-layout-spacer"></div>
                 {% if request_items_page.has_previous %}
-                <a href="approved/?page={{ request_items_page.previous_page_number }}">
+                <a href="?page={{ request_items_page.previous_page_number }}">
                   <button class="mdl-button mdl-js-button mdl-button--primary">Previous</button>
                 </a>
                 {% endif %}
                 {% if request_items_page.number != 1 and request_items_page.previous_page_number != 1 %}
-                <a href="approved/?page=1">
+                <a href="?page=1">
                   <button class="mdl-button mdl-js-button mdl-button--primary">1</button>
                 </a>
                 {% endif %}
@@ -100,7 +100,7 @@
                 </button>
                 {% endif %}
                 {% if request_items_page.has_previous %}
-                <a href="approved/?page={{ request_items_page.previous_page_number }}">
+                <a href="?page={{ request_items_page.previous_page_number }}">
                   <button class="mdl-button mdl-js-button mdl-button--primary">{{ request_items_page.previous_page_number }}</button>
                   <div id="previous_page_number" class="hidden">{{ request_items_page.previous_page_number }}</div>
                 </a>
@@ -109,7 +109,7 @@
                   {{ request_items_page.number }}
                 </button>
                 {% if request_items_page.has_next %}
-                <a href="approved/?page={{ request_items_page.next_page_number }}">
+                <a href="?page={{ request_items_page.next_page_number }}">
                   <button class="mdl-button mdl-js-button mdl-button--primary">{{ request_items_page.next_page_number }}</button>
                 </a>
                 {% endif %}
@@ -119,15 +119,16 @@
                 </button>
                 {% endif %}
                 {% if request_items_page.number != paginator.num_pages and request_items_page.next_page_number != paginator.num_pages %}
-                <a href="approved/?page={{ paginator.num_pages }}">
+                <a href="?page={{ paginator.num_pages }}">
                   <button class="mdl-button mdl-js-button mdl-button--primary">{{ paginator.num_pages }}</button>
                 </a>
                 {% endif %}
                 {% if request_items_page.has_next %}
-                <a id="paginator_next" href="approved/?page={{ request_items_page.next_page_number }}">
+                <a id="paginator_next" href="?page={{ request_items_page.next_page_number }}">
                   <button class="mdl-button mdl-js-button mdl-button--primary">Next</button>
                 </a>
                 {% endif %}
+                <div id="total_pages" class="hidden">{{ paginator.num_pages }}</div>
                 <div class="mdl-layout-spacer"></div>
               </div>
               {% endif %}
