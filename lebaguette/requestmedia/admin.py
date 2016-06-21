@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from .models import TVShow, TVShowSeason, TVShowEpisode, Movie, Request
+from .models import MediaItem, Request
 
-admin.site.register(TVShow)
-admin.site.register(TVShowSeason)
-admin.site.register(TVShowEpisode)
-admin.site.register(Movie)
+admin.site.register(MediaItem)
 admin.site.register(Request)

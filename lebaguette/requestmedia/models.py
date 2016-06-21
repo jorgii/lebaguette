@@ -12,9 +12,9 @@ from lebaguette.settings import MEDIA_URL
 class MediaItem(models.Model):
     # General properties
     MEDIA_TYPE_CHOICES = (
-        ('TV', 'TV Show'),
-        ('MV', 'Movie'),
-        ('EP', 'Episode'),
+        ('series', 'TV Show'),
+        ('movie', 'Movie'),
+        ('episode', 'Episode'),
     )
     media_type = models.CharField(max_length=2, choices=MEDIA_TYPE_CHOICES)
     title = models.CharField('Title',
@@ -31,54 +31,17 @@ class MediaItem(models.Model):
         blank=True,
         null=True)
     # TV Show properties
-    media_completed models.BooleanField(default=False)
+    media_completed = models.BooleanField(default=False)
     # Episode properties
     season = models.IntegerField()
     episode = models.IntegerField()
-    tv_show = models.ForeignKey(MediaItem, on_delete=models.CASCADE)
+    tv_show = models.ForeignKey('self', on_delete=models.CASCADE)
 
     def get_poster_url(self):
         try:
             return self.poster.url
         except ValueError:
             return None
-
-    def get_title(self):
-        return self.title
-
-    def get_released(self):
-        return self.released
-
-    def __str__(self):
-        if self.media_type == 'TV':
-            return (self.title + '(TV Show)')
-        elif slef.media_type == 'EP':
-            return (
-                self.tv_show.title +
-                (' S0' if self.season < 10 else ' S') + self.season +
-                (' E0' if self.episode < 10 else ' E') + self.episode)
-        else:
-            return (self.title)
-
-
-class TVShow(MediaItem):
-    show_completed = models.BooleanField(default=False)
-
-
-class TVShowSeason(models.Model):
-    tv_show = models.ForeignKey(TVShow, on_delete=models.CASCADE)
-    season_number = models.IntegerField()
-    season_completed = models.BooleanField(default=False)
-
-    class Meta:
-        unique_together = ('tv_show', 'season_number')
-
-    def __str__(self):
-        return (self.tv_show.title + ': Season ' + str(self.season_number))
-
-    @classmethod
-    def create(cls, tv_show, season_number):
-        return cls(tv_show=tv_show, season_number=season_number)
 
     def create_episodes_from_json(self, episodes_json):
         for episode in episodes_json['Episodes']:
@@ -104,67 +67,16 @@ class TVShowSeason(models.Model):
             except ValueError:
                 continue
 
-
-class TVShowEpisode(models.Model):
-    season = models.ForeignKey(TVShowSeason, on_delete=models.CASCADE)
-    episode_title = models.CharField('Episode Title',
-                                     max_length=255,
-                                     blank=False,
-                                     null=False)
-    episode_number = models.IntegerField()
-    episode_released = models.DateField()
-    episode_imdbid = models.CharField(
-        'Episode IMDB ID',
-        max_length=255,
-        blank=False,
-        null=False)
-
-    class Meta:
-        unique_together = ('season', 'episode_number')
-
-    def get_poster_url(self):
-        return self.season.tv_show.get_poster_url()
-
-    def create_request(self):
-        tv_show_episode_request = Request(
-            status='N',
-            request_type='EP',
-            episode=self,
-            requested_by=User.objects.get(username='cronjob')
-            )
-        tv_show_episode_request.save()
-
-    def get_title(self):
-        return self.episode_title
-
-    def get_released(self):
-        return self.episode_released
-
     def __str__(self):
-        return (
-            self.season.tv_show.title +
-            ': S' + str(self.season.season_number) +
-            'E' + str(self.episode_number))
-
-    @classmethod
-    def create(
-            cls,
-            season,
-            episode_title,
-            episode_number,
-            episode_released,
-            episode_imdbid):
-        return cls(
-            season=season,
-            episode_title=episode_title,
-            episode_number=episode_number,
-            episode_released=episode_released,
-            episode_imdbid=episode_imdbid)
-
-
-class Movie(MediaItem):
-    def __str__(self):
-        return self.title
+        if self.media_type == 'TV':
+            return (self.title + '(TV Show)')
+        elif slef.media_type == 'EP':
+            return (
+                self.tv_show.title +
+                (' S0' if self.season < 10 else ' S') + self.season +
+                (' E0' if self.episode < 10 else ' E') + self.episode)
+        else:
+            return (self.title)
 
 
 class Request(models.Model):
@@ -174,16 +86,8 @@ class Request(models.Model):
         ('R', 'Rejected'),
         ('C', 'Completed')
     )
-    REQUEST_TYPE_CHOICES = (
-        ('TV', 'TV Show'),
-        ('M', 'Movie'),
-        ('EP', 'Episode'),
-    )
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    request_type = models.CharField(max_length=2, choices=REQUEST_TYPE_CHOICES)
-    tv_show = models.OneToOneField(TVShow, null=True, blank=True)
-    movie = models.OneToOneField(Movie, null=True, blank=True)
-    episode = models.OneToOneField(TVShowEpisode, null=True, blank=True)
+    media_item = models.OneToOneField(MediaItem, null=True, blank=True)
     requested_by = models.ForeignKey('auth.User', related_name="+")
     datetime_requested = models.DateTimeField(auto_now_add=True)
     completed_by = models.ForeignKey(
@@ -212,25 +116,6 @@ class Request(models.Model):
             ('complete', 'Can complete requests')
         }
 
-    @classmethod
-    def create(cls, imdbdid, requested_by):
-        media_type, media = create_media_from_imdbid(imdbdid)
-        if media_type == 'series':
-            return cls(
-                status='N',
-                request_type='TV',
-                tv_show=media,
-                requested_by=requested_by)
-        elif media_type == 'movie':
-            return cls(
-                status='N',
-                request_type='M',
-                tv_show=media,
-                requested_by=requested_by)
-
-    def get_media_item(self):
-        return (self.tv_show or self.movie or self.episode)
-
     def complete(self, completed_by):
         self.status = 'C'
         self.completed_by = completed_by
@@ -250,55 +135,9 @@ class Request(models.Model):
         self.save()
 
     def __str__(self):
-        text = str(self.tv_show or self.movie or self.episode) +\
+        text = str(self.media_item) +\
             ' by ' +\
             str(self.requested_by.first_name) +\
             ' ' +\
             str(self.requested_by.last_name)
         return text
-
-
-def create_media_from_imdbid(imdbid):
-    request = get_media_from_api(imdbid)
-    print(request['imdbID'])
-    if request['Type'] == 'series':
-        tv_show = TVShow.objects.create(
-            title=request['Title'],
-            released=datetime.strptime(
-                request['Released'],
-                '%d %b %Y').date(),
-            imdb_id=request['imdbID'],
-            #poster=request['Poster']
-        )
-        tv_show.save()
-        return request['Type'], tv_show
-    elif request['Type'] == 'movie':
-        movie = Movie.objects.create(
-            title=request['Title'],
-            released=datetime.strptime(
-                request['Released'],
-                '%d %b %Y').date(),
-            imdb_id=request['imdbID'],
-            #poster=request['Poster']
-        )
-        movie.save()
-        return movie
-    else:
-        return
-
-
-def get_media_from_api(imdbid):
-    try:
-        media_request = requests.get(
-            'http://www.omdbapi.com/?i=' +
-            imdbid +
-            '&plot=short&r=json')
-    except requests.exceptions.ConnectionError:
-        print('There was an error connecting to the api. ')
-    except requests.exceptions.HTTPError:
-        print('Invalid HTTP response received. ')
-    except requests.exceptions.Timeout:
-        print('The connection to the api timed out. ')
-    except requests.exceptions.TooManyRedirects:
-        print('There have been too many redirects. ')
-    return media_request.json()
