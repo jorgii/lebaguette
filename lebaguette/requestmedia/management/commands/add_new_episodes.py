@@ -21,4 +21,8 @@ class Command(BaseCommand):
             if latest_episode:
                 start_episode = latest_episode.episode
                 start_season = latest_episode.season
-            show.create_new_episodes(start_episode, start_season, user)
+            show.create_new_episodes(
+                start_episode,
+                start_season,
+                user,
+                'A')

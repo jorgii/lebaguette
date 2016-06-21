@@ -40,10 +40,10 @@ class MediaItem(models.Model):
         null=True,
         blank=True)
 
-    def save_and_create_request(self, requested_by, *args, **kwargs):
+    def save_and_create_request(self, requested_by, status, *args, **kwargs):
         super(MediaItem, self).save(*args, **kwargs)
         media_request = Request.objects.create(
-            status='N',
+            status=status,
             media_item=self,
             requested_by=requested_by)
         media_request.save()
@@ -62,7 +62,7 @@ class MediaItem(models.Model):
             latest_episode = None
         return latest_episode
 
-    def create_new_episodes(self, episode, season, requested_by):
+    def create_new_episodes(self, episode, season, requested_by, status):
         season_request = self.get_data_from_api(season)
         total_seasons = range(season, int(season_request['totalSeasons']))
         while season_request['Response'] == 'True':
@@ -85,7 +85,9 @@ class MediaItem(models.Model):
                             season=season,
                             episode=int(api_episode['Episode']),
                             tv_show=self)
-                        new_episode.save_and_create_request(requested_by)
+                        new_episode.save_and_create_request(
+                            requested_by,
+                            status)
                 except ValueError:
                     continue
             season += 1
