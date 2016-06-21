@@ -42,7 +42,7 @@ class MediaItem(models.Model):
         blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.poster:
+        if not (self.poster or self.media_type == 'episode'):
             media_request = self.get_data_from_api()
             image_url = media_request['Poster']
             r = requests.get(image_url)
