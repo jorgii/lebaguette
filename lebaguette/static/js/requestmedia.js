@@ -133,6 +133,7 @@ function pushRequestMedia(requestMediaData) {
       };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
       $('#requst_media_submit').prop('disabled', false);
+      $('#input_movie').val('');
       $.ajax({
         data: {
               txtsearch: $('#items_list').val()
@@ -153,6 +154,7 @@ function pushRequestMedia(requestMediaData) {
       console.log(ts.responseText);
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
       $('#requst_media_submit').prop('disabled', false);
+      $('#input_movie').val('');
     }
   });
 }
