@@ -29,7 +29,7 @@
               <ul class="mdl-list mdl-cell mdl-cell--12-col">
                 <li class="mdl-list__item mdl-list__item--two-line">
                   <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
-                    Episode name
+                    Media name
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Approved by
@@ -54,7 +54,7 @@
                   </div>
                   <span class="mdl-cell mdl-cell--6-col mdl-list__item-primary-content">
                     <span>
-                        {{ item.media_item }}
+                        <a href="http://www.imdb.com/title/{{ item.media_item.imdb_id }}/">{{ item.media_item }}</a>
                     </span>
                     <span class="mdl-list__item-sub-title">{{ item.media_item.title }} {% if item.media_item.released %}aired on {{ item.media_item.released }}{% endif %}</span>
                   </span>

@@ -29,7 +29,7 @@
               <ul class="mdl-list mdl-cell mdl-cell--12-col">
                 <li class="mdl-list__item mdl-list__item--two-line">
                   <span class="mdl-cell mdl-cell--6-col mdl-list__item-primary-content">
-                    Episode name
+                    Media name
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Requested by
@@ -51,13 +51,13 @@
               </ul>
               <ul id="items_list">
                 {% for item in request_items_page %}
-                <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
+                <li class="mdl-list__item mdl-list__item--two-line" id="{{ item.id }}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
                     <img class="poster__image mdl-cell mdl-cell--12-col" src="{% if item.media_item.get_poster_url %}{{ item.media_item.get_poster_url }}{% else %}MYPOSTER{% endif %}" alt="{{ item.media_item }} poster" height="100%" width="auto">
                   </div>
                   <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                     <span>
-                        {{ item.media_item }}
+                        <a href="http://www.imdb.com/title/{{ item.media_item.imdb_id }}/">{{ item.media_item }}</a>
                     </span>
                     <span class="mdl-list__item-sub-title">{{ item.media_item.title }} {% if item.media_item.released %}aired on {{ item.media_item.released }}{% endif %}</span>
                   </span>
