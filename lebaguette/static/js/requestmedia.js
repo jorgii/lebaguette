@@ -132,6 +132,7 @@ function pushRequestMedia(requestMediaData) {
         timeout: 1000,
       };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      $('#requst_media_submit').prop('disabled', false);
       $.ajax({
         data: {
               txtsearch: $('#items_list').val()
@@ -151,6 +152,7 @@ function pushRequestMedia(requestMediaData) {
       };
       console.log(ts.responseText);
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      $('#requst_media_submit').prop('disabled', false);
     }
   });
 }
@@ -159,6 +161,7 @@ $('#requst_media_submit').click(function(event) {
       requestMediaData = $('#input_movie').val();
   if (linkRegex.test(requestMediaData)) {
     event.preventDefault();
+    $(this).prop('disabled', true);
     pushRequestMedia(requestMediaData);
   }
 });
