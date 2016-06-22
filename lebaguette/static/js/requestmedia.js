@@ -52,7 +52,7 @@ function pushRequest(requestUrl,element,cssClass) {
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not remove entry '+epid + ' ' + ts.statusText,
+        message: 'Could not remove entry id' + epid + ' Error: ' + ts.status + ' ' + ts.statusText,
         timeout: 3000,
       };
       console.log(ts.responseText);
@@ -63,7 +63,7 @@ function pushRequest(requestUrl,element,cssClass) {
 $(document).on('click', '.episode__approve', function(){
   var element = $(this),
       cssClass = "episode__approved";
-  pushRequest("/requestmedia/approve/", element, cssClass);
+  pushRequest("/requestmedia/approve1/", element, cssClass);
 });
 $(document).on('click', '.episode__reject', function(){
   var element = $(this);
@@ -146,7 +146,7 @@ function pushRequestMedia() {
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not add request: ' + ts.statusText,
+        message: 'Could not add request: ' + ts.status + ' ' + ts.statusText,
         timeout: 3000,
       };
       console.log(ts.responseText);
