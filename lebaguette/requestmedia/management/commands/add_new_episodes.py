@@ -11,8 +11,7 @@ class Command(BaseCommand):
         user = User.objects.get(username='cronjob')
         active_shows = MediaItem.objects.filter(
             media_type='series',
-            media_completed=False,
-            media_request__status='A')
+            media_completed=False).exclude(media_request__status='N').exclude(media_request__status='R')
         # loop active shows in db
         for show in active_shows:
             start_episode = 0
