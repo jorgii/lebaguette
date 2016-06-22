@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load staticfiles %}
-{% block title %}Lebaguette - Episodes list{% endblock %}
+{% block title %}Lebaguette - Media list{% endblock %}
 {% block body %}
   <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
@@ -43,11 +43,11 @@
                 {% for item in request_items_page %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
-                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{% if item.media_item.get_poster_url %}{{ item.media_item.get_poster_url }}{% else %}MYPOSTER{% endif %}" alt="{{ item.media_item }} poster" height="100%" width="auto">
+                      <img class="poster__image mdl-cell mdl-cell--12-col" src="{% if item.media_item.get_poster_url %}{{ item.media_item.get_poster_url }}{% else %}{% static "images/ninja.png" %}{% endif %}" alt="{{ item.media_item }} poster" height="100%" width="auto">
                   </div>
                   <span class="mdl-cell mdl-cell--7-col mdl-list__item-primary-content">
                     <span>
-                        <a href="http://www.imdb.com/title/{{ item.media_item.imdb_id }}/">{{ item.media_item }}</a>
+                        <a href="http://www.imdb.com/title/{{ item.media_item.imdb_id }}/" target="_blank">{{ item.media_item }}</a>
                     </span>
                     <span class="mdl-list__item-sub-title">{{ item.media_item.title }} {% if item.media_item.released %}aired on {{ item.media_item.released }}{% endif %}</span>
                   </span>
