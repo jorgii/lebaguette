@@ -1,81 +1,4 @@
-//GET csrf token
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-
-function csrfSafeMethod(method) {
-  // these HTTP methods do not require CSRF protection
-  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-
-//Event handler on episode action
-function pushRequest(requestUrl,element,cssClass) {
-  // var element = event.target,
-  var epid = $(element).parents("li").attr("id"),
-      dataMerged = {"itemid":epid};
-  $(element).addClass(cssClass);
-
-  $.ajax({
-    type: 'POST',
-    url: requestUrl,
-    data: dataMerged,
-    dataType: "text",
-    success: function() {
-      $("#"+epid).fadeOut(800, function(){ $(this).remove();});
-      var snackbarContainer = document.querySelector('#snackbar-success'),
-          data = {
-        message: 'Success!',
-        timeout: 1000,
-      };
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    },
-    error: function(ts) {
-      var snackbarContainer = document.querySelector('#snackbar-error'),
-          data = {
-        message: 'Could not remove entry id' + epid + ' Error: ' + ts.status + ' ' + ts.statusText,
-        timeout: 7000,
-      };
-      console.log(ts.responseText);
-      snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    }
-  });
-}
-$(document).on('click', '.episode__approve', function(){
-  var element = $(this),
-      cssClass = "episode__approved";
-  pushRequest("/requestmedia/approve/", element, cssClass);
-});
-$(document).on('click', '.episode__reject', function(){
-  var element = $(this);
-      cssClass = "episode__rejected";
-  pushRequest("/requestmedia/reject/", element, cssClass);
-});
-$(document).on('click', '.episode__complete', function(){
-  var element = $(this);
-      cssClass = "episode__approved";
-  pushRequest("/requestmedia/complete/", element, cssClass);
-});
-
+// Events fired on window load (infinite scroll handling)
 $(window).load(function() {
 	var win = $('main'),
       totalPages = $('#total_pages').text(),
@@ -115,6 +38,72 @@ $(window).load(function() {
 	});
 });
 
+// GET csrf token
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+// Ajax setup
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+// Event handlers
+// Push media action
+function pushRequest(requestUrl,element,cssClass) {
+  // var element = event.target,
+  var epid = $(element).parents("li").attr("id"),
+      dataMerged = {"itemid":epid};
+  $(element).addClass(cssClass);
+
+  $.ajax({
+    type: 'POST',
+    url: requestUrl,
+    data: dataMerged,
+    dataType: "text",
+    success: function() {
+      $("#"+epid).fadeOut(800, function(){ $(this).remove();});
+      var snackbarContainer = document.querySelector('#snackbar-success'),
+          data = {
+        message: 'Success!',
+        timeout: 1000,
+      };
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    },
+    error: function(ts) {
+      var snackbarContainer = document.querySelector('#snackbar-error'),
+          data = {
+        message: 'Could not remove entry id' + epid + ' Error: ' + ts.status + ' ' + ts.statusText,
+        timeout: 7000,
+      };
+      console.log(ts.responseText);
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
+  });
+}
+// Push media request
 function pushRequestMedia(requestMediaData) {
   var requestMediaUrl = '/requestmedia/add/',
       requestMediaDataMerged = {"imdb_id":requestMediaData};
@@ -158,6 +147,9 @@ function pushRequestMedia(requestMediaData) {
     }
   });
 }
+
+// Event triggers
+// Request sumbission trigger
 $('#requst_media_submit').click(function(event) {
   var linkRegex = new RegExp(/^.*tt\d{7}.*$/i),
       requestMediaData = $('#input_movie').val();
@@ -169,4 +161,20 @@ $('#requst_media_submit').click(function(event) {
     event.preventDefault();
     $('#input_movie_error').show(0).text('Please input a valid imdb link!').delay(3000).fadeOut(500);
   }
+});
+// Media action triggers
+$(document).on('click', '.episode__approve', function(){
+  var element = $(this),
+      cssClass = "episode__approved";
+  pushRequest("/requestmedia/approve/", element, cssClass);
+});
+$(document).on('click', '.episode__reject', function(){
+  var element = $(this);
+      cssClass = "episode__rejected";
+  pushRequest("/requestmedia/reject/", element, cssClass);
+});
+$(document).on('click', '.episode__complete', function(){
+  var element = $(this);
+      cssClass = "episode__approved";
+  pushRequest("/requestmedia/complete/", element, cssClass);
 });
