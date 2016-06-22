@@ -141,7 +141,7 @@ function pushRequestMedia() {
         success: function(data) {
             $('#items_list').hide();
             $('#items_list').load('/requestmedia/ #items_list');
-            $('#items_list').fadeIn();
+            $('#items_list').fadeIn(5000);
           }
         });
     },
