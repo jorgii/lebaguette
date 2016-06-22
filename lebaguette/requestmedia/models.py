@@ -25,7 +25,8 @@ class MediaItem(models.Model):
     imdb_id = models.CharField('IMDB ID',
                                max_length=255,
                                blank=False,
-                               null=False)
+                               null=False,
+                               unique=True)
     poster = models.ImageField(
         upload_to='posters/',
         blank=True,
@@ -170,7 +171,8 @@ class Request(models.Model):
     media_item = models.OneToOneField(
         MediaItem,
         related_name='media_request',
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+        unique=True)
     requested_by = models.ForeignKey('auth.User', related_name="+")
     datetime_requested = models.DateTimeField(auto_now_add=True)
     completed_by = models.ForeignKey(
