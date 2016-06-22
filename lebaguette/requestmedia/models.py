@@ -167,7 +167,6 @@ class Request(models.Model):
     media_item = models.OneToOneField(
         MediaItem,
         related_name='media_request',
-        primary_key=True,
         on_delete=models.CASCADE)
     requested_by = models.ForeignKey('auth.User', related_name="+")
     datetime_requested = models.DateTimeField(auto_now_add=True)
