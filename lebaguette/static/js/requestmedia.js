@@ -52,7 +52,7 @@ function pushRequest(requestUrl,element,cssClass) {
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not remove entry '+epid,
+        message: 'Could not remove entry '+epid + ' ' + ts.statusText,
         timeout: 3000,
       };
       console.log(ts.responseText);
@@ -139,9 +139,7 @@ function pushRequestMedia() {
         type: "GET",
         dataType: 'html',
         success: function(data) {
-            $('#items_list').hide();
             $('#items_list').load('/requestmedia/ #items_list');
-            $('#items_list').fadeIn(5000);
           }
         });
     },
