@@ -63,7 +63,7 @@ function pushRequest(requestUrl,element,cssClass) {
 $(document).on('click', '.episode__approve', function(){
   var element = $(this),
       cssClass = "episode__approved";
-  pushRequest("/requestmedia/approve1/", element, cssClass);
+  pushRequest("/requestmedia/approve/", element, cssClass);
 });
 $(document).on('click', '.episode__reject', function(){
   var element = $(this);
