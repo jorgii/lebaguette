@@ -139,7 +139,9 @@ function pushRequestMedia() {
         type: "GET",
         dataType: 'html',
         success: function(data) {
+            $('#items_list').hide();
             $('#items_list').load('/requestmedia/ #items_list');
+            $('#items_list').fadeIn();
           }
         });
     },
