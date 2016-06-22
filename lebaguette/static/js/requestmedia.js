@@ -70,8 +70,7 @@ $(document).on('click', '.episode__reject', function(){
       cssClass = "episode__rejected";
   pushRequest("/requestmedia/reject/", element, cssClass);
 });
-$('.episode__complete').click(function(){
-  console.log('complete')
+$(document).on('click', '.episode__complete', function(){
   var element = $(this);
       cssClass = "episode__approved";
   pushRequest("/requestmedia/complete/", element, cssClass);
@@ -97,7 +96,6 @@ $(window).load(function() {
   	    $('#loading').addClass('is-active');
         $('#current_page_number').html(newCurrentPage);
         $('#paginator_next').attr('href', newNextPageLink);
-        console.log('ajax fired');
 
     		$.ajax({
           data: {
@@ -134,16 +132,18 @@ function pushRequestMedia(requestMediaData) {
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
       $('#requst_media_submit').prop('disabled', false);
       $('#input_movie').val('');
-      $.ajax({
-        data: {
-              txtsearch: $('#items_list').val()
-          },
-        type: "GET",
-        dataType: 'html',
-        success: function(data) {
-            $('#items_list').load('/requestmedia/ #items_list');
-          }
-        });
+      if ($('#items_list_request').length != 0) {
+        $.ajax({
+          data: {
+                txtsearch: $('#items_list').val()
+            },
+          type: "GET",
+          dataType: 'html',
+          success: function(data) {
+              $('#items_list_request').load('/requestmedia/ #items_list_request');
+            }
+          });
+        }
     },
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
