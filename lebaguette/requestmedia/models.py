@@ -21,7 +21,7 @@ class MediaItem(models.Model):
                              max_length=255,
                              blank=False,
                              null=False)
-    released = models.DateField()
+    released = models.DateField(blank=True, null=True)
     imdb_id = models.CharField('IMDB ID',
                                max_length=255,
                                blank=False,
@@ -92,8 +92,11 @@ class MediaItem(models.Model):
             return None
         media_item.media_type = media_request['Type']
         media_item.title = media_request['Title']
-        media_item.released = datetime.strptime(
-                media_request['Released'], '%d %b %Y').date()
+        try:
+            media_item.released = datetime.strptime(
+                    media_request['Released'], '%d %b %Y').date()
+        except ValueError as e:
+            print(e)
         return media_item
 
     def create_new_episodes(self, episode, season, requested_by, status):
