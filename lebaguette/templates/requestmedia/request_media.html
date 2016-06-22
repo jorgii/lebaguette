@@ -59,7 +59,7 @@
                     <span>
                         {{ item.media_item }}
                     </span>
-                    <span class="mdl-list__item-sub-title">{{ item.media_item.title }} aired on {{ item.media_item.released }}</span>
+                    <span class="mdl-list__item-sub-title">{{ item.media_item.title }} {% if item.media_item.released %}aired on {{ item.media_item.released }}{% endif %}</span>
                   </span>
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     {{ item.requested_by.first_name }} {{ item.requested_by.last_name }}
