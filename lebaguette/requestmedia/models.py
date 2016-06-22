@@ -46,19 +46,21 @@ class MediaItem(models.Model):
         if not (self.poster or self.media_type == 'episode'):
             media_request = self.get_data_from_api()
             image_url = media_request['Poster']
-            r = requests.get(image_url)
-            file_name = os.path.basename(urlparse(image_url).path)
-            with open('tmp_logo.png', 'wb') as f:
-                f.write(r.content)
-            reopen = open('tmp_logo.png', 'rb')
-            django_file = File(reopen)
-            self.poster.save(file_name, django_file, save=True)
-            reopen.close()
-            os.remove('tmp_logo.png')
+            try:
+                r = requests.get(image_url)
+                file_name = os.path.basename(urlparse(image_url).path)
+                with open('tmp_logo.png', 'wb') as f:
+                    f.write(r.content)
+                reopen = open('tmp_logo.png', 'rb')
+                django_file = File(reopen)
+                self.poster.save(file_name, django_file, save=True)
+                reopen.close()
+                os.remove('tmp_logo.png')
+            except requests.exceptions.MissingSchema:
+                super(MediaItem, self).save(*args, **kwargs)
         super(MediaItem, self).save(*args, **kwargs)
 
     def save_and_create_request(self, requested_by, status):
-        print(self.released)
         self.save()
         user = User.objects.get(username='cronjob')
         media_request = Request.objects.create(
