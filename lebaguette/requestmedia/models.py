@@ -56,8 +56,8 @@ class MediaItem(models.Model):
             os.remove('tmp_logo.png')
         super(MediaItem, self).save(*args, **kwargs)
 
-    def save_and_create_request(self, requested_by, status):
-        MediaItem.save()
+    def save_and_create_request(self, requested_by, status, *args, **kwargs):
+        self.save()
         user = User.objects.get(username='cronjob')
         media_request = Request.objects.create(
             status=status,
