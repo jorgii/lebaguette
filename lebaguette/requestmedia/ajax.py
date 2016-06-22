@@ -15,15 +15,25 @@ def add_request(request):
         pattern = r'tt\d+'
         to_parse = request.POST.get('imdb_id')
         try:
+            imdbid_list_not_added = []
             imdbid_list = re.findall(pattern, to_parse)
             if not imdbid_list:
                 return HttpResponseBadRequest(reason='IMDB ID not found!')
             for imdb_id in imdbid_list:
                 if MediaItem.objects.filter(imdb_id=imdb_id).exists():
-                    return HttpResponseBadRequest(
-                        reason='This media item already exists!')
+                    imdbid_list_not_added.append(imdb_id)
+                    continue
                 media_item = MediaItem.create_media_from_imdbid(imdb_id)
                 media_item.save_and_create_request(request.user, 'N')
+            if imdbid_list_not_added and \
+                    len(imdbid_list) == len(imdbid_list_not_added):
+                return HttpResponseBadRequest(
+                    reason='All itmes already exist in the database')
+            elif imdbid_list_not_added and \
+                    len(imdbid_list) != len(imdbid_list_not_added):
+                message = 'Items ' + str(imdbid_list_not_added) + \
+                    ' already exist. The rest were added!'
+                return HttpResponseBadRequest(reason=message)
         except Exception as e:
             return HttpResponseBadRequest(reason=e)
         else:
