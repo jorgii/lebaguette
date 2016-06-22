@@ -52,7 +52,6 @@ def approve_request(request):
     if request.is_ajax() and request.method == 'POST':
         itemid = request.POST.get('itemid')
         try:
-            print('in here')
             request_item = Request.objects.get(id=itemid)
             request_item.approve(request.user)
         except:
