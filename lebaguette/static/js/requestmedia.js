@@ -115,3 +115,39 @@ $(window).load(function() {
   		}
 	});
 });
+
+function pushRequestMedia() {
+  var requestMediaUrl = '/requestmedia/add/',
+      requestMediaData = $('#input_movie').val(),
+      requestMediaDataMerged = {"imdb_id":requestMediaData};
+      console.log(requestMediaData);
+  $.ajax({
+    type: 'POST',
+    url: requestMediaUrl,
+    data: requestMediaDataMerged,
+    dataType: "text",
+    success: function() {
+      var snackbarContainer = document.querySelector('#snackbar-success'),
+          data = {
+        message: 'Success!',
+        timeout: 1000,
+      };
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+      $("#items_list").load("requestmedia");
+    },
+    error: function(ts) {
+      var snackbarContainer = document.querySelector('#snackbar-error'),
+          data = {
+        message: 'Could not add request',
+        timeout: 3000,
+      };
+      console.log(ts.responseText);
+      snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
+  });
+}
+$('#requst_media_submit').click(function(event) {
+  event.preventDefault();
+  console.log('click');
+  pushRequestMedia();
+});

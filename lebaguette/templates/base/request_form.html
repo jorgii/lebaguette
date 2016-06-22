@@ -5,14 +5,15 @@
     </div>
     <div class="mdl-grid mdl-cell mdl-cell--12-col">
       <div class="mdl-layout-spacer"></div>
-      <form action="#" class="mdl-cell mdl-cell--10-col mdl-grid">
+      <form class="mdl-cell mdl-cell--10-col mdl-grid" method="post" action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-cell--11-col">
+          {% csrf_token %}
           <input class="mdl-textfield__input" type="text" id="input_movie" pattern="^.*tt\d{7}.*$" title="IMDB Link">
           <label class="mdl-textfield__label mdl-cell--12-col" for="sample1">Request a show...</label>
         </div>
         <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-cell--1-col">
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">
+          <button id="requst_media_submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">
             Submit
           </button>
         </div>
