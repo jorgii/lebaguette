@@ -132,7 +132,7 @@ function pushRequestMedia(requestMediaData) {
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
       $('#requst_media_submit').prop('disabled', false);
       $('#input_movie').val('');
-      if ($('#items_list_request').length != 0) {
+      if ($('[data-page="request"]').length != 0) {
         $.ajax({
           data: {
                 txtsearch: $('#items_list').val()
@@ -140,7 +140,7 @@ function pushRequestMedia(requestMediaData) {
           type: "GET",
           dataType: 'html',
           success: function(data) {
-              $('#items_list_request').load('/requestmedia/ #items_list_request');
+              $('#items_list').load('/requestmedia/ #items_list');
             }
           });
         }
