@@ -139,15 +139,14 @@ function pushRequestMedia() {
         type: "GET",
         dataType: 'html',
         success: function(data) {
-          var result = $('<div />').append(data).find('#items_list').html();
-            $('#items_list').load(result);
+            $('#items_list').load('/requestmedia/ #items_list');
           }
         });
     },
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not add request',
+        message: 'Could not add request: ' + ts.statusText,
         timeout: 3000,
       };
       console.log(ts.responseText);
