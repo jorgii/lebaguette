@@ -19,7 +19,7 @@ def add_request(request):
             if not imdbid_list:
                 return HttpResponseBadRequest(reason='IMDB ID not found!')
             for imdb_id in imdbid_list:
-                if MediaItem.objects.get(imdb_id=imdb_id):
+                if MediaItem.objects.filter(imdb_id=imdb_id).exists():
                     return HttpResponseBadRequest(
                         reason='This media item already exists!')
                 media_item = MediaItem.create_media_from_imdbid(imdb_id)
