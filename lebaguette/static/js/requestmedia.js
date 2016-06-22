@@ -70,7 +70,8 @@ $(document).on('click', '.episode__reject', function(){
       cssClass = "episode__rejected";
   pushRequest("/requestmedia/reject/", element, cssClass);
 });
-$(document).on('click', '.episode__complete', function(){
+$('.episode__complete').click(function(){
+  console.log('complete')
   var element = $(this);
       cssClass = "episode__approved";
   pushRequest("/requestmedia/complete/", element, cssClass);
@@ -116,9 +117,8 @@ $(window).load(function() {
 	});
 });
 
-function pushRequestMedia() {
+function pushRequestMedia(requestMediaData) {
   var requestMediaUrl = '/requestmedia/add/',
-      requestMediaData = $('#input_movie').val(),
       requestMediaDataMerged = {"imdb_id":requestMediaData};
   $.ajax({
     type: 'POST',
@@ -146,7 +146,7 @@ function pushRequestMedia() {
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
-        message: 'Could not add request: ' + ts.status + ' ' + ts.statusText,
+        message: 'Error: ' + ts.status + ' ' + ts.statusText,
         timeout: 3000,
       };
       console.log(ts.responseText);
@@ -155,6 +155,10 @@ function pushRequestMedia() {
   });
 }
 $('#requst_media_submit').click(function(event) {
-  event.preventDefault();
-  pushRequestMedia();
+  var linkRegex = new RegExp(/^.*tt\d{7}.*$/i),
+      requestMediaData = $('#input_movie').val();
+  if (linkRegex.test(requestMediaData)) {
+    event.preventDefault();
+    pushRequestMedia(requestMediaData);
+  }
 });
