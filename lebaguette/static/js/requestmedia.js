@@ -53,7 +53,7 @@ function pushRequest(requestUrl,element,cssClass) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
         message: 'Could not remove entry id' + epid + ' Error: ' + ts.status + ' ' + ts.statusText,
-        timeout: 3000,
+        timeout: 7000,
       };
       console.log(ts.responseText);
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
@@ -149,7 +149,7 @@ function pushRequestMedia(requestMediaData) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
           data = {
         message: 'Error: ' + ts.status + ' ' + ts.statusText,
-        timeout: 3000,
+        timeout: 7000,
       };
       console.log(ts.responseText);
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
@@ -165,5 +165,8 @@ $('#requst_media_submit').click(function(event) {
     event.preventDefault();
     $(this).prop('disabled', true);
     pushRequestMedia(requestMediaData);
+  } else {
+    event.preventDefault();
+    $('#input_movie_error').show(0).text('Please input a valid imdb link!').delay(3000).fadeOut(500);
   }
 });
