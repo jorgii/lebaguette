@@ -120,7 +120,6 @@ function pushRequestMedia() {
   var requestMediaUrl = '/requestmedia/add/',
       requestMediaData = $('#input_movie').val(),
       requestMediaDataMerged = {"imdb_id":requestMediaData};
-      console.log(requestMediaData);
   $.ajax({
     type: 'POST',
     url: requestMediaUrl,
@@ -133,7 +132,17 @@ function pushRequestMedia() {
         timeout: 1000,
       };
       snackbarContainer.MaterialSnackbar.showSnackbar(data);
-      $("#items_list").load("requestmedia");
+      $.ajax({
+        data: {
+              txtsearch: $('#items_list').val()
+          },
+        type: "GET",
+        dataType: 'html',
+        success: function(data) {
+          var result = $('<div />').append(data).find('#items_list').html();
+            $('#items_list').load(result);
+          }
+        });
     },
     error: function(ts) {
       var snackbarContainer = document.querySelector('#snackbar-error'),
@@ -148,6 +157,5 @@ function pushRequestMedia() {
 }
 $('#requst_media_submit').click(function(event) {
   event.preventDefault();
-  console.log('click');
   pushRequestMedia();
 });
