@@ -1,6 +1,7 @@
 import re
 
-from django.http import HttpResponseForbidden, Http404, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponse,\
+    HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
@@ -15,15 +16,22 @@ def add_request(request):
         to_parse = request.POST.get('imdb_id')
         try:
             imdbid_list = re.findall(pattern, to_parse)
+            if not imdbid_list:
+                return HttpResponseBadRequest(reason='IMDB ID not found!')
             for imdb_id in imdbid_list:
+                if MediaItem.objects.get(imdb_id=imdb_id):
+                    return HttpResponseBadRequest(
+                        reason='This media item already exists!')
                 media_item = MediaItem.create_media_from_imdbid(imdb_id)
                 media_item.save_and_create_request(request.user, 'N')
-        except:
-            raise Http404
-        return HttpResponse(
-            '"' +
-            str(media_item) +
-            '" added')
+        except Exception as e:
+            return HttpResponseBadRequest(reason=e)
+        else:
+            return HttpResponse(
+                '"' +
+                str(media_item) +
+                '" added')
+        return HttpResponse('IMDB ID not found!')
     else:
         return HttpResponseForbidden()
 
@@ -36,12 +44,13 @@ def complete_request(request):
         try:
             request_item = Request.objects.get(id=itemid)
             request_item.complete(request.user)
-        except:
-            raise Http404
-        return HttpResponse(
-            '"' +
-            str(request_item.media_item) +
-            '" marked as completed')
+        except Exception as e:
+            return HttpResponseBadRequest(reason=e)
+        else:
+            return HttpResponse(
+                '"' +
+                str(request_item.media_item) +
+                '" marked as completed')
     else:
         return HttpResponseForbidden()
 
@@ -54,12 +63,13 @@ def approve_request(request):
         try:
             request_item = Request.objects.get(id=itemid)
             request_item.approve(request.user)
-        except:
-            raise Http404
-        return HttpResponse(
-            '"' +
-            str(request_item.media_item) +
-            '" marked as approved')
+        except Exception as e:
+            return HttpResponseBadRequest(reason=e)
+        else:
+            return HttpResponse(
+                '"' +
+                str(request_item.media_item) +
+                '" marked as approved')
     else:
         return HttpResponseForbidden()
 
@@ -72,11 +82,12 @@ def reject_request(request):
         try:
             request_item = Request.objects.get(id=itemid)
             request_item.reject(request.user)
-        except:
-            raise Http404
-        return HttpResponse(
-            '"' +
-            str(request_item.media_item) +
-            '" marked as rejected')
+        except Exception as e:
+            return HttpResponseBadRequest(reason=e)
+        else:
+            return HttpResponse(
+                '"' +
+                str(request_item.media_item) +
+                '" marked as rejected')
     else:
         return HttpResponseForbidden()
