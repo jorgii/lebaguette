@@ -10,6 +10,7 @@
           {% csrf_token %}
           <input class="mdl-textfield__input" type="text" id="input_movie" pattern="^.*tt\d{7}.*$" title="IMDB Link">
           <label class="mdl-textfield__label mdl-cell--12-col" for="sample1">Request a show...</label>
+          <div id="input_movie_error" class="error-tooltip" style="display:none"></div>
         </div>
         <div class="mdl-layout-spacer"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-cell--1-col">
