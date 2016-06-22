@@ -53,7 +53,7 @@
                 {% for item in request_items_page %}
                 <li class="mdl-list__item mdl-list__item--two-line" id="{{item.id}}">
                   <div class="mdl-cell mdl-cell--1-col mdl-grid">
-                    <img class="poster__image mdl-cell mdl-cell--12-col" src="{{ item.media_item.get_poster_url }}" alt="{{ item.media_item }} poster" height="100%" width="auto">
+                    <img class="poster__image mdl-cell mdl-cell--12-col" src="{% if item.media_item.get_poster_url %}{{ item.media_item.get_poster_url }}{% else %}MYPOSTER{% endif %}" alt="{{ item.media_item }} poster" height="100%" width="auto">
                   </div>
                   <span class="mdl-cell mdl-cell--5-col mdl-list__item-primary-content">
                     <span>
