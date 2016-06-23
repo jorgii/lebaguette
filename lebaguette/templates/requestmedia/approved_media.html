@@ -37,13 +37,11 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                     Approved on
                   </span>
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/complete/" == group.name %}
+                {% if perms.requestmedia.complete %}
                   <span class="mdl-cell mdl-cell--1-col mdl-list__item-primary-content">
                     Complete
                   </span>
-                    {% endif %}
-                  {% endfor %}
+                {% endif %}
                 </li>
               </ul>
               <ul id="items_list">
@@ -64,15 +62,13 @@
                   <span class="mdl-cell mdl-cell--2-col mdl-list__item-primary-content">
                       {{ item.datetime_approved }}
                   </span>
-                  {% for group in user.groups.all %}
-                      {% if "/requestmedia/complete/" == group.name %}
+                 {% if perms.requestmedia.complete %}
                   <span class="mdl-cell mdl-cell--1-col mdl-typography--text-center">
                     <button class="mdl-button mdl-js-button mdl-button--icon episode__complete">
                       <i class="list__item-secondary-action material-icons">check</i></a>
                     </button>
                   </span>
-                    {% endif %}
-                  {% endfor %}
+                {% endif %}
                 </li>
                 {% endfor %}
               </ul>
