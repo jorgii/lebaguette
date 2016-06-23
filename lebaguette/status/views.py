@@ -6,14 +6,14 @@ import platform
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
 from .models import Services
-from lebaguette.extra import is_in_group
 
 
 @login_required
-@is_in_group
+@permission_required('status.view')
 def server_status(request):
     ram_usage = get_ram_usage()
     disk_usage = get_disk_usage()

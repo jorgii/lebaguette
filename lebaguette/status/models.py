@@ -10,5 +10,10 @@ class Services(models.Model):
                                     null=False)
     datetime_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        permissions = {
+            ('view', 'Can view server status'),
+        }
+
     def __str__(self):
         return self.service_name
