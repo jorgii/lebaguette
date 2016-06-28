@@ -155,10 +155,15 @@ class MediaItem(models.Model):
         if self.media_type == 'series':
             return ('{} (TV Show)'.format(self.title))
         elif self.media_type == 'episode':
-            return (
-                self.tv_show.title +
-                (' S0' if self.season < 10 else ' S') + str(self.season) +
-                ('E0' if self.episode < 10 else 'E') + str(self.episode))
+            season_label = ' S0' if self.season < 10 else ' S'
+            episode_label = 'E0' if self.episode < 10 else 'E'
+            result_text = '{} {}{}{}{}'.format(
+                self.tv_show.title,
+                season_label,
+                self.season,
+                episode_label,
+                self.episode)
+            return (result_text)
         else:
             return (self.title)
 
