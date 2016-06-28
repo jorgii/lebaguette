@@ -5,16 +5,15 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.conf import settings
 
 from .forms import UserForm, ServerMessageForm
-from lebaguette.settings import LOGIN_REDIRECT_URL
 from .models import ServerMessage
 
 
 def login_user(request):
     if request.user.is_authenticated():
-        return redirect(LOGIN_REDIRECT_URL)
+        return redirect(settings.LOGIN_REDIRECT_URL)
 
     form = AuthenticationForm(None, request.POST or None)
     form.fields['username'].widget.attrs['class'] = "mdl-textfield__input"
@@ -28,7 +27,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect(LOGIN_REDIRECT_URL)
+                    return redirect(settings.LOGIN_REDIRECT_URL)
     return render(request, 'login/login.html', locals())
 
 
