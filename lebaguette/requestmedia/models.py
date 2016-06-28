@@ -153,7 +153,7 @@ class MediaItem(models.Model):
 
     def __str__(self):
         if self.media_type == 'series':
-            return (self.title + ' (TV Show)')
+            return ('{} (TV Show)'.format(self.title))
         elif self.media_type == 'episode':
             return (
                 self.tv_show.title +
@@ -223,9 +223,8 @@ class Request(models.Model):
         self.save()
 
     def __str__(self):
-        text = str(self.media_item) +\
-            ' by ' +\
-            str(self.requested_by.first_name) +\
-            ' ' +\
-            str(self.requested_by.last_name)
+        text = '{} by {} {}'.format(
+            self.media_item,
+            self.requested_by.first_name,
+            self.requested_by.last_name)
         return text
