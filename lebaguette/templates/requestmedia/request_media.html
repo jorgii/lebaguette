@@ -102,7 +102,7 @@
                   <button class="mdl-button mdl-js-button mdl-button--primary">1</button>
                 </a>
                 {% endif %}
-                {% if request_items_page.previous_page_number|add:"-1" > 1 %}
+                {% if request_items_page.has_previous and request_items_page.previous_page_number|add:"-1" > 1 %}
                 <button class="mdl-button mdl-js-button mdl-button--primary" disabled>
                 ...
                 </button>
