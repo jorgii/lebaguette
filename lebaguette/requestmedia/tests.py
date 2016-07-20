@@ -46,3 +46,14 @@ class CommandsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         request_item = Request.objects.get(id=1179)
         self.assertEqual(request_item.status, 'A')
+
+    def test_reject_request(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin1234')
+        response = self.client.post(
+            '/requestmedia/reject/',
+            {'itemid': '1179'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        request_item = Request.objects.get(id=1179)
+        self.assertEqual(request_item.status, 'R')
