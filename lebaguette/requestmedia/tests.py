@@ -52,6 +52,14 @@ class CommandsTest(TestCase):
         request_item = Request.objects.get(id=1179)
         self.assertEqual(request_item.status, 'C')
 
+    def test_approve_ajax_filter(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin1234')
+        response = self.client.post(
+            '/requestmedia/approve/',
+            {'itemid': '1179'})
+        self.assertEqual(response.status_code, 403)
+
     def test_approve_request(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
