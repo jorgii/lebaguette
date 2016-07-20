@@ -80,7 +80,7 @@
     "model": "requestmedia.request",
     "pk": 1181,
     "fields": {
-        "status": "N",
+        "status": "A",
         "media_item": 1919,
         "requested_by": 1,
         "datetime_requested": "2016-07-20T15:04:50.822Z",
