@@ -113,3 +113,10 @@ class CommandsTest(TestCase):
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/completed/')
         self.assertEqual(response.status_code, 200)
+
+    def test_add_new_episodes(self):
+        call_command('add_new_episodes')
+        tv_show = MediaItem.objects.get(id=1919)
+        self.assertTrue(MediaItem.objects.filter(tv_show=tv_show).exists())
+        tv_show = MediaItem.objects.get(id=1917)
+        self.assertFalse(MediaItem.objects.filter(tv_show=tv_show).exists())
