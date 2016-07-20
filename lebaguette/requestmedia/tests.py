@@ -6,7 +6,9 @@ from requestmedia.models import MediaItem, Request
 
 
 class CommandsTest(TestCase):
-    fixtures = ['home/fixtures/users_data', 'home/fixtures/messages']
+    fixtures = [
+        'home/fixtures/users_data',
+        'requestmedia/fixtures/media_items']
 
     def test_add_request(self):
         self.client = Client()

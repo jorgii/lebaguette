@@ -1,0 +1,95 @@
+[
+{
+    "model": "requestmedia.mediaitem",
+    "pk": 1917,
+    "fields": {
+        "media_type": "series",
+        "title": "The Flash",
+        "released": "2014-10-07",
+        "imdb_id": "tt3107288",
+        "poster": "posters/MV5BNjAwNzkxNzAwNF5BMl5BanBnXkFtZTgwODg2NTc2NjE._V1_SX300_u57PEIx.jpg",
+        "media_completed": false,
+        "season": null,
+        "episode": null,
+        "tv_show": null
+    }
+},
+{
+    "model": "requestmedia.mediaitem",
+    "pk": 1918,
+    "fields": {
+        "media_type": "series",
+        "title": "Arrow",
+        "released": "2012-10-10",
+        "imdb_id": "tt2193021",
+        "poster": "posters/MV5BMTg3OTc0NzkyOV5BMl5BanBnXkFtZTgwMDMwMTM3MjE._V1_SX300_t7M5mer.jpg",
+        "media_completed": false,
+        "season": null,
+        "episode": null,
+        "tv_show": null
+    }
+},
+{
+    "model": "requestmedia.mediaitem",
+    "pk": 1919,
+    "fields": {
+        "media_type": "series",
+        "title": "Agents of S.H.I.E.L.D.",
+        "released": "2013-09-24",
+        "imdb_id": "tt2364582",
+        "poster": "posters/MV5BMjQxODIwOTIwN15BMl5BanBnXkFtZTgwMjk5Mjg5NjE._V1_SX300_Lpziqq2.jpg",
+        "media_completed": false,
+        "season": null,
+        "episode": null,
+        "tv_show": null
+    }
+},
+{
+    "model": "requestmedia.request",
+    "pk": 1179,
+    "fields": {
+        "status": "N",
+        "media_item": 1917,
+        "requested_by": 1,
+        "datetime_requested": "2016-07-20T15:04:49.230Z",
+        "completed_by": null,
+        "datetime_completed": null,
+        "approved_by": null,
+        "datetime_approved": null,
+        "rejected_by": null,
+        "datetime_rejected": null
+    }
+},
+{
+    "model": "requestmedia.request",
+    "pk": 1180,
+    "fields": {
+        "status": "N",
+        "media_item": 1918,
+        "requested_by": 1,
+        "datetime_requested": "2016-07-20T15:04:50.019Z",
+        "completed_by": null,
+        "datetime_completed": null,
+        "approved_by": null,
+        "datetime_approved": null,
+        "rejected_by": null,
+        "datetime_rejected": null
+    }
+},
+{
+    "model": "requestmedia.request",
+    "pk": 1181,
+    "fields": {
+        "status": "N",
+        "media_item": 1919,
+        "requested_by": 1,
+        "datetime_requested": "2016-07-20T15:04:50.822Z",
+        "completed_by": null,
+        "datetime_completed": null,
+        "approved_by": null,
+        "datetime_approved": null,
+        "rejected_by": null,
+        "datetime_rejected": null
+    }
+}
+]
