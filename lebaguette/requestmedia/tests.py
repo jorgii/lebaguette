@@ -21,3 +21,14 @@ class CommandsTest(TestCase):
         self.assertTrue(MediaItem.objects.filter(imdb_id='tt4158110').exists())
         media_item = MediaItem.objects.get(imdb_id='tt4158110')
         self.assertTrue(Request.objects.filter(media_item=media_item).exists())
+
+    def test_complete_reqeust(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin1234')
+        response = self.client.post(
+            '/requestmedia/complete/',
+            {'itemid': '1179'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        request_item = Request.objects.get(id=1179)
+        self.assertEqual(request_item.status, 'C')
