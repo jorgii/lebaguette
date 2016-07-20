@@ -89,3 +89,9 @@ class CommandsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         request_item = Request.objects.get(id=1179)
         self.assertEqual(request_item.status, 'R')
+
+    def test_request_media_get(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin1234')
+        response = self.client.get('/requestmedia/')
+        self.assertEqual(response.status_code, 200)
