@@ -36,5 +36,23 @@
         "groups": [],
         "user_permissions": []
     }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$5spg3CQAErVE$JXTrRClde9ht/LlwLpCmORNh6HcNmh0tCyYwWhnRnts=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "cronjob",
+        "first_name": "Cron",
+        "last_name": "Job",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2016-06-15T13:18:23Z",
+        "groups": [],
+        "user_permissions": []
+    }
 }
 ]
