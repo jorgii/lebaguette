@@ -10,6 +10,14 @@ class CommandsTest(TestCase):
         'home/fixtures/users_data',
         'requestmedia/fixtures/media_items']
 
+    def test_add_ajax_filter(self):
+        self.client = Client()
+        self.client.login(username='admin', password='admin1234')
+        response = self.client.post(
+            '/requestmedia/add/',
+            {'imdb_id': 'tt4158110tt2357547'})
+        self.assertEqual(response.status_code, 403)
+
     def test_add_request(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
