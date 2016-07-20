@@ -15,6 +15,7 @@ class CommandsTest(TestCase):
             '/requestmedia/add/',
             {'imdb_id': 'tt3107288'},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
         self.assertTrue(MediaItem.objects.filter(imdb_id='tt3107288').exists())
         media_item = MediaItem.objects.get(imdb_id='tt3107288')
         self.assertTrue(Request.objects.filter(media_item=media_item).exists())
