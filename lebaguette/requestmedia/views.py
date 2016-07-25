@@ -28,7 +28,7 @@ def request_media(request):
 @login_required
 def approved_media(request):
     request_items = Request.objects.filter(status='A').order_by(
-        '-datetime_requested')
+        '-datetime_approved')
     paginator = Paginator(request_items, 15)
     page = request.GET.get('page')
     try:
@@ -44,7 +44,7 @@ def approved_media(request):
 @login_required
 def rejected_media(request):
     request_items = Request.objects.filter(status='R').order_by(
-        '-datetime_requested')
+        '-datetime_rejected')
     paginator = Paginator(request_items, 15)
     page = request.GET.get('page')
     try:
@@ -60,7 +60,7 @@ def rejected_media(request):
 @login_required
 def completed_media(request):
     request_items = Request.objects.filter(status='C').order_by(
-        '-datetime_requested')
+        '-datetime_completed')
     paginator = Paginator(request_items, 15)
     page = request.GET.get('page')
     try:
