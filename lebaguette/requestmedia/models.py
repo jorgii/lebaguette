@@ -212,19 +212,19 @@ class Request(models.Model):
     def complete(self, completed_by):
         self.status = 'C'
         self.completed_by = completed_by
-        self.datetime_completed = timezone.now()
+        self.datetime_completed = timezone.localtime(timezone.now())
         self.save()
 
     def approve(self, approved_by):
         self.status = 'A'
         self.approved_by = approved_by
-        self.datetime_approved = timezone.now()
+        self.datetime_approved = timezone.localtime(timezone.now())
         self.save()
 
     def reject(self, rejected_by):
         self.status = 'R'
         self.rejected_by = rejected_by
-        self.datetime_rejected = timezone.now()
+        self.datetime_rejected = timezone.localtime(timezone.now())
         self.save()
 
     def __str__(self):
