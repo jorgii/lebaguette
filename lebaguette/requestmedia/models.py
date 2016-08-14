@@ -129,7 +129,8 @@ class MediaItem(models.Model):
                         new_episode.save_and_create_request(
                             requested_by,
                             status)
-                        print("Successfully added {0}!".format(str(new_episode)))
+                        print("Successfully added {0}!".format(
+                            str(new_episode)))
                 except ValueError as e:
                     print("Error adding S{0}E{1}: {2}! Skipping..".format(
                         season,
