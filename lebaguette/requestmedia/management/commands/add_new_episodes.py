@@ -1,4 +1,5 @@
 import requests
+import time
 
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from requestmedia.models import MediaItem
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        start_time = time.time()
         user = User.objects.get(username='cronjob')
         active_shows = MediaItem.objects.filter(
             media_type='series',
@@ -26,3 +28,4 @@ class Command(BaseCommand):
                 start_season,
                 user,
                 'A')
+        execution_time = time.time() - start_time
