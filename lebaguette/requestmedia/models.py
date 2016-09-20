@@ -104,9 +104,11 @@ class MediaItem(models.Model):
         return media_item
 
     def create_new_episodes(self, episode, season, requested_by, status):
-        season_request = self.get_data_from_api(season)
-        total_seasons = range(season, int(season_request['totalSeasons']))
-        while season_request['Response'] == 'True':
+        total_seasons = season
+        print("Total Seasons: {}".format(total_seasons))
+        while season <= total_seasons:
+            season_request = self.get_data_from_api(season)
+            total_seasons = int(season_request['totalSeasons'])
             for api_episode in season_request['Episodes'][episode:]:
                 try:
                     if not MediaItem.objects.filter(
@@ -131,6 +133,8 @@ class MediaItem(models.Model):
                             status)
                         print("Successfully added {0}!".format(
                             str(new_episode)))
+                    else:
+                        break
                 except ValueError as e:
                     print("Error adding S{0}E{1}: {2}! Skipping..".format(
                         season,
@@ -138,7 +142,7 @@ class MediaItem(models.Model):
                         e))
                     continue
             season += 1
-            season_request = self.get_data_from_api(season)
+            episode = 0
 
     def get_data_from_api(self, season=None):
         try:
