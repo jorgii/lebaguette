@@ -105,7 +105,6 @@ class MediaItem(models.Model):
 
     def create_new_episodes(self, episode, season, requested_by, status):
         total_seasons = season
-        print("Total Seasons: {}".format(total_seasons))
         while season <= total_seasons:
             season_request = self.get_data_from_api(season)
             total_seasons = int(season_request['totalSeasons'])
