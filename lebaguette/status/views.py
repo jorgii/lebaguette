@@ -30,7 +30,7 @@ def server_status(request):
         raid_data = get_raid_data()
         active_fans_count = get_fans_count()
         fans_count_range = range(active_fans_count)
-    return render(request, 'status/status.html', locals())
+    return render(request, 'status.html', locals())
 
 
 def get_fans_count():

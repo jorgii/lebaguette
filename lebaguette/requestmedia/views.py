@@ -21,7 +21,7 @@ def request_media(request):
         request_items_page = paginator.page(number=1)
     except EmptyPage:
         request_items_page = paginator.page(paginator.num_pages)
-    return render(request, 'requestmedia/request_media.html', locals())
+    return render(request, 'request_media.html', locals())
 
 
 @permission_required('requestmedia.view')
@@ -37,7 +37,7 @@ def approved_media(request):
         request_items_page = paginator.page(number=1)
     except EmptyPage:
         request_items_page = paginator.page(paginator.num_pages)
-    return render(request, 'requestmedia/approved_media.html', locals())
+    return render(request, 'approved_media.html', locals())
 
 
 @permission_required('requestmedia.view')
@@ -53,7 +53,7 @@ def rejected_media(request):
         request_items_page = paginator.page(number=1)
     except EmptyPage:
         request_items_page = paginator.page(paginator.num_pages)
-    return render(request, 'requestmedia/rejected_media.html', locals())
+    return render(request, 'rejected_media.html', locals())
 
 
 @permission_required('requestmedia.view')
@@ -69,4 +69,4 @@ def completed_media(request):
         request_items_page = paginator.page(number=1)
     except EmptyPage:
         request_items_page = paginator.page(paginator.num_pages)
-    return render(request, 'requestmedia/completed_media.html', locals())
+    return render(request, 'completed_media.html', locals())
