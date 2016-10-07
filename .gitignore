@@ -40,3 +40,5 @@ log.txt
 media
 db.sqlite3
 
+
+lebaguette/log/*

@@ -149,17 +149,65 @@ os.environ['wsgi.url_scheme'] = 'https'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
     'handlers': {
-        'file': {
+        'file_debug': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, "log.txt"),
+            'filters': ['require_debug_true'],
+            'filename': os.path.join(BASE_DIR, "log/debug.txt"),
+            'formatter': 'simple',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, "log/info.txt"),
+            'formatter': 'verbose',
+        },
+        'file_warning': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, "log/warning.txt"),
+            'formatter': 'verbose',
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, "log/error.txt"),
+            'formatter': 'verbose',
+        },
+        'file_critical': {
+            'level': 'CRITICAL',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, "log/critical.txt"),
+            'formatter': 'verbose',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file'],
+        'django.debug': {
+            'handlers': ['file_debug'],
             'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'propagate': True,
+        },
+        'django.info': {
+            'handlers': ['file_info'],
+            'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['file_warning', 'file_error', 'file_critical'],
             'propagate': True,
         },
     },
