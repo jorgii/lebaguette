@@ -2,11 +2,14 @@ from datetime import datetime, date
 from urllib.parse import urlparse
 import os
 import requests
+import logging
 
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files import File
+
+logger = logging.getLogger('django.info')
 
 
 class MediaItem(models.Model):
@@ -100,7 +103,7 @@ class MediaItem(models.Model):
             media_item.released = datetime.strptime(
                     media_request['Released'], '%d %b %Y').date()
         except ValueError as e:
-            print(e)
+            logger.info(e)
         return media_item
 
     def create_new_episodes(self, episode, season, requested_by, status):
@@ -130,12 +133,12 @@ class MediaItem(models.Model):
                         new_episode.save_and_create_request(
                             requested_by,
                             status)
-                        print("Successfully added {0}!".format(
+                        logger.info("Successfully added {0}!".format(
                             str(new_episode)))
                     else:
                         break
                 except ValueError as e:
-                    print("Error adding S{0}E{1}: {2}! Skipping..".format(
+                    logger.info("Error adding S{0}E{1}: {2}! Skipping..".format(
                         season,
                         int(api_episode['Episode']),
                         e))
@@ -151,13 +154,13 @@ class MediaItem(models.Model):
                 ('&Season=' + str(season) if season else '') +
                 '&plot=short&r=json')
         except requests.exceptions.ConnectionError:
-            print('There was an error connecting to the api. ')
+            logger.info('There was an error connecting to the api. ')
         except requests.exceptions.HTTPError:
-            print('Invalid HTTP response received. ')
+            logger.info('Invalid HTTP response received. ')
         except requests.exceptions.Timeout:
-            print('The connection to the api timed out. ')
+            logger.info('The connection to the api timed out. ')
         except requests.exceptions.TooManyRedirects:
-            print('There have been too many redirects. ')
+            logger.info('There have been too many redirects. ')
         return media_request.json()
 
     def __str__(self):
