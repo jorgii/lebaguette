@@ -151,10 +151,10 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '%(levelname)s|%(pathname)s|%(filename)s|%(message)s'
+            'format': 'message_end%(levelname)s|%(asctime)s|%(pathname)s|%(message)smessage_end'
         },
         'simple': {
-            'format': '%(levelname)s %(message)s'
+            'format': '%(levelname)s|%(message)s'
         },
     },
     'filters': {
@@ -194,6 +194,9 @@ LOGGING = {
             'filename': os.path.join(BASE_DIR, "log/critical.txt"),
             'formatter': 'verbose',
         },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
         'django.debug': {
@@ -207,7 +210,7 @@ LOGGING = {
             'level': 'INFO',
         },
         'django': {
-            'handlers': ['file_warning', 'file_error', 'file_critical'],
+            'handlers': ['file_warning', 'file_error', 'file_critical', 'console'],
             'propagate': True,
         },
     },
