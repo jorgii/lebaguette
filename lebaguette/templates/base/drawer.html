@@ -25,6 +25,7 @@
     {% endif %}
     <a class="mdl-navigation__link" href="/profile"><i class="material-icons" role="presentation">settings</i>Account setup</a>
     {% if request.user.is_staff %}
+        <a class="mdl-navigation__link" href="/log"><i class="material-icons" role="presentation">bug_report</i>Logs</a>
         <a class="mdl-navigation__link" href="/admin"><i class="material-icons" role="presentation">security</i>Admin Page</a>
     {% endif %}
     <div class="mdl-layout-spacer"></div>
