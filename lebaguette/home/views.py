@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.contrib.auth import login
@@ -69,3 +71,15 @@ def home_page(request):
                 message_form.save()
                 return redirect('/')
     return render(request, 'home.html', locals())
+
+
+@login_required
+def log_page(request):
+    log_files = os.listdir('log')
+    selected_log = (request.GET.get('log') or log_files[0])
+    log_file = open('log/{}'.format(selected_log), 'r').read().split('message_end')
+    log_result = []
+    for log_file_row in log_file:
+        if log_file_row != '' and log_file_row != '\n':
+            log_result.append(log_file_row.split('|'))
+    return render(request, 'log_page.html', locals())

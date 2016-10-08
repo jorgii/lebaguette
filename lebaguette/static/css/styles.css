@@ -359,3 +359,6 @@ path {
 .mdl-list__item {
   transition: all 0.3s ease;
 }
+.td-wrap{
+     white-space: normal;
+}
