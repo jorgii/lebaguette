@@ -75,9 +75,10 @@ def home_page(request):
 
 @login_required
 def log_page(request):
-    log_files = os.listdir('log')
+    log_path = os.path.join(settings.BASE_DIR, 'log/')
+    log_files = os.listdir(log_path)
     selected_log = (request.GET.get('log') or log_files[0])
-    log_file = open('log/{}'.format(selected_log), 'r').read().split('message_end')
+    log_file = open(log_path + '{}'.format(selected_log), 'r').read().split('message_end')
     log_result = []
     for log_file_row in log_file:
         if log_file_row != '' and log_file_row != '\n':
