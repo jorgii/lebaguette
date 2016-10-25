@@ -78,6 +78,10 @@ def log_page(request):
     log_path = os.path.join(settings.BASE_DIR, 'log/')
     log_files = os.listdir(log_path)
     selected_log = (request.GET.get('log') or log_files[0])
+    if request.method == 'POST':
+        file_to_clear = request.POST.get('file_name')
+        open(log_path + file_to_clear, 'w').close()
+        return redirect('.?log={}'.format(selected_log))
     log_file = open(log_path + '{}'.format(selected_log), 'r').read().split('message_end')
     log_result = []
     for log_file_row in log_file:

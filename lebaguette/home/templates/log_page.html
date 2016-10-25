@@ -7,6 +7,16 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Log Messages</span>
             <div class="mdl-layout-spacer"></div>
+            <form name="clear_log_form" action="#" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="file_name" value="{{ selected_log }}">
+                <label id="clear_log" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                    <a href="#" onclick="$(this).closest('form').submit()"><i class="material-icons">delete</i></a>
+                </label>
+                <div class="mdl-tooltip" for="logout">
+                Clear Log File
+                </div>
+            </form>
             <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
                 <a href="/logout"><i class="material-icons">power_settings_new</i></a>
             </label>
