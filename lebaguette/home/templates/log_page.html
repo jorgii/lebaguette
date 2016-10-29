@@ -1,72 +1,73 @@
-{% extends "base/base.html" %}
-{% load staticfiles %}
-{% block title %}Lebaguette - Home{% endblock %}
-{% block body %}
+{% extends "base/base.html" %} {% load staticfiles %} {% block title %}Lebaguette - Home{% endblock %} {% block body %}
 <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-    <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">Log Messages</span>
-            <div class="mdl-layout-spacer"></div>
-            <form name="clear_log_form" action="#" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="file_name" value="{{ selected_log }}">
-                <label id="clear_log" class="mdl-button mdl-js-button mdl-button--icon" for="search">
-                    <a href="#" onclick="$(this).closest('form').submit()"><i class="material-icons">delete</i></a>
-                </label>
-                <div class="mdl-tooltip" for="logout">
-                Clear Log File
-                </div>
-            </form>
-            <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
-                <a href="/logout"><i class="material-icons">power_settings_new</i></a>
-            </label>
-            <div class="mdl-tooltip" for="logout">
-            Bye bye
-            </div>
+  <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+    <div class="mdl-layout__header-row">
+      <span class="mdl-layout-title">Log Messages</span>
+      <div class="mdl-layout-spacer"></div>
+      <form name="clear_log_form" action="#" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="file_name" value="{{ selected_log }}">
+        <label id="clear_log" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+            <a href="#" onclick="$(this).closest('form').submit()"><i class="material-icons">delete</i></a>
+        </label>
+        <div class="mdl-tooltip" for="logout">
+            Clear Log File
         </div>
-    </header>
-    {% include "base/drawer.html" %}
-    <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid mdl-shadow--1dp">
-            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-cell mdl-cell--12-col mdl-color--white">
-                <div class="mdl-tabs__tab-bar">
-                    {% for log_file in log_files %}
-                        <a href=".?log={{ log_file }}" class="mdl-layout__tab {% if log_file == selected_log %}is-active{% endif %}">{{ log_file }}</a>
+      </form>
+      <label id="logout" class="mdl-button mdl-js-button mdl-button--icon" for="search">
+        <a href="/logout"><i class="material-icons">power_settings_new</i></a>
+      </label>
+      <div class="mdl-tooltip" for="logout">
+        Bye bye
+      </div>
+    </div>
+  </header>
+  {% include "base/drawer.html" %}
+  <main class="mdl-layout__content mdl-color--grey-100">
+    <div class="mdl-grid mdl-shadow--1dp">
+      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-cell mdl-cell--12-col mdl-color--white">
+        <div class="mdl-tabs__tab-bar">
+          {% for log_file in log_files %}
+            <a href=".?log={{ log_file }}" class="mdl-layout__tab {% if log_file == selected_log %}is-active{% endif %}">{{ log_file }}</a>
+          {% endfor %}
+        </div>
+        <div class="mdl-grid">
+          <div class="mdl-layout-spacer"></div>
+          {% if log_result %}
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">Type</th>
+                  <th class="mdl-data-table__cell--non-numeric">Date Time</th>
+                  <th class="mdl-data-table__cell--non-numeric">Path</th>
+                  <th class="mdl-data-table__cell--non-numeric">Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for log_row in log_result %}
+                  <tr>
+                    {% for log_item in log_row %}
+                    <td {% if 'Traceback' in log_item %}colspan="4" {% endif %}class="td-wrap mdl-data-table__cell--non-numeric">{{ log_item }}</td>
                     {% endfor %}
-                </div>
-                    {% if log_result %}
-                    <table class="mdl-data-table mdl-js-data-table mdl-data-table">
-                      <thead>
-                        <tr>
-                          <th class="mdl-data-table__cell--non-numeric">Type</th>
-                          <th class="mdl-data-table__cell--non-numeric">Date Time</th>
-                          <th class="mdl-data-table__cell--non-numeric">Path</th>
-                          <th class="mdl-data-table__cell--non-numeric">Message</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          {% for log_row in log_result %}
-                          <tr>
-                            {% for log_item in log_row %}
-                            <td {% if 'Traceback' in log_item %}colspan="4"{% endif %}class="td-wrap mdl-data-table__cell--non-numeric">{{ log_item }}</td>
-                            {% endfor %}
-                          </tr>
-                          {% endfor %}
-                      </tbody>
-                    </table>
-                    {% else %}
-                        <div class="mdl-card mdl-shadow--2dp mdl-cell">
-                          <div class="mdl-card__title mdl-card--border">
-                             <i class="material-icons" role="presentation">check_circle</i>
-                             <h1 class="mdl-card__title-text">Good job!</h2>
-                          </div>
-                          <div class="mdl-card__supporting-text">
-                          <h4>There are no records in this log!</h4>
-                          </div>
-                        </div>
-                    {% endif %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--3-col">
+              <div class="mdl-card__title mdl-card--border">
+                <i class="material-icons" role="presentation">check_circle</i>
+                <h1 class="mdl-card__title-text">Good job!</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <h4>There are no records in this log!</h4>
+              </div>
             </div>
+          {% endif %}
+          <div class="mdl-layout-spacer"></div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 </div>
 {% endblock %}
