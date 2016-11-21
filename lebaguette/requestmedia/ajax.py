@@ -10,6 +10,7 @@ from .models import Request, MediaItem
 
 logger = logging.getLogger('django.error')
 
+
 @permission_required('requestmedia.add_request')
 @login_required
 def add_request(request):
