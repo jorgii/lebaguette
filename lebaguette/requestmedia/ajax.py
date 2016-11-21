@@ -1,4 +1,5 @@
 import re
+import logging
 
 from django.http import HttpResponseForbidden, HttpResponse,\
     HttpResponseBadRequest
@@ -7,6 +8,7 @@ from django.contrib.auth.decorators import permission_required
 
 from .models import Request, MediaItem
 
+logger = logging.getLogger('django.error')
 
 @permission_required('requestmedia.add_request')
 @login_required
@@ -35,6 +37,7 @@ def add_request(request):
                     ' already exist. The rest were added!'
                 return HttpResponseBadRequest(reason=message)
         except Exception as e:
+            logger.error(e)
             return HttpResponseBadRequest(reason=e)
         else:
             return HttpResponse(
@@ -55,6 +58,7 @@ def complete_request(request):
             request_item = Request.objects.get(id=itemid)
             request_item.complete(request.user)
         except Exception as e:
+            logger.error(e)
             return HttpResponseBadRequest(reason=e)
         else:
             return HttpResponse(
@@ -74,6 +78,7 @@ def approve_request(request):
             request_item = Request.objects.get(id=itemid)
             request_item.approve(request.user)
         except Exception as e:
+            logger.error(e)
             return HttpResponseBadRequest(reason=e)
         else:
             return HttpResponse(
@@ -93,6 +98,7 @@ def reject_request(request):
             request_item = Request.objects.get(id=itemid)
             request_item.reject(request.user)
         except Exception as e:
+            logger.error(e)
             return HttpResponseBadRequest(reason=e)
         else:
             return HttpResponse(
