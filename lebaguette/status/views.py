@@ -88,7 +88,9 @@ def get_uptime():
     minutes, seconds = divmod(int(uptime.total_seconds()), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
+    weeks, days = divmod(days, 7)
     data = {}
+    data['weeks'] = weeks
     data['days'] = days
     data['hours'] = hours
     data['minutes'] = minutes
