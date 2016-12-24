@@ -38,7 +38,7 @@ MEDIA_URL = '/media/'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_KEY', 'DEVELOPMENT_SECRET_KEY')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split()
 
 
 # Application definition
@@ -84,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'lebaguette.wsgi.application'
+#WSGI_APPLICATION = 'lebaguette.wsgi.application'
 
 
 # Database
