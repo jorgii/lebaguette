@@ -84,7 +84,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'lebaguette.wsgi.application'
+WSGI_APPLICATION = 'lebaguette.wsgi.application'
 
 
 # Database
@@ -141,7 +141,7 @@ LOGIN_REDIRECT_URL = '/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # wsgi scheme
-os.environ['wsgi.url_scheme'] = 'https'
+#os.environ['wsgi.url_scheme'] = 'https'
 
 LOGGING = {
     'version': 1,
