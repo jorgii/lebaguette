@@ -41,5 +41,5 @@ media
 db.sqlite3
 
 
-log/
+log/*
 static/
