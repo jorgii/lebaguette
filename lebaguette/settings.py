@@ -144,9 +144,6 @@ LOGIN_REDIRECT_URL = '/'
 # session expire at browser close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-# wsgi scheme
-#os.environ['wsgi.url_scheme'] = 'https'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
