@@ -6,7 +6,7 @@ $(window).load(function() {
 
   $('#paginator').addClass('hidden');
 	// Each time the user scrolls
-	$(win).scroll(function() {
+	$(win).scroll(function(event) {
 		// End of the document reached?
     var element = event.target;
 		if(element.scrollHeight - element.scrollTop === element.clientHeight) {
