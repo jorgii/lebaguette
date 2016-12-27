@@ -52,15 +52,17 @@ class MediaItem(models.Model):
             try:
                 r = requests.get(image_url)
                 file_name = os.path.basename(urlparse(image_url).path)
-                with open('/tmp/tmp_logo.png', 'wb') as f:
+                try:
+                    f = open('/tmp/tmp_logo.png', 'wb')
                     f.write(r.content)
+                    f = open('/tmp/tmp_logo.png', 'rb')
                     django_file = File(f)
-                    try:
-                        self.poster.save(file_name, django_file, save=True)
-                    except IOError as e:
-                        pass
-                    finally:
-                        os.remove('/tmp/tmp_logo.png')
+                    self.poster.save(file_name, django_file, save=True)
+                except IOError as e:
+                    logger.error(e)
+                finally:
+                    f.close()
+                    os.remove('/tmp/tmp_logo.png')
             except requests.exceptions.MissingSchema:
                 super(MediaItem, self).save(*args, **kwargs)
         super(MediaItem, self).save(*args, **kwargs)
