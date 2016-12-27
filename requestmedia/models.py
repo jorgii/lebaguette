@@ -54,11 +54,13 @@ class MediaItem(models.Model):
                 file_name = os.path.basename(urlparse(image_url).path)
                 with open('/tmp/tmp_logo.png', 'wb') as f:
                     f.write(r.content)
-                reopen = open('/tmp/tmp_logo.png', 'rb')
-                django_file = File(reopen)
-                self.poster.save(file_name, django_file, save=True)
-                reopen.close()
-                os.remove('/tmp/tmp_logo.png')
+                    django_file = File(f)
+                    try:
+                        self.poster.save(file_name, django_file, save=True)
+                    except IOError as e:
+                        pass
+                    finally:
+                        os.remove('/tmp/tmp_logo.png')
             except requests.exceptions.MissingSchema:
                 super(MediaItem, self).save(*args, **kwargs)
         super(MediaItem, self).save(*args, **kwargs)
