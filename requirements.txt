@@ -1,5 +1,11 @@
-Django==1.10.4
-Pillow==3.4.2
-psutil==5.0.1
-psycopg2==2.6.2
-requests==2.12.4
+appdirs==1.4.3
+Django==1.10.6
+olefile==0.44
+packaging==16.8
+Pillow==4.0.0
+pkg-resources==0.0.0
+psutil==5.2.0
+psycopg2==2.7
+pyparsing==2.2.0
+requests==2.13.0
+six==1.10.0
