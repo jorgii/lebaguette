@@ -144,6 +144,10 @@ LOGIN_REDIRECT_URL = '/'
 # session expire at browser close
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+if not os.path.exists('log/'):
+    os.makedirs('log')
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
