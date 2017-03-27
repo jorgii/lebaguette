@@ -12,7 +12,7 @@
     <a class="mdl-navigation__link" href="/"><i class="material-icons" role="presentation">home</i>Home</a>
     <div class="nav_divider mdl-color--blue-grey-700">Services</div>
     <a class="mdl-navigation__link" href="https://plex.{{ request.META.HTTP_HOST }}"><i class="material-icons" role="presentation">movie</i>Plex</a>
-    <a class="mdl-navigation__link" href="https://owncloud.{{ request.META.HTTP_HOST }}"><i class="material-icons" role="presentation">backup</i>OwnCloud</a>
+    <a class="mdl-navigation__link" href="https://nextcloud.{{ request.META.HTTP_HOST }}"><i class="material-icons" role="presentation">backup</i>NextCloud</a>
     {% if request.user.is_staff %}
     <a class="mdl-navigation__link" href="https://transmission.{{ request.META.HTTP_HOST }}"><i class="material-icons" role="presentation">file_download</i>Transmission</a>
     {% endif %}
