@@ -96,19 +96,19 @@ class CommandsTest(TestCase):
         response = self.client.get('/requestmedia/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_approved(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/approved/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_rejected(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/rejected/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_completed(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/completed/')
