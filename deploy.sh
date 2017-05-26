@@ -1,5 +1,5 @@
 eval "$(ssh-agent -s)" # Start the ssh agent
-chmod 600 prod_rsa # This key should have push access
-ssh-add prod_rsa
+chmod 600 ~/.ssh/prod_rsa # This key should have push access
+ssh-add ~/.ssh/prod_rsa #Add ssh key
 git remote add deploy $PROD_REPO_URI
 git push prod master
