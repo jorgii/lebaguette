@@ -2,10 +2,8 @@ version: '2'
 services:
   db:
     image: postgres
-    environment:
-      - POSTGRES_USER=lebaguette
-      - POSTGRES_PASSWORD=lebaguette
-      - POSTGRES_DB=lebaguette
+    env_file:
+      - db_variables.env
   web:
     build: .
     command: /lebaguette/prod.sh
@@ -13,3 +11,5 @@ services:
       - .:/lebaguette
     depends_on:
       - db
+    env_file:
+      - web_variables.env
