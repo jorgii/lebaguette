@@ -5,19 +5,20 @@ branches:
   - master
   - dev
 python:
-  - "3.5"
+- '3.5'
 services:
-  - docker
-
+- docker
 before_install:
-  - cp web_variables_example.env web_variables.env
-  - cp db_variables_example.env db_variables.env
+- openssl aes-256-cbc -K $encrypted_367124bfde5f_key -iv $encrypted_367124bfde5f_iv
+  -in prod_key.enc -out ~\/.ssh/prod_key -d
+- cp web_variables_example.env web_variables.env
+- cp db_variables_example.env db_variables.env
 install:
-  - docker-compose up -d db
-  - docker-compose up -d web
+- docker-compose up -d db
+- docker-compose up -d web
 script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
 deploy:
   provider: script
-  script: ./deploy.sh
+  script: "./deploy.sh"
   on:
     branch: master
