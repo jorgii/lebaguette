@@ -18,7 +18,7 @@ install:
 - docker-compose up -d web
 script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
 before_deploy:
-  - rm ./media/posters/*
+  - rm -f ./media/posters/*
 deploy:
   provider: script
   script: "./deploy.sh"
