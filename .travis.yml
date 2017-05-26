@@ -4,7 +4,11 @@ python:
   - "3.5"
 services:
   - docker
+
+before_install:
+  - cp web_variables_example.env web_variables.env
+  - cp db_variables_example.env db_variables.env
 install:
   - docker-compose up -d db
   - docker-compose up -d web
-script: docker-compose run web ./manage.py test
+script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
