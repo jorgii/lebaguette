@@ -1,15 +1,10 @@
+sudo: required
 language: python
 python:
   - "3.5"
-before_script:
-  - psql -c "create user lebaguette with password 'lebaguette' createdb;" -U postgres
-  - psql -c "create database lebaguette with owner lebaguette;" -U postgres
-
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
 services:
-  - postgresql
-
-# command to run tests
-script: python ./manage.py test
+  - docker
+install:
+  - docker-compose up -d db
+  - docker-compose up -d web
+script: docker-compose run web ./manage.py test
