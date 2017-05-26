@@ -44,6 +44,7 @@ SECRET_KEY = os.environ.get('DJANGO_KEY', 'DEVELOPMENT_SECRET_KEY')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split()
 
+TMDB_APIKEY = os.environ.get('TMDB_APIKEY')
 
 # Application definition
 

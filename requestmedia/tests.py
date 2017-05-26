@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core.management import call_command
 from django.test.client import Client
 
 from requestmedia.models import MediaItem, Request
@@ -96,27 +95,20 @@ class CommandsTest(TestCase):
         response = self.client.get('/requestmedia/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_approved(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/approved/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_rejected(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/rejected/')
         self.assertEqual(response.status_code, 200)
 
-    def test_request_media_get(self):
+    def test_request_media_get_completed(self):
         self.client = Client()
         self.client.login(username='admin', password='admin1234')
         response = self.client.get('/requestmedia/completed/')
         self.assertEqual(response.status_code, 200)
-
-    def test_add_new_episodes(self):
-        call_command('add_new_episodes')
-        tv_show = MediaItem.objects.get(id=1919)
-        self.assertTrue(MediaItem.objects.filter(tv_show=tv_show).exists())
-        tv_show = MediaItem.objects.get(id=1917)
-        self.assertFalse(MediaItem.objects.filter(tv_show=tv_show).exists())
