@@ -20,9 +20,9 @@ script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
 before_deploy:
   - sudo rm -f ./media/posters/*
   - mv prod_rsa ~/.ssh/prod_rsa
-deploy:
-  provider: script
-  script: "./deploy.sh"
-  skip_cleanup: true
-  on:
-    branch: master
+# deploy:
+#  provider: script
+#  script: "./deploy.sh"
+#  skip_cleanup: true
+#  on:
+#    branch: master
