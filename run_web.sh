@@ -5,11 +5,5 @@ echo ------------ End DB Migration ------------
 echo ------------ Begin Collect Static ------------
 python manage.py collectstatic --noinput  # Collect static files
 echo ------------ End Collect Static ------------
-
-echo ------------ Align Permissions ------------
-chown -R 1000:www-data ./  # Align permissions
-
-
-# Start uwsgi processes
 echo ------------ Start UWSGI ------------
-exec uwsgi --ini uwsgi.ini
+exec uwsgi --ini uwsgi.ini  # Start uwsgi processes
