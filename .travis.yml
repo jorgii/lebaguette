@@ -1,15 +1,24 @@
+sudo: required
 language: python
+branches:
+  only:
+  - master
+  - dev
 python:
-  - "3.5"
-before_script:
-  - psql -c "create user lebaguette with password 'lebaguette' createdb;" -U postgres
-  - psql -c "create database lebaguette with owner lebaguette;" -U postgres
-
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
+- '3.5'
 services:
-  - postgresql
-
-# command to run tests
-script: python ./manage.py test
+- docker
+before_install:
+- openssl aes-256-cbc -K $encrypted_367124bfde5f_key -iv $encrypted_367124bfde5f_iv
+  -in prod_rsa.enc -out prod_rsa -d
+- cp web_variables_example.env web_variables.env
+- cp db_variables_example.env db_variables.env
+install:
+- docker-compose up -d db
+- docker-compose up -d web
+script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
+deploy:
+  provider: script
+  script: "./deploy.sh"
+  on:
+    branch: master
