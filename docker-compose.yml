@@ -6,10 +6,21 @@ services:
       - db_variables.env
   web:
     build: .
-    command: /lebaguette/prod.sh
+    command: ./run_web.sh
     volumes:
       - .:/lebaguette
     depends_on:
       - db
     env_file:
       - web_variables.env
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/lebaguette
+      - ./nginx/lebaguette.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    command: [nginx-debug, '-g', 'daemon off;']
+    depends_on:
+      - web
