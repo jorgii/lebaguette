@@ -8,8 +8,40 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.files import File
+from django.conf import settings
 
 logger = logging.getLogger('django.info')
+
+
+def get_media_json(media_type, media_request):
+    if media_type == 'movie':
+        if len(media_request.get('movie_results')) != 1:
+            logger.error('The response returned too many results of type {}!'.format(media_type))
+            raise Exception(
+                'Too many results!',
+                'The response returned too many results of type {}!'.format(media_type)
+            )
+        return media_request['movie_results'][0]
+    elif media_type == 'series':
+        if len(media_request.get('tv_results')) != 1:
+            logger.error('The response returned too many results of type {}!'.format(media_type))
+            raise Exception(
+                'Too many results!',
+                'The response returned too many results of type {}!'.format(media_type)
+            )
+        return media_request['tv_results'][0]
+
+
+def get_media_type(media_request):
+    if media_request.get('movie_results') != []:
+        return 'movie'
+    elif media_request.get('tv_results') != []:
+        return 'series'
+    logger.error('No compatible media type discovered in the response!')
+    raise Exception(
+        'No compatible media',
+        'No compatible media type discovered in the response!'
+    )
 
 
 class MediaItem(models.Model):
@@ -48,23 +80,27 @@ class MediaItem(models.Model):
     def save(self, *args, **kwargs):
         if not (self.poster or self.media_type == 'episode'):
             media_request = self.get_data_from_api()
-            image_url = media_request['Poster']
-            try:
-                r = requests.get(image_url)
-                file_name = os.path.basename(urlparse(image_url).path)
+            media_request = get_media_json(self.media_type, media_request)
+            if 'poster_path' in media_request:
+                image_url = 'https://image.tmdb.org/t/p/w92{}'.format(
+                    media_request.get('poster_path')
+                )
                 try:
-                    f = open('/tmp/tmp_logo.png', 'wb')
-                    f.write(r.content)
-                    f = open('/tmp/tmp_logo.png', 'rb')
-                    django_file = File(f)
-                    self.poster.save(file_name, django_file, save=True)
-                except IOError as e:
-                    logger.error(e)
-                finally:
-                    f.close()
-                    os.remove('/tmp/tmp_logo.png')
-            except requests.exceptions.MissingSchema:
-                super(MediaItem, self).save(*args, **kwargs)
+                    request = requests.get(image_url)
+                    file_name = os.path.basename(urlparse(image_url).path)
+                    try:
+                        f = open('/tmp/tmp_logo.png', 'wb')
+                        f.write(request.content)
+                        f = open('/tmp/tmp_logo.png', 'rb')
+                        django_file = File(f)
+                        self.poster.save(file_name, django_file, save=True)
+                    except IOError as e:
+                        logger.error(e)
+                    finally:
+                        f.close()
+                        os.remove('/tmp/tmp_logo.png')
+                except requests.exceptions.MissingSchema:
+                    super(MediaItem, self).save(*args, **kwargs)
         super(MediaItem, self).save(*args, **kwargs)
 
     def save_and_create_request(self, requested_by, status):
@@ -97,17 +133,23 @@ class MediaItem(models.Model):
 
     @classmethod
     def create_media_from_imdbid(cls, imdb_id):
+        logger.info('Attempting to add media item with imdb_id {}'.format(imdb_id))
         media_item = cls(imdb_id=imdb_id)
         media_request = media_item.get_data_from_api()
-        if media_request['Type'] == 'episode':
-            return None
-        media_item.media_type = media_request['Type']
-        media_item.title = media_request['Title']
-        try:
-            media_item.released = datetime.strptime(
-                    media_request['Released'], '%d %b %Y').date()
-        except ValueError as e:
-            logger.info(e)
+        media_item.media_type = get_media_type(media_request)
+        media_request = get_media_json(media_item.media_type, media_request)
+        if media_item.media_type == 'series':
+            media_item.title = media_request.get('name', 'Not Found')
+            if 'first_air_date' in media_request:
+                media_item.released = datetime.strptime(
+                    media_request['first_air_date'], '%Y-%m-%d'
+                ).date()
+        else:
+            media_item.title = media_request.get('title', 'Not Found')
+            if 'release_date' in media_request:
+                media_item.released = datetime.strptime(
+                    media_request['release_date'], '%Y-%m-%d'
+                ).date()
         return media_item
 
     def create_new_episodes(self, episode, season, requested_by, status):
@@ -118,12 +160,12 @@ class MediaItem(models.Model):
             for api_episode in season_request['Episodes'][episode:]:
                 try:
                     if not MediaItem.objects.filter(
-                                episode=int(api_episode['Episode']),
-                                season=season,
-                                imdb_id=api_episode['imdbID']).exists() and \
-                            date.today() >= datetime.strptime(
-                                api_episode['Released'],
-                                '%Y-%m-%d').date():
+                            episode=int(api_episode['Episode']),
+                            season=season,
+                            imdb_id=api_episode['imdbID']).exists() and \
+                        date.today() >= datetime.strptime(
+                            api_episode['Released'],
+                            '%Y-%m-%d').date():
                         new_episode = MediaItem.objects.create(
                             media_type='episode',
                             title=api_episode['Title'],
@@ -151,12 +193,9 @@ class MediaItem(models.Model):
             episode = 0
 
     def get_data_from_api(self, season=None):
+        url = 'https://api.themoviedb.org/3/find/{}?api_key={}&language=en-US&external_source=imdb_id'.format(self.imdb_id, settings.TMDB_APIKEY)
         try:
-            media_request = requests.get(
-                'http://www.omdbapi.com/?i=' +
-                self.imdb_id +
-                ('&Season=' + str(season) if season else '') +
-                '&plot=short&r=json')
+            media_request = requests.get(url)
         except requests.exceptions.ConnectionError:
             logger.info('There was an error connecting to the api. ')
         except requests.exceptions.HTTPError:
