@@ -16,3 +16,8 @@ install:
   - docker-compose up -d db
   - docker-compose up -d web
 script: docker-compose run -e TMDB_APIKEY=$TMDB_APIKEY web ./manage.py test
+deploy:
+  provider: script
+  script: ./deploy.sh
+  on:
+    branch: master
