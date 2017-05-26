@@ -1,5 +1,9 @@
 sudo: required
 language: python
+branches:
+  only:
+  - master
+  - dev
 python:
   - "3.5"
 services:
