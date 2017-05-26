@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=lebaguette
+      - POSTGRES_PASSWORD=lebaguette
+      - POSTGRES_DB=lebaguette
+  web:
+    build: .
+    command: /lebaguette/prod.sh
+    volumes:
+      - .:/lebaguette
+    depends_on:
+      - db
