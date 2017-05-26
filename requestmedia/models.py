@@ -204,6 +204,12 @@ class MediaItem(models.Model):
             logger.info('The connection to the api timed out. ')
         except requests.exceptions.TooManyRedirects:
             logger.info('There have been too many redirects. ')
+        if 'status_code' in media_request.json():
+            if media_request.json().get('status_code') == 7:
+                raise Exception(
+                    'Error: ',
+                    media_request.json().get('status_message')
+                )
         return media_request.json()
 
     def __str__(self):
