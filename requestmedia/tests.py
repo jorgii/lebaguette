@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core.management import call_command
 from django.test.client import Client
 
 from requestmedia.models import MediaItem, Request
