@@ -35,13 +35,10 @@ def server_status(request):
 
 
 def get_fans_count():
-    ps = Popen(['sensors'], stdout=PIPE)
-    total_fans_count = check_output(["grep", "fan"],
-                                    stdin=ps.stdout).decode("utf-8")
     active_fans_count = 0
-    for fan in total_fans_count.split("\n"):
-        if fan != '':
-            if fan.split(":")[1].strip()[:5] != "0 RPM":
+    for fans_list in psutil.sensors_fans().values():
+        for fan in fans_list:
+            if fan.current > 0:
                 active_fans_count += 1
     return active_fans_count
 

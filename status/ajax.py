@@ -1,6 +1,5 @@
 import psutil
 import platform
-from subprocess import check_output, Popen, PIPE
 
 
 import json
@@ -44,16 +43,11 @@ def get_temperatures(request):
 def get_fanspeed(request):
     if request.is_ajax():
         if 'Linux' in platform.platform():
-            ps = Popen(['sensors'], stdout=PIPE)
-            fans = check_output(
-                ["grep", "fan"],
-                stdin=ps.stdout).decode("utf-8")
             data = {}
-            for fan in fans.split("\n"):
-                if fan != '':
-                    if fan.split(":")[1].strip()[:5] != "0 RPM":
-                        data[fan.split(":")[0]] = \
-                            fan.split(":")[1].strip()[:4].strip()
+            for fans_list in psutil.sensors_fans().values():
+                for index, fan in enumerate(fans_list):
+                    if fan.current > 0:
+                        data['Fan {}'.format(index)] = fan.current
             data = json.dumps(data)
             return HttpResponse(data, content_type='application/json')
     else:
