@@ -1,6 +1,5 @@
-Django==1.10.6
-Pillow==4.0.0
-psutil==5.2.0
-psycopg2==2.7
-requests==2.13.0
-uwsgi
+Django==1.11.7
+Pillow==4.3.0
+psutil==5.4.1
+psycopg2==2.7.3.2
+requests==2.18.4

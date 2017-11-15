@@ -21,6 +21,7 @@ def server_status(request):
     cpu_physical_count = psutil.cpu_count(logical=False)
     cpu_logical_count_range = range(cpu_logical_count)
     cpu_physical_count_range = range(cpu_physical_count)
+    cpu_thermal_sensors = psutil.sensors_temperatures()['coretemp']
     uptime = get_uptime()
 
     # Get linux specific data
@@ -34,13 +35,10 @@ def server_status(request):
 
 
 def get_fans_count():
-    ps = Popen(['sensors'], stdout=PIPE)
-    total_fans_count = check_output(["grep", "fan"],
-                                    stdin=ps.stdout).decode("utf-8")
     active_fans_count = 0
-    for fan in total_fans_count.split("\n"):
-        if fan != '':
-            if fan.split(":")[1].strip()[:5] != "0 RPM":
+    for fans_list in psutil.sensors_fans().values():
+        for fan in fans_list:
+            if fan.current > 0:
                 active_fans_count += 1
     return active_fans_count
 
@@ -49,11 +47,11 @@ def get_ram_usage():
     memory = psutil.virtual_memory()
     data = {}
     data['units'] = 'GB'
-    data['total'] = round(memory.total/1073741824, 2)
-    data['available'] = round(memory.available/1073741824, 2)
+    data['total'] = round(memory.total / 1073741824, 2)
+    data['available'] = round(memory.available / 1073741824, 2)
     data['percent'] = memory.percent
-    data['used'] = round(memory.used/1073741824, 2)
-    data['free'] = round(memory.free/1073741824, 2)
+    data['used'] = round(memory.used / 1073741824, 2)
+    data['free'] = round(memory.free / 1073741824, 2)
     return data
 
 
@@ -70,16 +68,17 @@ def get_disk_usage():
     disk_partitions = psutil.disk_partitions()
     data = {}
     for partition in disk_partitions:
+        total = psutil.disk_usage(partition.mountpoint).total
+        used = psutil.disk_usage(partition.mountpoint).used
+        free = psutil.disk_usage(partition.mountpoint).free
+        percent = psutil.disk_usage(partition.mountpoint).percent
         data[partition.device] = {
-         'units': 'GB',
-         'total': round(psutil.disk_usage(partition.mountpoint).total /
-                        1073741824, 2),
-         'used': round(psutil.disk_usage(partition.mountpoint).used /
-                       1073741824,
-                       2),
-         'free': round(psutil.disk_usage(partition.mountpoint).free /
-                       1073741824, 2),
-         'percent': psutil.disk_usage(partition.mountpoint).percent}
+            'units': 'GB',
+            'total': round(total / 1073741824, 2),
+            'used': round(used / 1073741824, 2),
+            'free': round(free / 1073741824, 2),
+            'percent': percent
+        }
     return data
 
 

@@ -1,8 +1,0 @@
-version: '3'
-services:
-  web:
-    command: ./run_web.dev.sh
-    ports:
-      - "127.0.0.1:8000:8000"
-    logging:
-      driver: "json-file"
