@@ -49,11 +49,11 @@ def get_ram_usage():
     memory = psutil.virtual_memory()
     data = {}
     data['units'] = 'GB'
-    data['total'] = round(memory.total/1073741824, 2)
-    data['available'] = round(memory.available/1073741824, 2)
+    data['total'] = round(memory.total / 1073741824, 2)
+    data['available'] = round(memory.available / 1073741824, 2)
     data['percent'] = memory.percent
-    data['used'] = round(memory.used/1073741824, 2)
-    data['free'] = round(memory.free/1073741824, 2)
+    data['used'] = round(memory.used / 1073741824, 2)
+    data['free'] = round(memory.free / 1073741824, 2)
     return data
 
 
@@ -70,16 +70,17 @@ def get_disk_usage():
     disk_partitions = psutil.disk_partitions()
     data = {}
     for partition in disk_partitions:
+        total = psutil.disk_usage(partition.mountpoint).total
+        used = psutil.disk_usage(partition.mountpoint).used
+        free = psutil.disk_usage(partition.mountpoint).free
+        percent = psutil.disk_usage(partition.mountpoint).percent
         data[partition.device] = {
-         'units': 'GB',
-         'total': round(psutil.disk_usage(partition.mountpoint).total /
-                        1073741824, 2),
-         'used': round(psutil.disk_usage(partition.mountpoint).used /
-                       1073741824,
-                       2),
-         'free': round(psutil.disk_usage(partition.mountpoint).free /
-                       1073741824, 2),
-         'percent': psutil.disk_usage(partition.mountpoint).percent}
+            'units': 'GB',
+            'total': round(total / 1073741824, 2),
+            'used': round(used / 1073741824, 2),
+            'free': round(free / 1073741824, 2),
+            'percent': percent
+        }
     return data
 
 
