@@ -29,15 +29,10 @@ def get_cpu_usage(request):
 def get_temperatures(request):
     if request.is_ajax():
         if 'Linux' in platform.platform():
-            ps = Popen(['sensors'], stdout=PIPE)
-            temps = check_output(
-                ["grep", "Core"],
-                stdin=ps.stdout).decode("utf-8")
+            core_temps = psutil.sensors_temperatures()['coretemp']
             data = {}
-            for temp in temps.split("\n"):
-                if temp != '':
-                    data[temp.split(":")[0]] = temp.split(":")[1].strip()[
-                        1:5].strip()
+            for temp in core_temps:
+                data[temp.label] = temp.current
             data = json.dumps(data)
             return HttpResponse(data, content_type='application/json')
     else:

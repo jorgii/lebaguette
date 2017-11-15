@@ -62,8 +62,8 @@
                 <h2 class="mdl-card__title-text mdl-card--expand">CPU temp</h2>
               </div>
               <div class="mdl-card__supporting-text">
-                {% for index in cpu_physical_count_range %}
-                <p class="mdl-typography--title">Core {{ forloop.counter }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">0</span><span> &deg;C</span></p>
+                {% for index in cpu_thermal_sensors %}
+                <p class="mdl-typography--title">{{ index.label }}: <span id="temp{{ forloop.counter }}" class="mdl-typography--font-regular">0</span><span> &deg;C</span></p>
                 {% endfor %}
               </div>
             </div>

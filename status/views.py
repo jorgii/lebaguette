@@ -21,6 +21,7 @@ def server_status(request):
     cpu_physical_count = psutil.cpu_count(logical=False)
     cpu_logical_count_range = range(cpu_logical_count)
     cpu_physical_count_range = range(cpu_physical_count)
+    cpu_thermal_sensors = psutil.sensors_temperatures()['coretemp']
     uptime = get_uptime()
 
     # Get linux specific data
