@@ -1,3 +1,4 @@
+import logging
 import psutil
 from datetime import datetime
 from subprocess import check_output, CalledProcessError, Popen, PIPE
@@ -10,6 +11,8 @@ from django.contrib.auth.decorators import permission_required
 
 
 from .models import Services
+
+logger = logging.getLogger('django.info')
 
 
 @login_required
@@ -68,17 +71,21 @@ def get_disk_usage():
     disk_partitions = psutil.disk_partitions()
     data = {}
     for partition in disk_partitions:
-        total = psutil.disk_usage(partition.mountpoint).total
-        used = psutil.disk_usage(partition.mountpoint).used
-        free = psutil.disk_usage(partition.mountpoint).free
-        percent = psutil.disk_usage(partition.mountpoint).percent
-        data[partition.device] = {
-            'units': 'GB',
-            'total': round(total / 1073741824, 2),
-            'used': round(used / 1073741824, 2),
-            'free': round(free / 1073741824, 2),
-            'percent': percent
-        }
+        try:
+            total = psutil.disk_usage(partition.mountpoint).total
+            used = psutil.disk_usage(partition.mountpoint).used
+            free = psutil.disk_usage(partition.mountpoint).free
+            percent = psutil.disk_usage(partition.mountpoint).percent
+            data[partition.device] = {
+                'units': 'GB',
+                'total': round(total / 1073741824, 2),
+                'used': round(used / 1073741824, 2),
+                'free': round(free / 1073741824, 2),
+                'percent': percent
+            }
+        except PermissionError:
+            logger.error(
+                'Permission denied while reading {}'.format(partition))
     return data
 
 
