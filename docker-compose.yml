@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_USER: lebaguette
+      POSTGRES_PASSWORD: lebaguette
+      POSTGRES_DB: lebaguette
+      PYTHONIOENCODING: utf-8
+  lebaguette:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db
+    environment:
+      DJANGO_KEY: 1c3b974a-28a5-472c-b412-d37d3c50efd7
+      ALLOWED_HOSTS: localhost lebaguette.local
+      DATABASE_ENGINE: django.db.backends.postgresql_psycopg2
+      DATABASE_NAME: lebaguette
+      DATABASE_USER: lebaguette
+      DATABASE_PASSWORD: lebaguette
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DEBUG: "True"
+      TMDB_APIKEY: 1a96c0c55456a62ef5b35eae6b13bbbe
+    volumes:
+      - ./:/source/
+    ports:
+      - "8000:8000"

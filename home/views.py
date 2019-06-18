@@ -13,7 +13,7 @@ from .models import ServerMessage
 
 
 def login_user(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect(settings.LOGIN_REDIRECT_URL)
 
     form = CustomAuthenticationForm(None, request.POST or None)
