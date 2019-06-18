@@ -16,18 +16,24 @@ logger = logging.getLogger('django.info')
 def get_media_json(media_type, media_request):
     if media_type == 'movie':
         if len(media_request.get('movie_results')) != 1:
-            logger.error('The response returned too many results of type {}!'.format(media_type))
+            logger.error(
+                'The response returned too many results of '
+                'type {}!'.format(media_type))
             raise Exception(
                 'Too many results!',
-                'The response returned too many results of type {}!'.format(media_type)
+                'The response returned too many results of '
+                'type {}!'.format(media_type)
             )
         return media_request['movie_results'][0]
     elif media_type == 'series':
         if len(media_request.get('tv_results')) != 1:
-            logger.error('The response returned too many results of type {}!'.format(media_type))
+            logger.error(
+                'The response returned too many results of '
+                'type {}!'.format(media_type))
             raise Exception(
                 'Too many results!',
-                'The response returned too many results of type {}!'.format(media_type)
+                'The response returned too many results of '
+                'type {}!'.format(media_type)
             )
         return media_request['tv_results'][0]
 
@@ -133,7 +139,8 @@ class MediaItem(models.Model):
 
     @classmethod
     def create_media_from_imdbid(cls, imdb_id):
-        logger.info('Attempting to add media item with imdb_id {}'.format(imdb_id))
+        logger.info(
+            'Attempting to add media item with imdb_id {}'.format(imdb_id))
         media_item = cls(imdb_id=imdb_id)
         media_request = media_item.get_data_from_api()
         media_item.media_type = get_media_type(media_request)
@@ -184,16 +191,20 @@ class MediaItem(models.Model):
                     else:
                         break
                 except ValueError as e:
-                    logger.info("Error adding S{0}E{1}: {2}! Skipping..".format(
-                        season,
-                        int(api_episode['Episode']),
-                        e))
+                    logger.info(
+                        "Error adding S{0}E{1}: {2}! Skipping..".format(
+                            season,
+                            int(api_episode['Episode']),
+                            e))
                     continue
             season += 1
             episode = 0
 
     def get_data_from_api(self, season=None):
-        url = 'https://api.themoviedb.org/3/find/{}?api_key={}&language=en-US&external_source=imdb_id'.format(self.imdb_id, settings.TMDB_APIKEY)
+        url = (
+            f'https://api.themoviedb.org/3/find/{self.imdb_id}?'
+            f'api_key={settings.TMDB_APIKEY}&'
+            'language=en-US&external_source=imdb_id')
         try:
             media_request = requests.get(url)
         except requests.exceptions.ConnectionError:
@@ -242,24 +253,28 @@ class Request(models.Model):
         related_name='media_request',
         on_delete=models.CASCADE,
         unique=True)
-    requested_by = models.ForeignKey('auth.User', related_name="+")
+    requested_by = models.ForeignKey(
+        'auth.User', related_name="+", on_delete=models.CASCADE)
     datetime_requested = models.DateTimeField(auto_now_add=True)
     completed_by = models.ForeignKey(
         'auth.User',
         related_name="+",
-        null=True, blank=True)
+        null=True, blank=True,
+        on_delete=models.CASCADE)
     datetime_completed = models.DateTimeField(null=True, blank=True)
     approved_by = models.ForeignKey(
         'auth.User',
         related_name="+",
         null=True,
-        blank=True)
+        blank=True,
+        on_delete=models.CASCADE)
     datetime_approved = models.DateTimeField(null=True, blank=True)
     rejected_by = models.ForeignKey(
         'auth.User',
         related_name="+",
         null=True,
-        blank=True)
+        blank=True,
+        on_delete=models.CASCADE)
     datetime_rejected = models.DateTimeField(null=True, blank=True)
 
     class Meta:
